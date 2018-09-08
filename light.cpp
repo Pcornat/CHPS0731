@@ -16,12 +16,13 @@ void Light::setColor(glm::vec3 c) {
 	couleur = c;
 }
 
-glm::vec3 Light::getPosition() {
+
+Light::Light(float x, float y, float z, float r, float g, float b) : position(x, y, z), couleur(r, g, b) {}
+
+const glm::vec3& Light::getPosition() const {
 	return position;
 }
 
-glm::vec3 Light::getColor() {
+const glm::vec3& Light::getCouleur() const {
 	return couleur;
 }
-
-Light::Light(float x, float y, float z) : position(x, y, z) {}

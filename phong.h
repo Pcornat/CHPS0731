@@ -19,9 +19,8 @@ class Phong : public Material {
 private:
 	glm::vec3 ka; //(R, G, B)
 	glm::vec3 kd; //(R, G, B)
-	glm::vec3 amb;
 	glm::vec3 diff;
-	float spec;
+	glm::vec3 spec;
 	float ks;
 
 public:
@@ -41,7 +40,7 @@ public:
 
 	const glm::vec3& getDiff() const;
 
-	float getSpec() const;
+	const glm::vec3& getSpec() const;
 
 	glm::vec3 computeColour(const Intersection& I, const Scene& s, const Rayon& r, int rec) override;
 };

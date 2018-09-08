@@ -8,7 +8,7 @@ glm::vec3 Rayon::Lancer(Scene& sc, int current) const {
 	bool intersect = false;
 	std::vector<Intersection> I;
 	for (auto&& objet : sc.Objets) {
-		intersect = objet->calculIntersection(*this, I);
+		intersect = objet->calculIntersection(*this, sc, I);
 	}
 	//WIP : integrating light inside the project.
 	if (intersect) {

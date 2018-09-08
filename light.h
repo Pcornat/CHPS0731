@@ -10,7 +10,7 @@ protected:
 public:
 	Light();
 
-	Light(float, float, float);
+	Light(float, float, float, float, float, float);
 
 	~Light();
 
@@ -18,9 +18,9 @@ public:
 
 	void setColor(glm::vec3 c);
 
-	glm::vec3 getPosition();
+	const glm::vec3& getPosition() const;
 
-	glm::vec3 getColor();
+	const glm::vec3& getCouleur() const;
 };
 
 #endif

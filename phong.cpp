@@ -3,6 +3,8 @@
 //
 
 #include "phong.h"
+#include "scene.h"
+#include "rayon.h"
 
 /**
  * Construct a phong material.
@@ -37,17 +39,25 @@ void Phong::Diffuse(const Light& light) {
 }
 
 const glm::vec3& Phong::getAmb() const {
-	return amb;
+	return ka;
 }
 
 const glm::vec3& Phong::getDiff() const {
 	return diff;
 }
 
-float Phong::getSpec() const {
+const glm::vec3& Phong::getSpec() const {
 	return spec;
 }
 
 glm::vec3 Phong::computeColour(const Intersection& I, const Scene& s, const Rayon& r, int rec) {
-	return glm::vec3();
+	for (auto&& light : s.Lights) {
+		auto temp = glm::max(glm::dot(I.normal, glm::normalize(light->getPosition())), 0.0f);
+		this->diff = temp * this->kd * light->getCouleur();
+		this->spec = glm::pow(glm::max(glm::dot(r.Vect(), glm::normalize(glm::reflect(r.Vect(), I.normal))), 0.0f),
+							  this->ks) *
+					 light->getCouleur();
+
+	}
+	return ka + diff + spec;
 }
