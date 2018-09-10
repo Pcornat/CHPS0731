@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "rayon.h"
 #include "objet.h"
 
