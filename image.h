@@ -7,11 +7,11 @@
 
 class Image {
 protected:
-	int hauteur; // position de l'oeil
-	int largeur; // Largeur de l'ecran
+	unsigned int hauteur; // position de l'oeil
+	unsigned int largeur; // Largeur de l'ecran
 	glm::vec3* pixels;
 public:
-	Image(const int h, const int l);
+	Image(unsigned int, unsigned int);
 
 	Image(std::string name);
 
@@ -19,11 +19,11 @@ public:
 
 	int getLargeur();
 
-	void Save(std::string name);
+	void Save(std::string);
 
 	~Image();
 
-	void setPixel(int x, int y, glm::vec3 c);
+	void setPixel(int, int, glm::vec3);
 };
 
 #endif

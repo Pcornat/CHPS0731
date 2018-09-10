@@ -6,10 +6,10 @@ void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsi
 	unsigned error = lodepng::encode(filename, image, width, height);
 
 	//if there's an error, display it
-	if (error) std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+	if (error) std::cerr << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 }
 
-Image::Image(const int h, const int l) {
+Image::Image(const unsigned int h, const unsigned int l) {
 	hauteur = h;
 	largeur = l;
 	pixels = new glm::vec3[largeur * hauteur];
@@ -46,7 +46,7 @@ Image::Image(std::string name) {
 	std::vector<unsigned char> image; //the raw pixels
 	unsigned width, height;
 	std::cout << "Loading:" << name.c_str() << std::endl;
-	unsigned error = lodepng::decode(image, width, height, name.c_str());
+	unsigned error = lodepng::decode(image, width, height, name);
 
 	//if there's an error, display it
 	if (error) std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;

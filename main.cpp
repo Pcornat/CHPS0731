@@ -1,16 +1,15 @@
-
 #include "image.h"
 #include "camera.h"
 #include "objet.h"
 
 
 int main(int argc, char* argv[]) {
-	const int h = 480;
-	const int l = 640;
+	const unsigned int h = 480;
+	const unsigned int l = 640;
 
 	Camera myCamera;
 	Scene scene;
-	Image myImage = *new Image(h, l);
+	Image myImage(h, l);
 
 	myCamera.Calculer_image(myImage, scene, 3);
 

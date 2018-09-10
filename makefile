@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -pipe -Wall -Wextra -O3
+CXXFLAGS = -pipe -std=c++11 -Wall -Wextra -O3
 LDLIBS = -lstdc++ -lm
 LDFLAGS = -pipe -O3
 
@@ -16,13 +16,11 @@ $(EXE): depend $(OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
 
 # makedepend: le package xutils-dev doit être installé
-#EDIT personnel :(sous Ubuntu/Debian c'est valide)
+#EDIT personnel : (sous Ubuntu/Debian c'est valide)
 depend:
 	@makedepend -- $(CXXFLAGS) -- -Y $(SRCS) 2> /dev/null
-#	$(OBJS) = $(wildcard *.o) $(wildcard */*.o)
 
 clean:
-#rm -f $(OBJS)
 	rm -f *.o
 
 mrproper:	clean
@@ -30,6 +28,90 @@ mrproper:	clean
 
 # DO NOT DELETE THIS LINE
 
+sphere.o: sphere.hpp objet.h intersection.h glm/glm.hpp glm/detail/_fixes.hpp
+sphere.o: glm/detail/setup.hpp glm/simd/platform.h glm/fwd.hpp
+sphere.o: glm/detail/qualifier.hpp glm/detail/setup.hpp glm/vec2.hpp
+sphere.o: glm/./ext/vector_bool2.hpp glm/./detail/type_vec2.hpp
+sphere.o: glm/./detail/qualifier.hpp glm/./detail/type_vec2.inl
+sphere.o: glm/./detail/./compute_vector_relational.hpp
+sphere.o: glm/./ext/vector_bool2_precision.hpp glm/./ext/vector_float2.hpp
+sphere.o: glm/./ext/vector_float2_precision.hpp glm/./ext/vector_double2.hpp
+sphere.o: glm/./ext/vector_double2_precision.hpp glm/./ext/vector_int2.hpp
+sphere.o: glm/./ext/vector_int2_precision.hpp glm/./detail/setup.hpp
+sphere.o: glm/./ext/vector_uint2.hpp glm/./ext/vector_uint2_precision.hpp
+sphere.o: glm/vec3.hpp glm/./ext/vector_bool3.hpp glm/./detail/type_vec3.hpp
+sphere.o: glm/./detail/type_vec3.inl
+sphere.o: glm/./detail/compute_vector_relational.hpp
+sphere.o: glm/./ext/vector_bool3_precision.hpp glm/./ext/vector_float3.hpp
+sphere.o: glm/./ext/vector_float3_precision.hpp glm/./ext/vector_double3.hpp
+sphere.o: glm/./ext/vector_double3_precision.hpp glm/./ext/vector_int3.hpp
+sphere.o: glm/./ext/vector_int3_precision.hpp glm/./ext/vector_uint3.hpp
+sphere.o: glm/./ext/vector_uint3_precision.hpp glm/vec4.hpp
+sphere.o: glm/./ext/vector_bool4.hpp glm/./detail/type_vec4.hpp
+sphere.o: glm/./detail/type_vec4.inl glm/./ext/vector_bool4_precision.hpp
+sphere.o: glm/./ext/vector_float4.hpp glm/./ext/vector_float4_precision.hpp
+sphere.o: glm/./ext/vector_double4.hpp glm/./ext/vector_double4_precision.hpp
+sphere.o: glm/./ext/vector_int4.hpp glm/./ext/vector_int4_precision.hpp
+sphere.o: glm/./ext/vector_uint4.hpp glm/./ext/vector_uint4_precision.hpp
+sphere.o: glm/mat2x2.hpp glm/./ext/matrix_double2x2.hpp
+sphere.o: glm/./detail/type_mat2x2.hpp glm/./detail/type_vec2.hpp
+sphere.o: glm/./detail/type_mat2x2.inl glm/./matrix.hpp glm/./mat2x3.hpp
+sphere.o: glm/././ext/matrix_double2x3.hpp glm/././detail/type_mat2x3.hpp
+sphere.o: glm/././detail/type_vec3.hpp glm/././detail/type_mat2x3.inl
+sphere.o: glm/././ext/matrix_double2x3_precision.hpp
+sphere.o: glm/././ext/matrix_float2x3.hpp
+sphere.o: glm/././ext/matrix_float2x3_precision.hpp glm/./mat2x4.hpp
+sphere.o: glm/././ext/matrix_double2x4.hpp glm/././detail/type_mat2x4.hpp
+sphere.o: glm/././detail/type_vec4.hpp glm/././detail/type_mat2x4.inl
+sphere.o: glm/././ext/matrix_double2x4_precision.hpp
+sphere.o: glm/././ext/matrix_float2x4.hpp
+sphere.o: glm/././ext/matrix_float2x4_precision.hpp glm/./mat3x2.hpp
+sphere.o: glm/././ext/matrix_double3x2.hpp glm/././detail/type_mat3x2.hpp
+sphere.o: glm/././detail/type_mat3x2.inl
+sphere.o: glm/././ext/matrix_double3x2_precision.hpp
+sphere.o: glm/././ext/matrix_float3x2.hpp
+sphere.o: glm/././ext/matrix_float3x2_precision.hpp glm/./mat3x3.hpp
+sphere.o: glm/././ext/matrix_double3x3.hpp glm/././detail/type_mat3x3.hpp
+sphere.o: glm/././detail/type_mat3x3.inl
+sphere.o: glm/././ext/matrix_double3x3_precision.hpp
+sphere.o: glm/././ext/matrix_float3x3.hpp
+sphere.o: glm/././ext/matrix_float3x3_precision.hpp glm/./mat3x4.hpp
+sphere.o: glm/././ext/matrix_double3x4.hpp glm/././detail/type_mat3x4.hpp
+sphere.o: glm/././detail/type_mat3x4.inl
+sphere.o: glm/././ext/matrix_double3x4_precision.hpp
+sphere.o: glm/././ext/matrix_float3x4.hpp
+sphere.o: glm/././ext/matrix_float3x4_precision.hpp glm/./mat4x2.hpp
+sphere.o: glm/././ext/matrix_double4x2.hpp glm/././detail/type_mat4x2.hpp
+sphere.o: glm/././detail/type_mat4x2.inl
+sphere.o: glm/././ext/matrix_double4x2_precision.hpp
+sphere.o: glm/././ext/matrix_float4x2.hpp
+sphere.o: glm/././ext/matrix_float4x2_precision.hpp glm/./mat4x3.hpp
+sphere.o: glm/././ext/matrix_double4x3.hpp glm/././detail/type_mat4x3.hpp
+sphere.o: glm/././detail/type_mat4x3.inl
+sphere.o: glm/././ext/matrix_double4x3_precision.hpp
+sphere.o: glm/././ext/matrix_float4x3.hpp
+sphere.o: glm/././ext/matrix_float4x3_precision.hpp glm/./mat4x4.hpp
+sphere.o: glm/././ext/matrix_double4x4.hpp glm/././detail/type_mat4x4.hpp
+sphere.o: glm/././detail/type_mat4x4.inl
+sphere.o: glm/././ext/matrix_double4x4_precision.hpp
+sphere.o: glm/././ext/matrix_float4x4.hpp
+sphere.o: glm/././ext/matrix_float4x4_precision.hpp
+sphere.o: glm/./detail/func_matrix.inl glm/./geometric.hpp
+sphere.o: glm/./detail/type_vec3.hpp glm/./detail/func_geometric.inl
+sphere.o: glm/./exponential.hpp glm/./detail/type_vec1.hpp
+sphere.o: glm/./detail/type_vec1.inl glm/./detail/type_vec2.hpp
+sphere.o: glm/./detail/type_vec4.hpp glm/./detail/func_exponential.inl
+sphere.o: glm/./vector_relational.hpp glm/./detail/func_vector_relational.inl
+sphere.o: glm/./detail/_vectorize.hpp glm/./common.hpp
+sphere.o: glm/./detail/func_common.inl glm/./detail/compute_common.hpp
+sphere.o: glm/./ext/matrix_double2x2_precision.hpp
+sphere.o: glm/./ext/matrix_float2x2.hpp
+sphere.o: glm/./ext/matrix_float2x2_precision.hpp glm/trigonometric.hpp
+sphere.o: glm/detail/func_trigonometric.inl glm/exponential.hpp
+sphere.o: glm/common.hpp glm/packing.hpp glm/detail/func_packing.inl
+sphere.o: glm/detail/type_half.hpp glm/detail/type_half.inl glm/geometric.hpp
+sphere.o: glm/matrix.hpp glm/vector_relational.hpp glm/integer.hpp
+sphere.o: glm/detail/func_integer.inl material.h rayon.h scene.h
 intersection.o: intersection.h glm/glm.hpp glm/detail/_fixes.hpp
 intersection.o: glm/detail/setup.hpp glm/simd/platform.h glm/fwd.hpp
 intersection.o: glm/detail/qualifier.hpp glm/detail/setup.hpp glm/vec2.hpp

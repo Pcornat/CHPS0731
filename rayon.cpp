@@ -7,9 +7,9 @@ glm::vec3 Rayon::Lancer(Scene& sc, int current) const {
 	if (current == 0) return res;
 	Objet* obj;
 	bool intersect = false;
-	std::vector<Intersection>* I = new std::vector<Intersection>();
+	auto I = new std::vector<Intersection>();
 	Intersection intersection;
-	Rayon* r = new Rayon();
+	auto r = new Rayon();
 	r->Orig(orig);
 	r->Vect(vect);
 	for (int i = 0; i < sc.Objets.size(); i++) {
@@ -21,7 +21,7 @@ glm::vec3 Rayon::Lancer(Scene& sc, int current) const {
 	if (intersect) {
 		std::sort(I->begin(), I->end());
 		intersection = I->at(0);
-		res = intersection.obj->color;
+		res = intersection.obj->getColor();
 		res = intersection.normal;
 	}
 	delete I;
