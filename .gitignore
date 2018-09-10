@@ -1,0 +1,10 @@
+*.o
+compile.sh
+prog
+png/
+glm/
+CMakeLists.txt
+.idea/
+cmake-build-debug/
+out.png
+makefile.bak
