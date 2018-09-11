@@ -12,8 +12,8 @@ glm::vec3 Rayon::Lancer(Scene& sc, int current) const {
 	auto r = new Rayon();
 	r->Orig(orig);
 	r->Vect(vect);
-	for (int i = 0; i < sc.Objets.size(); i++) {
-		obj = sc.Objets[i];
+	for (auto& Objet : sc.Objets) {
+		obj = Objet;
 		if (obj->calculIntersection(r, I)) {
 			intersect = true;
 		}

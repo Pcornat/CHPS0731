@@ -15,17 +15,18 @@
 class Sphere : public Objet {
 private:
 	glm::vec3 origin;
+	int radius;
 
 public:
 	/**
-	 * Giving position of the sphere
+	 * Giving position of the sphere and its "rayon" (fuck english)
 	 */
-	Sphere(float, float, float);
+	Sphere(float, float, float, int);
 
 	/**
 	 * Giving position of the sphere and its color
 	 */
-	Sphere(float, float, float, const glm::vec3&);
+	Sphere(float, float, float, int, const glm::vec3&);
 
 	/**
 	 * It computes an intersection between a ray and the sphere.

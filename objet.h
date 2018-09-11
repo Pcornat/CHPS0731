@@ -28,6 +28,8 @@ public:
 	virtual bool calculIntersection(Rayon*, std::vector<Intersection>* I) = 0;
 
 	const glm::vec3& getColor() const { return color; }
+
+	Material* getMaterial() const { return material; }
 };
 
 
