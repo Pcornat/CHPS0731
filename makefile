@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -pipe -std=c++11 -Wall -Wextra -O3
+CXXFLAGS = -pipe -march=native -std=c++11 -Wall -Wextra -O3
 LDLIBS = -lstdc++ -lm
 LDFLAGS = -pipe -O3
 

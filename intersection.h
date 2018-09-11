@@ -1,7 +1,7 @@
 #ifndef INTERSECTION_HPP
 #define INTERSECTION_HPP
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 
 class Objet;
 
