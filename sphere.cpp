@@ -5,6 +5,11 @@
 #include "rayon.h"
 
 bool Sphere::calculIntersection(Rayon* rayon, std::vector<Intersection>* I) {
+	/*
+	 * sqRad : rayon au carré (voir formule)
+	 * inter : intermédiaire : calcul la norme du vecteur origine du rayon vers centre de la sphère.
+	 * sqNormOC : norme au carré du vecteur origine -> centre sphère (||o - c||²)
+	 */
 	float sqRad = radius * radius, inter = glm::length(rayon->Orig() - this->origin), sqNormOC = inter * inter;
 	inter = glm::dot(rayon->Vect(), (rayon->Orig() - this->origin) * (rayon->Orig() - this->origin));
 	float firstElement = inter * inter, delta = (firstElement - sqNormOC + sqRad);
@@ -20,6 +25,7 @@ bool Sphere::calculIntersection(Rayon* rayon, std::vector<Intersection>* I) {
 
 Sphere::Sphere(const float x, const float y, const float z, const int r) : origin(x, y, z), radius(r) {}
 
-Sphere::Sphere(const float x, const float y, const float z, const int r, const glm::vec3& color) : Objet(color),
-																								   origin(x, y, z),
-																								   radius(r) {}
+Sphere::Sphere(const float x, const float y, const float z, const int radius, const float r, const float g,
+			   const float b) : Objet(r, g, b),
+								origin(x, y, z),
+								radius(radius) {}

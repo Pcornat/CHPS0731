@@ -26,12 +26,12 @@ public:
 	/**
 	 * Giving position of the sphere and its color
 	 */
-	Sphere(float, float, float, int, const glm::vec3&);
+	Sphere(float, float, float, int, float, float, float);
 
 	/**
 	 * It computes an intersection between a ray and the sphere.
 	 * @param rayon the ray to launch
-	 * @param I a pointer to a vector of intersection.
+	 * @param I a pointer to a std::vector of intersection.
 	 * @return it computes correctly or not.
 	 */
 	bool calculIntersection(Rayon* rayon, std::vector<Intersection>* I) override;

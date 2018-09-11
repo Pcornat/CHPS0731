@@ -19,7 +19,7 @@ public:
 
 	Objet() = default;
 
-	explicit Objet(const glm::vec3& color) : color(color) {}
+	explicit Objet(const float r, const float g, const float b) : color(r, g, b) {}
 
 	explicit Objet(Material* material) : material(material) {}
 

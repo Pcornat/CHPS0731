@@ -10,7 +10,7 @@ int main() {
 	Camera myCamera;
 	Scene scene;
 	Image myImage(h, l);
-	Sphere sphere(0.5f, -0.2f, 0.4f, 1);
+	Sphere sphere(0.5f, -0.2f, 0.4f, 1, 1.0f, 1.0f, 1.0f);
 	scene.addObjet(&sphere);
 	myCamera.Calculer_image(myImage, scene, 3);
 
