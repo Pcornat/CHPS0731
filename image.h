@@ -1,7 +1,7 @@
 #ifndef __Raytracer__image__
 #define __Raytracer__image__
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 #include <iostream>
 #include <string>
 

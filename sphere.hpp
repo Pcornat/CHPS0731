@@ -14,10 +14,12 @@
  */
 class Sphere : public Objet {
 private:
-	glm::vec3 origin;
+	glm::vec3 center;
 	int radius;
 
 public:
+	Sphere() = default;
+
 	/**
 	 * Giving position of the sphere and its "rayon" (fuck english)
 	 */
@@ -34,7 +36,7 @@ public:
 	 * @param I a pointer to a std::vector of intersection.
 	 * @return it computes correctly or not.
 	 */
-	bool calculIntersection(Rayon* rayon, std::vector<Intersection>* I) override;
+	bool calculIntersection(Rayon& rayon, std::vector<Intersection>& I) override;
 };
 
 

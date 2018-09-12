@@ -38,8 +38,8 @@ void Camera::Calculer_image(Image& im, Scene& sc, int complexite) const {
 		for (x = 0; x < im.getLargeur(); x++) {
 			// On calcule la position dans l'espace de ce point
 			pt = hg + (droite * (dx * x)) - (haut * (dy * y));
-			pt.x = pt.x - (dx / 2.0);
-			pt.y = pt.y - (dy / 2.0);
+			pt.x = pt.x - (dx / 2.0f);
+			pt.y = pt.y - (dy / 2.0f);
 
 			// On prepare le rayon qui part du foyer et qui passe par ce point
 			ray.Orig(pt);

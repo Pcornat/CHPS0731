@@ -1,7 +1,7 @@
 #ifndef __Raytracer__camera__
 #define __Raytracer__camera__
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 #include "scene.h"
 #include "rayon.h"
 

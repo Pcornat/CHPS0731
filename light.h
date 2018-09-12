@@ -1,7 +1,7 @@
 #ifndef __Raytracer__Light__
 #define __Raytracer__Light__
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 
 class Light {
 protected:

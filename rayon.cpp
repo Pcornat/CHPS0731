@@ -1,3 +1,4 @@
+
 #include <algorithm>
 #include "rayon.h"
 #include "objet.h"
@@ -7,24 +8,18 @@ glm::vec3 Rayon::Lancer(Scene& sc, int current) const {
 	if (current == 0) return res;
 	Objet* obj;
 	bool intersect = false;
-	auto I = new std::vector<Intersection>();
-	Intersection intersection;
-	auto r = new Rayon();
-	r->Orig(orig);
-	r->Vect(vect);
+	std::vector<Intersection> I;
+	Rayon r;
+	r.Orig(orig);
+	r.Vect(vect);
 	for (auto& Objet : sc.Objets) {
 		obj = Objet;
-		if (obj->calculIntersection(r, I)) {
-			intersect = true;
-		}
+		intersect = obj->calculIntersection(r, I);
 	}
 	if (intersect) {
-		std::sort(I->begin(), I->end());
-		intersection = I->at(0);
-		res = intersection.obj->getColor();
-		res = intersection.normal;
+		std::sort(I.begin(), I.end());
+		res = I.at(0).obj->getColor();
+		//res = I.at(0).normal;
 	}
-	delete I;
-	delete r;
 	return res;
 }

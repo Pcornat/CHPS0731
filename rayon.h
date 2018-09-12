@@ -1,7 +1,7 @@
 #ifndef __Raytracer__ray__
 #define __Raytracer__ray__
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 #include "scene.h"
 #include "intersection.h"
 

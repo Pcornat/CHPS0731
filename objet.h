@@ -25,7 +25,7 @@ public:
 
 	explicit Objet(const glm::vec3& color, Material* material) : color(color), material(material) {}
 
-	virtual bool calculIntersection(Rayon*, std::vector<Intersection>* I) = 0;
+	virtual bool calculIntersection(Rayon&, std::vector<Intersection>&) = 0;
 
 	const glm::vec3& getColor() const { return color; }
 

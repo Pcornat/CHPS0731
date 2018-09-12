@@ -10,7 +10,7 @@ EXE = prog
 
 .PHONY:	clean mrproper
 
-all:	clean depend $(EXE)
+all:	depend $(EXE)
 
 $(EXE): depend $(OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)

@@ -7,9 +7,15 @@ class Objet;
 
 class Intersection {
 public:
-	Intersection();
+	Intersection() = default;
 
-	~Intersection();
+	Intersection(Objet* obj);
+
+	Intersection(float dist, Objet* obj);
+
+	Intersection(float dist, const glm::vec3& normal, Objet* obj);
+
+	~Intersection() = default;
 
 	float dist; // La distance à l'origine de l'intersection
 	glm::vec3 normal;

@@ -1,7 +1,7 @@
 #ifndef MATERIAL_HPP_
 #define MATERIAL_HPP_
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 #include "intersection.h"
 
 class Scene;
