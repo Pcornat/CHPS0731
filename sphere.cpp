@@ -21,7 +21,7 @@ bool Sphere::calculIntersection(Rayon& rayon, std::vector<Intersection>& I) {
 	if (delta == 0) {
 		float dist = -0.5f * b / a;
 		glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist), norm = glm::normalize(point - this->center);
-		I.emplace_back(dist, norm, this);
+		I.emplace_back(dist, glm::abs(norm), this);
 		return true;
 	}
 	float q = (b > 0) ? -0.5f * (b + sqrtf(delta)) : -0.5f * (b - sqrtf(delta)),
@@ -29,7 +29,8 @@ bool Sphere::calculIntersection(Rayon& rayon, std::vector<Intersection>& I) {
 			x1 = c / q;
 	if (x0 > x1) std::swap(x0, x1);
 	glm::vec3 point = rayon.Orig() + (rayon.Vect() * x0), norm = glm::normalize(x0 - this->center);
-	I.emplace_back(x0, norm, this);
+	norm = (point - this->center) / glm::length(point - this->center);//Nouveauté
+	I.emplace_back(x0, glm::abs(norm), this);
 	return true;
 }
 
