@@ -32,6 +32,10 @@ public:
 
     void Ambiant(Light &light);
 
+    void Diffuse();
+
+
+
 };
 
 
