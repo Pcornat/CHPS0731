@@ -20,14 +20,8 @@ private:
 public:
 	Sphere() = default;
 
-	/**
-	 * Giving position of the sphere and its "rayon" (fuck english)
-	 */
 	Sphere(float, float, float, int);
 
-	/**
-	 * Giving position of the sphere and its color
-	 */
 	Sphere(float, float, float, int, float, float, float);
 
 	/**

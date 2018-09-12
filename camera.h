@@ -20,7 +20,7 @@ public:
 	Camera() {
 		centre = glm::vec3(0, 0, -3);
 		largeur = 2;
-		hauteur = 2 * 3.0 / 4.0;
+		hauteur = 2 * 3.0f / 4.0f;
 		dist = 10;
 		dir = glm::vec3(0, 0, 1);
 		haut = glm::vec3(0, 1, 0);

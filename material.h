@@ -15,7 +15,7 @@ protected:
 public:
 	Material() = default;
 
-	virtual glm::vec3 calculColor(const Intersection& I, Scene& s, Rayon* r, int rec) { return glm::vec3(0, 0, 0); };
+	virtual glm::vec3 calculColor(const Intersection& I, Scene& s, Rayon& r, int rec) = 0;
 
 
 };
