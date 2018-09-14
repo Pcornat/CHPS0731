@@ -5,12 +5,12 @@
 #include "rayon.h"
 
 /**
- * \todo finish this methode : it will compute the intersection between the sphere and the ray. It'll be difficult not to use glm::intersect T-T
- * @param rayon the ray to use to compute the intersection.
- * @param I
- * @return
+ * It computes an intersection between a ray and the sphere.
+ * @param rayon the ray to launch
+ * @param I a pointer to a std::vector of intersection.
+ * @return it computes correctly or not.
  */
-bool Sphere::calculIntersection(const Rayon& rayon, std::vector<Intersection>& I) {
+bool Sphere::calculIntersection(const Rayon& rayon, const std::vector<Intersection>& I) {
 	//Équation : a = 1, b = 2* (D.(O - C)), c =|O - C|² - R²
 	glm::vec3 OCVec = rayon.Orig() - this->center;
 	float a = 1,
@@ -35,9 +35,39 @@ bool Sphere::calculIntersection(const Rayon& rayon, std::vector<Intersection>& I
 	return true;
 }
 
+/**
+ * Constructor without colour
+ * @param x coordinate of the center.
+ * @param y coordinate of the center.
+ * @param z coordinate of the center.
+ * @param r Radius of the sphere.
+ */
 Sphere::Sphere(const float x, const float y, const float z, const int r) : center(x, y, z), radius(r) {}
 
+/**
+ * Colour is added
+ * @param r Red
+ * @param g Green
+ * @param b Blue
+ * @sa Sphere(float, float, float, r)
+ */
 Sphere::Sphere(const float x, const float y, const float z, const int radius, const float r, const float g,
 			   const float b) : Objet(r, g, b),
 								center(x, y, z),
 								radius(radius) {}
+
+/**
+ * It constructs the sphere with a material.
+ * @param x coordinate of the center.
+ * @param y coordinate of the center.
+ * @param z coordinate of the center.
+ * @param r radius of the sphere.
+ * @param material The material of the sphere.
+ */
+Sphere::Sphere(const float x, const float y, const float z, const int r, Material* const material) : Objet(material),
+																									 center(x, y, z),
+																									 radius(r) {}
+
+Sphere::~Sphere() {
+
+}

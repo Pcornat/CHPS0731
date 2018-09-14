@@ -20,17 +20,15 @@ private:
 public:
 	Sphere() = default;
 
+	virtual ~Sphere();
+
 	Sphere(float, float, float, int);
 
 	Sphere(float, float, float, int, float, float, float);
 
-	/**
-	 * It computes an intersection between a ray and the sphere.
-	 * @param rayon the ray to launch
-	 * @param I a pointer to a std::vector of intersection.
-	 * @return it computes correctly or not.
-	 */
-	bool calculIntersection(const Rayon& rayon, std::vector<Intersection>& I) override;
+	Sphere(float, float, float, int, Material*);
+
+	bool calculIntersection(const Rayon& rayon, const std::vector<Intersection>& I) override;
 };
 
 

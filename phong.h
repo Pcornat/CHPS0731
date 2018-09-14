@@ -11,29 +11,35 @@
 
 /**
  * \class Phong
- * This class is a material,it define the texture, the representation of an object.
+ * This class is a material, it defines the texture, the representation of an object.
+ * This material is based on the phong model.
  */
 
 class Phong : public Material {
 private:
-	glm::vec3 Ka;
-	glm::vec3 Kd;
-	glm::vec3 Amb;
-	glm::vec3 Dif;
-	float Spec;
-	float Ks;
+	glm::vec3 ka; //(R, G, B)
+	glm::vec3 kd; //(R, G, B)
+	glm::vec3 amb;
+	glm::vec3 diff;
+	float spec;
+	float ks;
 
 public:
 	Phong() = default;
 
-	Phong(glm::vec3, glm::vec3, float);
+	virtual ~Phong();
 
-	Phong(glm::vec3, glm::vec3, glm::vec3, glm::vec3, float, float);
+	Phong(const glm::vec3&, const glm::vec3&, float);
 
-	void Ambiant(Light& light);
+	void Ambiant(const Light& light);
 
-	void Diffuse();
+	void Diffuse(const Light& light);
 
+	const glm::vec3& getAmb() const;
+
+	const glm::vec3& getDiff() const;
+
+	float getSpec() const;
 
 };
 
