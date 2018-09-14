@@ -16,24 +16,23 @@
 
 class Phong : public Material {
 private:
-    glm::vec3 Ka;
-    glm::vec3 Kd;
-    glm::vec3 Amb;
-    glm::vec3 Dif;
-    float Spec;
-    float Ks;
+	glm::vec3 Ka;
+	glm::vec3 Kd;
+	glm::vec3 Amb;
+	glm::vec3 Dif;
+	float Spec;
+	float Ks;
 
 public:
-    Phong() = default;
+	Phong() = default;
 
-    Phong(glm::vec3, glm::vec3, float);
+	Phong(glm::vec3, glm::vec3, float);
 
-    Phong(glm::vec3, glm::vec3, glm::vec3, glm::vec3, float, float);
+	Phong(glm::vec3, glm::vec3, glm::vec3, glm::vec3, float, float);
 
-    void Ambiant(Light &light);
+	void Ambiant(Light& light);
 
-    void Diffuse();
-
+	void Diffuse();
 
 
 };
