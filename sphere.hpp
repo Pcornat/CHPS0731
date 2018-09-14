@@ -30,7 +30,7 @@ public:
 	 * @param I a pointer to a std::vector of intersection.
 	 * @return it computes correctly or not.
 	 */
-	bool calculIntersection(Rayon& rayon, std::vector<Intersection>& I) override;
+	bool calculIntersection(const Rayon& rayon, std::vector<Intersection>& I) override;
 };
 
 

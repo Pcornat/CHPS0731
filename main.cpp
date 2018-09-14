@@ -6,7 +6,8 @@
 int main() {
 	const unsigned int h = 480;
 	const unsigned int l = 640;
-
+//	const unsigned int h = 720;
+//	const unsigned int l = 1280;
 	Camera myCamera;
 	Scene scene;
 	Image myImage(h, l);

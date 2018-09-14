@@ -10,7 +10,7 @@
  * @param I
  * @return
  */
-bool Sphere::calculIntersection(Rayon& rayon, std::vector<Intersection>& I) {
+bool Sphere::calculIntersection(const Rayon& rayon, std::vector<Intersection>& I) {
 	//Équation : a = 1, b = 2* (D.(O - C)), c =|O - C|² - R²
 	glm::vec3 OCVec = rayon.Orig() - this->center;
 	float a = 1,
