@@ -27,9 +27,11 @@ private:
 public:
 	Phong() = default;
 
-	virtual ~Phong();
+	~Phong() override = default;
 
 	Phong(const glm::vec3&, const glm::vec3&, float);
+
+	Phong(glm::vec3&&, glm::vec3&&, float);
 
 	void Ambiant(const Light& light);
 
@@ -41,6 +43,7 @@ public:
 
 	float getSpec() const;
 
+	glm::vec3 computeColour(const Intersection& I, const Scene& s, const Rayon& r, int rec) override;
 };
 
 

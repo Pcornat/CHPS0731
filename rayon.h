@@ -12,7 +12,7 @@ protected:
 	glm::vec3 vect;
 
 public:
-	Rayon() {}
+	Rayon() = default;
 
 	glm::vec3 Orig() const {
 		return orig;

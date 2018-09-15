@@ -23,3 +23,5 @@ glm::vec3 Light::getPosition() {
 glm::vec3 Light::getColor() {
 	return couleur;
 }
+
+Light::Light(float x, float y, float z) : position(x, y, z) {}

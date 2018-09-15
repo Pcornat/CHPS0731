@@ -32,8 +32,9 @@ sphere.o: sphere.hpp objet.h intersection.h material.h rayon.h scene.h
 intersection.o: intersection.h
 image.o: image.h png/lodepng.h
 scene.o: scene.h
+phong.o: phong.h material.h intersection.h light.h
 light.o: light.h
 rayon.o: rayon.h scene.h intersection.h objet.h material.h
 camera.o: camera.h scene.h rayon.h intersection.h image.h
 main.o: image.h camera.h scene.h rayon.h intersection.h objet.h material.h
-main.o: sphere.hpp
+main.o: sphere.hpp phong.h light.h

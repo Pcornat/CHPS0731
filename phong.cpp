@@ -12,6 +12,14 @@
  */
 Phong::Phong(const glm::vec3& ka, const glm::vec3& kd, float ks) : ka(ka), kd(kd), ks(ks) {}
 
+/**
+ * Construct a phong material with r-value.
+ * @param ka Ambient coef
+ * @param kd Diffusion coef
+ * @param ks Specular coef
+ */
+Phong::Phong(glm::vec3&& ka, glm::vec3&& kd, float ks) : ka(ka), kd(kd), ks(ks) {}
+
 void Phong::Ambiant(const Light& light) {
 
 }
@@ -32,6 +40,6 @@ float Phong::getSpec() const {
 	return spec;
 }
 
-Phong::~Phong() {
-
+glm::vec3 Phong::computeColour(const Intersection& I, const Scene& s, const Rayon& r, int rec) {
+	return glm::vec3();
 }

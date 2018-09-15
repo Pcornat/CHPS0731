@@ -10,6 +10,8 @@ protected:
 public:
 	Light();
 
+	Light(float, float, float);
+
 	~Light();
 
 	void setPosition(glm::vec3 p);
