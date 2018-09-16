@@ -1,4 +1,3 @@
-
 #include <algorithm>
 #include "rayon.h"
 #include "objet.h"
@@ -6,12 +5,10 @@
 glm::vec3 Rayon::Lancer(Scene& sc, int current) const {
 	glm::vec3 res = glm::vec3(0);//retourne noir de base
 	if (current == 0) return res;
-	Objet* obj;
 	bool intersect = false;
 	std::vector<Intersection> I;
 	for (auto&& objet : sc.Objets) {
-		obj = objet;
-		intersect = obj->calculIntersection(*this, I);
+		intersect = objet->calculIntersection(*this, I);
 	}
 	//WIP : integrating light inside the project.
 	if (intersect) {
