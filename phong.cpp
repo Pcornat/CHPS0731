@@ -20,10 +20,18 @@ Phong::Phong(const glm::vec3& ka, const glm::vec3& kd, float ks) : ka(ka), kd(kd
  */
 Phong::Phong(glm::vec3&& ka, glm::vec3&& kd, float ks) : ka(ka), kd(kd), ks(ks) {}
 
+/**
+ * To compute the ambient.
+ * @param light The light to use
+ */
 void Phong::Ambiant(const Light& light) {
 
 }
 
+/**
+ * To compute the diffuse vector.
+ * @param light Light to use.
+ */
 void Phong::Diffuse(const Light& light) {
 
 }
