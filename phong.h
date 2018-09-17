@@ -31,7 +31,7 @@ public:
 
 	Phong(glm::vec3&&, glm::vec3&&, float, float);
 
-	glm::vec3 computeColour(const Intersection& I, const Scene& s, const Rayon& rayon, int rec) override;
+	glm::vec3 computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& rayon, int rec) override;
 };
 
 

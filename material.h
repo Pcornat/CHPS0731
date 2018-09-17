@@ -17,7 +17,7 @@ public:
 
 	virtual ~Material() = default;
 
-	virtual glm::vec3 computeColour(const Intersection& I, const Scene& s, const Rayon& r, int rec) = 0;
+	virtual glm::vec3 computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& r, int rec) = 0;
 
 
 };
