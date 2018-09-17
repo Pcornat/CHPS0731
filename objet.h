@@ -43,7 +43,7 @@ public:
 	 * An objet cannot compute its intersection, it is a virtual class.
 	 * @return a boolean value : true = intersection, false = no intersection.
 	 */
-	virtual bool calculIntersection(const Rayon&, const Scene&, std::vector<Intersection>&) = 0;
+	virtual bool calculIntersection(const Rayon&, const Scene&, std::vector<Intersection>&, int) = 0;
 
 	const glm::vec3& getColor() const { return color; }
 

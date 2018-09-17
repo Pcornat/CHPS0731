@@ -10,7 +10,7 @@
  * @param I a pointer to a std::vector of intersection.
  * @return it computes correctly or not.
  */
-bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector<Intersection>& I) {
+bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector<Intersection>& I, int rec) {
 	//Équation : a = 1, b = 2* (D.(O - C)), c =|O - C|² - R²
 	glm::vec3 OCVec = rayon.Orig() - this->center;
 	float a = 1,
@@ -20,10 +20,9 @@ bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector
 		return false;
 	if (delta == 0) {
 		float dist = -0.5f * b / a;
-		glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist),
-				norm = (point - this->center) / glm::length(point - this->center);
+		glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist), norm = (point - this->center) / glm::length(point - this->center);
 		Intersection intersection(dist, norm, this);
-		intersection.setNormal(this->material->computeColour(intersection, sc, rayon, 3));
+		intersection.setNormal(this->material->computeColour(intersection, sc, rayon, rec));
 		I.push_back(intersection);
 		return true;
 	}
@@ -31,10 +30,9 @@ bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector
 			x0 = q / a,
 			x1 = c / q;
 	if (x0 > x1) std::swap(x0, x1);
-	glm::vec3 point = rayon.Orig() + (rayon.Vect() * x0),
-			norm = (point - this->center) / glm::length(point - this->center); //Nouveauté : ajoute de la couleur :D
+	glm::vec3 point = rayon.Orig() + (rayon.Vect() * x0), norm = (point - this->center) / glm::length(point - this->center);
 	Intersection intersection(x0, norm, this);
-	intersection.setNormal(this->material->computeColour(intersection, sc, rayon, 3));
+	intersection.setNormal(this->material->computeColour(intersection, sc, rayon, rec));
 	I.push_back(intersection);
 	return true;
 }
@@ -73,5 +71,5 @@ Sphere::Sphere(const float x, const float y, const float z, const int r, Materia
 																									 radius(r) {}
 
 Sphere::~Sphere() {
-
+	delete material;
 }

@@ -20,7 +20,7 @@ private:
 public:
 	Sphere() = default;
 
-	virtual ~Sphere();
+	~Sphere() override;
 
 	Sphere(float, float, float, int);
 
@@ -28,7 +28,7 @@ public:
 
 	Sphere(float, float, float, int, Material*);
 
-	bool calculIntersection(const Rayon& rayon, const Scene&, std::vector<Intersection>& I) override;
+	bool calculIntersection(const Rayon& rayon, const Scene&, std::vector<Intersection>& I, int) override;
 };
 
 

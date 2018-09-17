@@ -19,26 +19,19 @@ class Phong : public Material {
 private:
 	glm::vec3 ka; //(R, G, B)
 	glm::vec3 kd; //(R, G, B)
-	glm::vec3 diff;
-	glm::vec3 spec;
 	float ks;
+	float reflection;
 
 public:
 	Phong() = default;
 
 	~Phong() override = default;
 
-	Phong(const glm::vec3&, const glm::vec3&, float);
+	Phong(const glm::vec3&, const glm::vec3&, float, float);
 
-	Phong(glm::vec3&&, glm::vec3&&, float);
+	Phong(glm::vec3&&, glm::vec3&&, float, float);
 
-	const glm::vec3& getAmb() const;
-
-	const glm::vec3& getDiff() const;
-
-	const glm::vec3& getSpec() const;
-
-	glm::vec3 computeColour(const Intersection& I, const Scene& s, const Rayon& r, int rec) override;
+	glm::vec3 computeColour(const Intersection& I, const Scene& s, const Rayon& rayon, int rec) override;
 };
 
 

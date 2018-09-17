@@ -12,7 +12,7 @@
  * @param kd Diffusion coef
  * @param ks Specular coef
  */
-Phong::Phong(const glm::vec3& ka, const glm::vec3& kd, float ks) : ka(ka), kd(kd), ks(ks) {}
+Phong::Phong(const glm::vec3& ka, const glm::vec3& kd, float ks, float reflection) : ka(ka), kd(kd), ks(ks), reflection(reflection) {}
 
 /**
  * Construct a phong material with r-value.
@@ -20,33 +20,19 @@ Phong::Phong(const glm::vec3& ka, const glm::vec3& kd, float ks) : ka(ka), kd(kd
  * @param kd Diffusion coef
  * @param ks Specular coef
  */
-Phong::Phong(glm::vec3&& ka, glm::vec3&& kd, float ks) : ka(ka), kd(kd), ks(ks) {}
+Phong::Phong(glm::vec3&& ka, glm::vec3&& kd, float ks, float reflection) : ka(ka), kd(kd), ks(ks), reflection(reflection) {}
 
-
-const glm::vec3& Phong::getAmb() const {
-	return ka;
-}
-
-const glm::vec3& Phong::getDiff() const {
-	return diff;
-}
-
-const glm::vec3& Phong::getSpec() const {
-	return spec;
-}
-
-glm::vec3 Phong::computeColour(const Intersection& I, const Scene& s, const Rayon& r, int rec) {
+glm::vec3 Phong::computeColour(const Intersection& I, const Scene& s, const Rayon& rayon, int rec) {
+	glm::vec3 diff, spec;
 	for (auto&& light : s.Lights) {
 		/*
-		 * Diffus = max(N.L,0)*Kd*Lc
-		 * Speculaire= max(V.R,0)^Ks*Lc
+		 * Diffus = max(N.L, 0) * Kd * Lc
+		 * Speculaire= Lc * max(V.R, 0)^Ks
 		 * R, V, N, L = direction = vecteur normé
 		 */
-		glm::vec3 L = glm::normalize(light->getPosition());
-		this->diff = glm::max(glm::dot(I.getNormal(), L), 0.0f) * this->kd * light->getCouleur();
-		this->spec =
-				glm::pow(glm::max(glm::dot(r.Vect(), glm::normalize(glm::reflect(L, I.getNormal()))), 0.0f), this->ks) *
-				light->getCouleur();
+		glm::vec3 L = glm::normalize(light->getPosition()), R = glm::normalize(glm::reflect(L, I.getNormal()));
+		diff = glm::max(glm::dot(I.getNormal(), L), 0.0f) * this->kd * light->getCouleur();
+		spec = light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0f), this->ks);
 	}
 	return ka + diff + spec;
 }
