@@ -5,3 +5,19 @@ Intersection::Intersection(float dist, const glm::vec3& normal, Objet* obj) : di
 Intersection::Intersection(float dist, Objet* obj) : dist(dist), obj(obj) {}
 
 Intersection::Intersection(Objet* obj) : obj(obj) {}
+
+const glm::vec3& Intersection::getNormal() const {
+	return normal;
+}
+
+void Intersection::setNormal(const glm::vec3& normal) {
+	Intersection::normal = normal;
+}
+
+float Intersection::getDist() const {
+	return dist;
+}
+
+Objet* Intersection::getObj() const {
+	return obj;
+}

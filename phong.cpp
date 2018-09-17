@@ -22,21 +22,6 @@ Phong::Phong(const glm::vec3& ka, const glm::vec3& kd, float ks) : ka(ka), kd(kd
  */
 Phong::Phong(glm::vec3&& ka, glm::vec3&& kd, float ks) : ka(ka), kd(kd), ks(ks) {}
 
-/**
- * To compute the ambient.
- * @param light The light to use
- */
-void Phong::Ambiant(const Light& light) {
-
-}
-
-/**
- * To compute the diffuse vector.
- * @param light Light to use.
- */
-void Phong::Diffuse(const Light& light) {
-
-}
 
 const glm::vec3& Phong::getAmb() const {
 	return ka;
@@ -52,12 +37,16 @@ const glm::vec3& Phong::getSpec() const {
 
 glm::vec3 Phong::computeColour(const Intersection& I, const Scene& s, const Rayon& r, int rec) {
 	for (auto&& light : s.Lights) {
-		auto temp = glm::max(glm::dot(I.normal, glm::normalize(light->getPosition())), 0.0f);
-		this->diff = temp * this->kd * light->getCouleur();
-		this->spec = glm::pow(glm::max(glm::dot(r.Vect(), glm::normalize(glm::reflect(r.Vect(), I.normal))), 0.0f),
-							  this->ks) *
-					 light->getCouleur();
-
+		/*
+		 * Diffus = max(N.L,0)*Kd*Lc
+		 * Speculaire= max(V.R,0)^Ks*Lc
+		 * R, V, N, L = direction = vecteur normé
+		 */
+		glm::vec3 L = glm::normalize(light->getPosition());
+		this->diff = glm::max(glm::dot(I.getNormal(), L), 0.0f) * this->kd * light->getCouleur();
+		this->spec =
+				glm::pow(glm::max(glm::dot(r.Vect(), glm::normalize(glm::reflect(L, I.getNormal()))), 0.0f), this->ks) *
+				light->getCouleur();
 	}
 	return ka + diff + spec;
 }

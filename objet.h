@@ -23,6 +23,8 @@ public:
 
 	Objet() = default;
 
+	virtual ~Objet() = default;
+
 	/**
 	 * It initializes the colour of the object.
 	 * @param r red component

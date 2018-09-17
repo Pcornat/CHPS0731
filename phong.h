@@ -32,10 +32,6 @@ public:
 
 	Phong(glm::vec3&&, glm::vec3&&, float);
 
-	void Ambiant(const Light& light);
-
-	void Diffuse(const Light& light);
-
 	const glm::vec3& getAmb() const;
 
 	const glm::vec3& getDiff() const;

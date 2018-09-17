@@ -23,7 +23,7 @@ bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector
 		glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist),
 				norm = (point - this->center) / glm::length(point - this->center);
 		Intersection intersection(dist, norm, this);
-		intersection.normal = this->material->computeColour(intersection, sc, rayon, 3);
+		intersection.setNormal(this->material->computeColour(intersection, sc, rayon, 3));
 		I.push_back(intersection);
 		return true;
 	}
@@ -34,7 +34,7 @@ bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector
 	glm::vec3 point = rayon.Orig() + (rayon.Vect() * x0),
 			norm = (point - this->center) / glm::length(point - this->center); //Nouveauté : ajoute de la couleur :D
 	Intersection intersection(x0, norm, this);
-	intersection.normal = this->material->computeColour(intersection, sc, rayon, 3);
+	intersection.setNormal(this->material->computeColour(intersection, sc, rayon, 3));
 	I.push_back(intersection);
 	return true;
 }
