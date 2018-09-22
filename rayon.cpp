@@ -10,7 +10,6 @@ glm::vec3 Rayon::Lancer(Scene& sc, int current) const {
 	for (auto&& objet : sc.Objets) {
 		intersect = objet->calculIntersection(*this, sc, I, current);
 	}
-	//WIP : integrating light inside the project.
 	if (intersect) {
 		std::sort(I.begin(), I.end());
 		//res = I.at(0).obj->getColor();
