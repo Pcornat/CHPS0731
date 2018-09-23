@@ -27,7 +27,7 @@ public:
 
 	explicit Plan(float xOrig, float yOrig, float zOrig, float x, float y, float z);
 
-	bool calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>&, int) override;
+	bool calculIntersection(const Rayon&, const Scene&, std::vector<Intersection>&, int) override;
 };
 
 
