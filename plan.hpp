@@ -7,6 +7,7 @@
 
 
 #include "objet.h"
+#include "rayon.h"
 
 /**
  * \class Plan
@@ -14,17 +15,17 @@
  */
 class Plan : public Objet {
 private:
-	float distOrig;
+	glm::vec3 orig;
 	glm::vec3 normal;
 
 public:
 	Plan() = default;
 
-	explicit Plan(float r, float g, float b, float distOrig, float x, float y, float z);
+	explicit Plan(float r, float g, float b, float xOrig, float yOrig, float zOrig, float x, float y, float z);
 
-	explicit Plan(Material* material, float distOrig, float x, float y, float z);
+	explicit Plan(Material* material, float xOrig, float yOrig, float zOrig, float x, float y, float z);
 
-	explicit Plan(float distOrig, float x, float y, float z);
+	explicit Plan(float xOrig, float yOrig, float zOrig, float x, float y, float z);
 
 	bool calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>&, int) override;
 };

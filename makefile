@@ -37,5 +37,5 @@ light.o: light.h
 rayon.o: rayon.h scene.h intersection.h objet.h material.h
 camera.o: camera.h scene.h rayon.h intersection.h image.h
 main.o: image.h camera.h scene.h rayon.h intersection.h objet.h material.h
-main.o: sphere.hpp phong.h light.h
-plan.o: plan.hpp objet.h intersection.h material.h
+main.o: sphere.hpp plan.hpp phong.h light.h
+plan.o: plan.hpp objet.h intersection.h material.h rayon.h scene.h
