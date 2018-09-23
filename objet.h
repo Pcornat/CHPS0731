@@ -5,7 +5,7 @@
 #include "intersection.h"
 #include <vector>
 #include "material.h"
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 
 
 class Rayon;
