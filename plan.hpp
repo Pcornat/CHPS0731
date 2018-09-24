@@ -27,6 +27,10 @@ public:
 
 	explicit Plan(float xOrig, float yOrig, float zOrig, float x, float y, float z);
 
+	explicit Plan(const glm::vec3& color, const glm::vec3& orig, const glm::vec3& normal);
+
+	explicit Plan(glm::vec3&& color, glm::vec3&& orig, glm::vec3&& normal);
+
 	bool calculIntersection(const Rayon&, const Scene&, std::vector<Intersection>&, int) override;
 };
 

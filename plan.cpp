@@ -41,3 +41,7 @@ Plan::Plan(Material* material, float xOrig, float yOrig, float zOrig, float x, f
 Plan::Plan(float xOrig, float yOrig, float zOrig, float x, float y, float z) : orig(xOrig, yOrig, zOrig), normal(x, y, z) {
 	this->normal = glm::normalize(this->normal);
 }
+
+Plan::Plan(const glm::vec3& color, const glm::vec3& orig, const glm::vec3& normal) : Objet(color), orig(orig), normal(glm::normalize(normal)) {}
+
+Plan::Plan(glm::vec3&& color, glm::vec3&& orig, glm::vec3&& normal) : Objet(color), orig(orig), normal(glm::normalize(normal)) {}

@@ -39,6 +39,10 @@ public:
 	 */
 	explicit Objet(Material* material) : material(material) {}
 
+	explicit Objet(const glm::vec3& color) : color(color) {}
+
+	explicit Objet(glm::vec3&& color) : color(color) {}
+
 	/**
 	 * An objet cannot compute its intersection, it is a virtual class.
 	 * @return a boolean value : true = intersection, false = no intersection.

@@ -8,11 +8,15 @@ protected:
 	glm::vec3 position;
 	glm::vec3 couleur;
 public:
-	Light();
+	Light() = default;
 
-	Light(float, float, float, float, float, float);
+	~Light() = default;
 
-	~Light();
+	explicit Light(float, float, float, float, float, float);
+
+	explicit Light(const glm::vec3& position, const glm::vec3& couleur);
+
+	explicit Light(glm::vec3&& position, glm::vec3&& couleur);
 
 	void setPosition(glm::vec3 p);
 

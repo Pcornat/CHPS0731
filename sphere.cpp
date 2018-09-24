@@ -82,3 +82,11 @@ Sphere::Sphere(const float x, const float y, const float z, const int r, Materia
 Sphere::~Sphere() {
 	delete material;
 }
+
+Sphere::Sphere(glm::vec3&& color, glm::vec3&& center, int radius) : Objet(color), center(center), radius(radius) {}
+
+Sphere::Sphere(const glm::vec3& color, const glm::vec3& center, int radius) : Objet(color), center(center), radius(radius) {}
+
+Sphere::Sphere(Material* material, glm::vec3&& center, int radius) : Objet(material), center(center), radius(radius) {}
+
+Sphere::Sphere(Material* material, const glm::vec3& center, int radius) : Objet(material), center(center), radius(radius) {}
