@@ -13,11 +13,11 @@ private:
 public:
 	Intersection() = default;
 
-	Intersection(Objet* obj);
+	explicit Intersection(Objet* obj);
 
-	Intersection(float dist, Objet* obj);
+	explicit Intersection(float dist, Objet* obj);
 
-	Intersection(float dist, const glm::vec3& normal, Objet* obj);
+	explicit Intersection(float dist, const glm::vec3& normal, Objet* obj);
 
 	~Intersection() = default;
 

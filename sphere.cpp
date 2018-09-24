@@ -4,6 +4,8 @@
 #include "sphere.hpp"
 #include "rayon.h"
 
+#define GLM_ENABLE_EXPERIMENTAL
+
 /**
  * It computes an intersection between a ray and the sphere.
  * @param rayon the ray to launch
@@ -34,6 +36,13 @@ bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector
 	Intersection intersection(x0, norm, this);
 	intersection.setNormal(this->material->computeColour(intersection, point, sc, rayon, rec));
 	I.push_back(intersection);
+	/*float dist;
+	if (glm::intersectRaySphere(rayon.Orig(), rayon.Vect(), this->center, this->radius, dist)) {
+		glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist), norm = (point - this->center) / glm::length(point - this->center);
+		Intersection intersection(dist, norm, this);
+		intersection.setNormal(this->material->computeColour(intersection, point, sc, rayon, rec));
+		I.push_back(intersection);
+	}*/
 	return true;
 }
 

@@ -25,7 +25,7 @@ void Image::Save(std::string name) {
 	unsigned width = largeur, height = hauteur;
 	std::vector<unsigned char> image;
 	image.resize(width * height * 4);
-	#pragma omp parallel for collapse(2)
+#pragma omp parallel for collapse(2)
 	for (unsigned y = 0; y < height; y++)
 		for (unsigned x = 0; x < width; x++) {
 			glm::vec3 tmp = pixels[x + largeur * y];

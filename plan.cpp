@@ -15,16 +15,14 @@ bool Plan::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 		I.emplace_back(dist, this->color, this);
 		return (dist >= 0);
 	}
-	return false;*/
+	return false;//*/
 	float dist;
 	bool intersect = glm::intersectRayPlane(rayon.Orig(), rayon.Vect(), this->orig, this->normal, dist);
 	if (intersect) {
-		if(dist < 0) 
-			std::cout << dist << "\n";
 		I.emplace_back(dist, this->color, this);
-		return intersect;
+		return true;
 	}
-	return intersect;
+	return false;//*/
 }
 
 Plan::Plan(float r, float g, float b, float xOrig, float yOrig, float zOrig, float x, float y, float z) : Objet(r, g, b),
