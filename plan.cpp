@@ -9,7 +9,7 @@
 
 bool Plan::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int rec) {
 	/*float denom = glm::dot(this->normal, rayon.Vect());
-	if (denom > std::numeric_limits<float>::epsilon()) {
+	if (glm::abs(denom) > std::numeric_limits<float>::epsilon()) {
 		glm::vec3 vecDistOrigPlan = this->orig - rayon.Orig();
 		float dist = glm::dot(vecDistOrigPlan, this->normal) / denom;
 		I.emplace_back(dist, this->color, this);
