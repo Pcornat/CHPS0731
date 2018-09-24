@@ -4,7 +4,6 @@
 #include "sphere.hpp"
 #include "rayon.h"
 
-#define GLM_ENABLE_EXPERIMENTAL
 
 /**
  * It computes an intersection between a ray and the sphere.
