@@ -50,6 +50,6 @@ void Camera::Calculer_image(Image& im, Scene& sc, int complexite) const {
 			res = ray.Lancer(sc, complexite);
 			im.setPixel(x, y, glm::abs(res));
 		}
-		std::cout << "Ligne " << y << std::endl;
+		//std::cout << "Ligne " << y << std::endl;
 	}
 }

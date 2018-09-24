@@ -22,6 +22,15 @@ Phong::Phong(const glm::vec3& ka, const glm::vec3& kd, float ks, float reflectio
  */
 Phong::Phong(glm::vec3&& ka, glm::vec3&& kd, float ks, float reflection) : ka(ka), kd(kd), ks(ks), reflection(reflection) {}
 
+/**
+ *
+ * @param I
+ * @param point
+ * @param s
+ * @param rayon
+ * @param rec
+ * @return
+ */
 glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& rayon, int rec) {
 	glm::vec3 diff, spec;
 	for (auto&& light : s.Lights) {
