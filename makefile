@@ -1,7 +1,7 @@
 CXX = g++
-CXXFLAGS = -pipe -march=native -std=c++11 -Wall -Wextra -O3
+CXXFLAGS = -pipe -march=native -std=c++11 -Wall -Wextra -O3 -fopenmp
 LDLIBS = -lstdc++ -lm
-LDFLAGS = -pipe -O3
+LDFLAGS = -pipe -O3 -fopenmp
 
 SRCS = $(wildcard *.cpp)
 OBJS = $(SRCS:.cpp=.o) png/lodepng.o

@@ -13,10 +13,6 @@ void Camera::Calculer_image(Image& im, Scene& sc, int complexite) const {
 	float dx, dy; // dimension des macro-pixels
 	int x, y; // Position dans l'image du pixel en cours de calcul
 	glm::vec3 hg; // Position du pixel au centre du premier macro-pixel de l'ecran (en haut a gauche)
-	glm::vec3 pt; // Position de l'intersection entre le rayon a lancer et l'ecran
-	Rayon ray; // Rayon a lancer
-	glm::vec3 res;
-	glm::vec3 vect; // Vecteur directeur du rayon a lancer
 
 	// On calcule la position du foyer de la camera
 	foyer = centre - (dir * dist);
@@ -34,9 +30,15 @@ void Camera::Calculer_image(Image& im, Scene& sc, int complexite) const {
 	hg = centre + (droite * ((dx / 2) - (largeur / 2))) + (haut * ((hauteur / 2) - (dy / 2)));
 
 	// Pour chaque pixel de l'image a calculer
+	#pragma omp parallel for collapse(2)
 	for (y = 0; y < im.getHauteur(); y++) {
 		for (x = 0; x < im.getLargeur(); x++) {
 			// On calcule la position dans l'espace de ce point
+			Rayon ray; // Rayon a lancer
+			glm::vec3 vect; // Vecteur directeur du rayon a lancer
+			glm::vec3 res;
+			glm::vec3 pt; // Position de l'intersection entre le rayon a lancer et l'ecran
+
 			pt = hg + (droite * (dx * x)) - (haut * (dy * y));
 			pt.x = pt.x - (dx / 2.0f);
 			pt.y = pt.y - (dy / 2.0f);
