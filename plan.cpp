@@ -4,8 +4,6 @@
 
 #include "plan.hpp"
 
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/intersect.hpp>
 
 bool Plan::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int rec) {
 	/*float denom = glm::dot(this->normal, rayon.Vect());
