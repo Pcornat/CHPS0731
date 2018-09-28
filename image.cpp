@@ -54,6 +54,7 @@ Image::Image(std::string name) {
 	hauteur = height;
 	largeur = width;
 	pixels = new glm::vec3[largeur * hauteur];
+#pragma omp parallel for collapse(2)
 	for (unsigned y = 0; y < height; y++)
 		for (unsigned x = 0; x < width; x++) {
 			pixels[x + largeur * y] = glm::vec3(image[4 * width * y + 4 * x + 0] / 255.0,

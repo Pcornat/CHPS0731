@@ -1,11 +1,13 @@
 #ifndef OBJECT_HPP_
 #define OBJECT_HPP_
 
-#include <iostream>
 #include "intersection.h"
-#include <vector>
 #include "material.h"
+#include <iostream>
+#include <vector>
 #include <glm/glm.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/intersect.hpp>
 
 
 class Rayon;
