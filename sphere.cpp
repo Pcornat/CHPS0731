@@ -13,7 +13,7 @@
  */
 bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector<Intersection>& I, int rec) {
 	//Équation : a = 1, b = 2* (D.(O - C)), c =|O - C|² - R²
-	glm::vec3 OCVec = rayon.Orig() - this->center;
+	/*glm::vec3 OCVec = rayon.Orig() - this->center;
 	float a = 1,
 			b = 2 * glm::dot(rayon.Vect(), OCVec),
 			c = glm::dot(OCVec, OCVec) - this->radius * this->radius, delta = (b * b) - (4 * a * c);
@@ -34,14 +34,15 @@ bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector
 	glm::vec3 point = rayon.Orig() + (rayon.Vect() * x0), norm = (point - this->center) / glm::length(point - this->center);
 	Intersection intersection(x0, norm, this);
 	intersection.setNormal(this->material->computeColour(intersection, point, sc, rayon, rec));
+	I.push_back(intersection);*/
+	float dist;
+	if (!glm::intersectRaySphere(rayon.Orig(), rayon.Vect(), this->center, this->radius, dist)) {
+		return false;
+	}
+	glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist), norm = (point - this->center) / glm::length(point - this->center);
+	Intersection intersection(dist, norm, this);
+	intersection.setNormal(this->material->computeColour(intersection, point, sc, rayon, rec));
 	I.push_back(intersection);
-	/*float dist;
-	if (glm::intersectRaySphere(rayon.Orig(), rayon.Vect(), this->center, this->radius, dist)) {
-		glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist), norm = (point - this->center) / glm::length(point - this->center);
-		Intersection intersection(dist, norm, this);
-		intersection.setNormal(this->material->computeColour(intersection, point, sc, rayon, rec));
-		I.push_back(intersection);
-	}*/
 	return true;
 }
 
