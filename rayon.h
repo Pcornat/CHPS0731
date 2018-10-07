@@ -31,7 +31,7 @@ public:
 		vect = glm::normalize(v);
 	}
 
-	glm::vec3 Lancer(Scene& sc, int current) const;
+	glm::vec3 Lancer(const Scene& sc, int current) const;
 };
 
 #endif

@@ -39,10 +39,18 @@ bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector
 	if (!glm::intersectRaySphere(rayon.Orig(), rayon.Vect(), this->center, this->radius, dist)) {
 		return false;
 	}
-	glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist), norm = (point - this->center) / glm::length(point - this->center);
+	glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist), norm =
+			(point - this->center) / glm::length(point - this->center);
 	Intersection intersection(dist, norm, this);
-	intersection.setNormal(this->material->computeColour(intersection, point, sc, rayon, rec));
+	if (this->material != nullptr)
+		intersection.setNormal(this->material->computeColour(intersection, point, sc, rayon, rec));
+	else
+		intersection.setNormal(this->color);
 	I.push_back(intersection);
+	Rayon ray;
+	ray.Orig(point);
+	ray.Vect(glm::normalize(norm));
+	ray.Lancer(sc, --rec);//*/
 	return true;
 }
 
@@ -85,8 +93,10 @@ Sphere::~Sphere() {
 
 Sphere::Sphere(glm::vec3&& color, glm::vec3&& center, int radius) : Objet(color), center(center), radius(radius) {}
 
-Sphere::Sphere(const glm::vec3& color, const glm::vec3& center, int radius) : Objet(color), center(center), radius(radius) {}
+Sphere::Sphere(const glm::vec3& color, const glm::vec3& center, int radius) : Objet(color), center(center),
+																			  radius(radius) {}
 
 Sphere::Sphere(Material* material, glm::vec3&& center, int radius) : Objet(material), center(center), radius(radius) {}
 
-Sphere::Sphere(Material* material, const glm::vec3& center, int radius) : Objet(material), center(center), radius(radius) {}
+Sphere::Sphere(Material* material, const glm::vec3& center, int radius) : Objet(material), center(center),
+																		  radius(radius) {}

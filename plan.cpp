@@ -4,7 +4,12 @@
 
 #include "plan.hpp"
 
-
+/**
+ * @param rayon
+ * @param scene
+ * @param I
+ * @param rec
+ */
 bool Plan::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int rec) {
 	/*float denom = glm::dot(this->normal, rayon.Vect());
 	if (glm::abs(denom) > std::numeric_limits<float>::epsilon()) {
@@ -15,12 +20,17 @@ bool Plan::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 	}
 	return false;//*/
 	float dist;
-	bool intersect = glm::intersectRayPlane(rayon.Orig(), rayon.Vect(), this->orig, this->normal, dist);
-	if (intersect) {
-		I.emplace_back(dist, this->color, this);
-		return true;
+	if (!glm::intersectRayPlane(rayon.Orig(), rayon.Vect(), this->orig, this->normal, dist)) {
+		return false;
 	}
-	return false;//*/
+	glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist);
+	Intersection intersection(dist, this->normal, this);
+	if (this->material != nullptr)
+		intersection.setNormal(this->material->computeColour(intersection, point, scene, rayon, rec));
+	else
+		intersection.setNormal(this->color);
+	I.push_back(intersection);
+	return true;//*/
 }
 
 Plan::Plan(float r, float g, float b, float xOrig, float yOrig, float zOrig, float x, float y, float z) : Objet(r, g, b),

@@ -29,13 +29,14 @@ mrproper:	clean
 # DO NOT DELETE THIS LINE
 
 sphere.o: sphere.hpp objet.h intersection.h material.h rayon.h scene.h
+intersection.o: intersection.h
 image.o: image.h png/lodepng.h
 scene.o: scene.h
 phong.o: phong.h material.h intersection.h light.h scene.h rayon.h
+triangle.o: triangle.h objet.h intersection.h material.h rayon.h scene.h
 light.o: light.h
-intersection.o: intersection.h
 rayon.o: rayon.h scene.h intersection.h objet.h material.h
 camera.o: camera.h scene.h rayon.h intersection.h image.h
 main.o: image.h camera.h scene.h rayon.h intersection.h objet.h material.h
-main.o: sphere.hpp plan.hpp phong.h light.h
+main.o: sphere.hpp triangle.h plan.hpp phong.h light.h
 plan.o: plan.hpp objet.h intersection.h material.h rayon.h scene.h
