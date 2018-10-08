@@ -17,9 +17,16 @@
 
 class Phong : public Material {
 private:
+	///Ambient coeff
 	glm::vec3 ka; //(R, G, B)
+
+	///Diff coeff
 	glm::vec3 kd; //(R, G, B)
+
+	///Specular coeff
 	float ks;
+
+	///Reflection %
 	float reflection;
 
 public:

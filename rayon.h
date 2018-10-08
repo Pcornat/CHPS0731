@@ -34,6 +34,8 @@ public:
 	}
 
 	glm::vec3 Lancer(const Scene& sc, int current) const;
+
+	bool shadowRay(const Scene& sc, float distLum);
 };
 
 #endif

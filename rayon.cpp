@@ -19,3 +19,16 @@ glm::vec3 Rayon::Lancer(const Scene& sc, int current) const {
 }
 
 Rayon::Rayon(const glm::vec3& orig, const glm::vec3& vect) : orig(orig), vect(vect) {}
+
+bool Rayon::shadowRay(const Scene& sc, float distLum) {
+	bool intersect = false;
+	std::vector<Intersection> I;
+	for (Objet* objet : sc.Objets) {
+		intersect = objet->calculIntersection(*this, sc, I, 1);
+	}
+	if (intersect) {
+		std::sort(I.begin(), I.end());
+		return I.at(0).getDist() < distLum;
+	}
+	return false;
+}
