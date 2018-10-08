@@ -18,12 +18,12 @@ Triangle::Triangle(glm::vec3&& color) : Objet(color) {
 }
 
 /**
- *
- * @param rayon
- * @param sc
- * @param I
- * @param rec
- * @return
+ * Compute the intersection between a ray and a triangle object.
+ * @param rayon The ray that is shot at the triangle.
+ * @param sc The scene where rays are shot.
+ * @param I The intersection vector where all intersection are stored.
+ * @param rec The reflection depth.
+ * @return True : intersection, false : no intersection.
  */
 bool Triangle::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector<Intersection>& I, int rec) {
 	float dist = 0.10f;

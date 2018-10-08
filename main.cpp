@@ -7,12 +7,12 @@
 #include "phong.hpp"
 
 int main() {
-	const unsigned int h = 480;
-	const unsigned int l = 640;
+	const unsigned int h = 480 * 2;
+	const unsigned int l = 640 * 2;
 	Camera myCamera;
 	Scene scene;
 	Image myImage(h, l);
-	Sphere sphere(new Phong(glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.0f, 0.0f), 128.0f, 0.5f), glm::vec3(0.5f, -0.2f, 50.0f), 1);
+	Sphere sphere(new Phong(glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.0f, 0.0f), 128.0f, 0.5f), glm::vec3(-0.5f, -0.2f, 25.0f), 1);
 	Sphere secSpher(new Phong(glm::vec3(0.0f, 0.4f, 0.0f), glm::vec3(0.592f, 0.0f, 0.592f), 128.0f, 0.5f), glm::vec3(2.5f, -1.7f, 25.0f), 1);
 	//Triangle triangle(glm::vec3(0, 0, 0), glm::vec3(-0.7f, -2.0f, 100.0f), glm::vec3(-4.7f, -2.0f, 100.0f), glm::vec3(-2.7f, 3.0f, 100.0f));
 	Plan background(new Phong(glm::vec3(0.0f, 0.4f, 0.0f), glm::vec3(0.592f, 0.0f, 0.592f), 128.0f, 0.7f), glm::vec3(0.0f, 0.0f, 150.0f),
