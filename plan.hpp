@@ -21,9 +21,15 @@ private:
 public:
 	Plan() = default;
 
+	~Plan() { if (this->material != nullptr) delete material; }
+
 	explicit Plan(float r, float g, float b, float xOrig, float yOrig, float zOrig, float x, float y, float z);
 
 	explicit Plan(Material* material, float xOrig, float yOrig, float zOrig, float x, float y, float z);
+
+	explicit Plan(Material* material, const glm::vec3& orig, const glm::vec3& normal);
+
+	explicit Plan(Material* material, glm::vec3&& orig, glm::vec3&& normal);
 
 	explicit Plan(float xOrig, float yOrig, float zOrig, float x, float y, float z);
 

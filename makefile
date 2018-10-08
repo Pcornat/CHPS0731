@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -pipe -march=native -std=c++11 -Wall -Wextra -O3 -fopenmp
+CXXFLAGS = -pipe -march=native -std=c++11 -Wall -Wextra -O3 -fopenmp -I./
 LDLIBS = -lstdc++ -lm
 LDFLAGS = -pipe -O3 -fopenmp
 
@@ -29,14 +29,16 @@ mrproper:	clean
 # DO NOT DELETE THIS LINE
 
 sphere.o: sphere.hpp objet.h intersection.h material.h rayon.h scene.h
+sphere.o: phong.hpp light.h
 intersection.o: intersection.h
 image.o: image.h png/lodepng.h
 scene.o: scene.h
-phong.o: phong.h material.h intersection.h light.h scene.h rayon.h
+phong.o: phong.hpp material.h intersection.h light.h scene.h rayon.h
 triangle.o: triangle.h objet.h intersection.h material.h rayon.h scene.h
 light.o: light.h
 rayon.o: rayon.h scene.h intersection.h objet.h material.h
 camera.o: camera.h scene.h rayon.h intersection.h image.h
 main.o: image.h camera.h scene.h rayon.h intersection.h objet.h material.h
-main.o: sphere.hpp triangle.h plan.hpp phong.h light.h
-plan.o: plan.hpp objet.h intersection.h material.h rayon.h scene.h
+main.o: sphere.hpp triangle.h plan.hpp phong.hpp light.h
+plan.o: plan.hpp objet.h intersection.h material.h rayon.h scene.h phong.hpp
+plan.o: light.h

@@ -14,6 +14,8 @@ protected:
 public:
 	Rayon() = default;
 
+	explicit Rayon(const glm::vec3& orig, const glm::vec3& vect);
+
 	glm::vec3 Orig() const {
 		return orig;
 	}

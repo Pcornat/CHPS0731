@@ -3,6 +3,7 @@
 //
 
 #include "plan.hpp"
+#include "phong.hpp"
 
 /**
  * @param rayon
@@ -19,7 +20,7 @@ bool Plan::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 		return (dist >= 0);
 	}
 	return false;//*/
-	float dist;
+	float dist = 0.0f;
 	if (!glm::intersectRayPlane(rayon.Orig(), rayon.Vect(), this->orig, this->normal, dist)) {
 		return false;
 	}
@@ -53,3 +54,7 @@ Plan::Plan(float xOrig, float yOrig, float zOrig, float x, float y, float z) : o
 Plan::Plan(const glm::vec3& color, const glm::vec3& orig, const glm::vec3& normal) : Objet(color), orig(orig), normal(glm::normalize(normal)) {}
 
 Plan::Plan(glm::vec3&& color, glm::vec3&& orig, glm::vec3&& normal) : Objet(color), orig(orig), normal(glm::normalize(normal)) {}
+
+Plan::Plan(Material* material, const glm::vec3& orig, const glm::vec3& normal) : Objet(material), orig(orig), normal(normal) {}
+
+Plan::Plan(Material* material, glm::vec3&& orig, glm::vec3&& normal) : Objet(material), orig(orig), normal(normal) {}

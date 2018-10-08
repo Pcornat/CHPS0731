@@ -3,6 +3,7 @@
 //
 #include "sphere.hpp"
 #include "rayon.h"
+#include "phong.hpp"
 
 
 /**
@@ -35,7 +36,7 @@ bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector
 	Intersection intersection(x0, norm, this);
 	intersection.setNormal(this->material->computeColour(intersection, point, sc, rayon, rec));
 	I.push_back(intersection);*/
-	float dist;
+	float dist = 0.0f;
 	if (!glm::intersectRaySphere(rayon.Orig(), rayon.Vect(), this->center, this->radius, dist)) {
 		return false;
 	}
@@ -47,10 +48,6 @@ bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector
 	else
 		intersection.setNormal(this->color);
 	I.push_back(intersection);
-	Rayon ray;
-	ray.Orig(point);
-	ray.Vect(glm::normalize(norm));
-	ray.Lancer(sc, --rec);//*/
 	return true;
 }
 

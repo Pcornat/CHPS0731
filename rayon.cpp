@@ -17,3 +17,5 @@ glm::vec3 Rayon::Lancer(const Scene& sc, int current) const {
 	}
 	return res;
 }
+
+Rayon::Rayon(const glm::vec3& orig, const glm::vec3& vect) : orig(orig), vect(vect) {}

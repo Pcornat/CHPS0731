@@ -28,11 +28,21 @@ Triangle::Triangle(glm::vec3&& color) : Objet(color) {
 bool Triangle::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector<Intersection>& I, int rec) {
 	float dist = 0.10f;
 	glm::vec2 baryCentre;
-	if (glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), this->pointA, this->pointB, this->pointC, baryCentre, dist)) {
-		I.emplace_back(dist, this->color, this);
-		return true;
+	if (!glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), this->pointA, this->pointB, this->pointC, baryCentre, dist)) {
+		return false;
 	}
-	return false;
+	glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist), norm(baryCentre.x, baryCentre.y, -dist);
+	Intersection intersection(dist, norm, this);
+	if (this->material != nullptr)
+		intersection.setNormal(this->material->computeColour(intersection, point, sc, rayon, rec));
+	else
+		intersection.setNormal(this->color);
+	I.push_back(intersection);
+	/*Rayon ray;
+	ray.Orig(point);
+	ray.Vect(glm::normalize(norm));
+	ray.Lancer(sc, --rec);//*/
+	return true;
 }
 
 Triangle::Triangle(Material* material, const glm::vec3& pointA, const glm::vec3& pointB, const glm::vec3& pointC)
