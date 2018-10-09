@@ -41,12 +41,7 @@ bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector
 		return false;
 	}
 	glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist), norm = glm::normalize((point - this->center) / glm::length(point - this->center));
-	Intersection intersection(dist, norm, this);
-	if (this->material != nullptr)
-		intersection.setNormal(this->material->computeColour(intersection, point, sc, rayon, rec));
-	else
-		intersection.setNormal(this->color);
-	I.push_back(intersection);
+	I.emplace_back(dist, norm, this);
 	return true;
 }
 

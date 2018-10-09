@@ -13,7 +13,12 @@ glm::vec3 Rayon::Lancer(const Scene& sc, int complexite) const {
 	if (intersect) {
 		std::sort(I.begin(), I.end());
 		//res = I.at(0).obj->getColor();
-		res = I.at(0).getNormal();
+		Intersection intersection = I.at(0);
+		if (intersection.getObj()->getMaterial() == nullptr)
+			res = intersection.getObj()->getColor();
+		else
+			res = intersection.getObj()->getMaterial()->computeColour(I.at(0), this->orig + this->vect * intersection.getDist(), sc, *this,
+																	  complexite - 1);
 	}
 	return res;
 }

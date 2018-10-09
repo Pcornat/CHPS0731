@@ -25,12 +25,7 @@ bool Plan::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 		return false;
 	}
 	glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist);
-	Intersection intersection(dist, this->normal, this);
-	if (this->material != nullptr)
-		intersection.setNormal(this->material->computeColour(intersection, point, scene, rayon, rec));
-	else
-		intersection.setNormal(this->color);
-	I.push_back(intersection);
+	I.emplace_back(dist, this->normal, this);
 	return true;//*/
 }
 
@@ -55,6 +50,6 @@ Plan::Plan(const glm::vec3& color, const glm::vec3& orig, const glm::vec3& norma
 
 Plan::Plan(glm::vec3&& color, glm::vec3&& orig, glm::vec3&& normal) : Objet(color), orig(orig), normal(glm::normalize(normal)) {}
 
-Plan::Plan(Material* material, const glm::vec3& orig, const glm::vec3& normal) : Objet(material), orig(orig), normal(normal) {}
+Plan::Plan(Material* material, const glm::vec3& orig, const glm::vec3& normal) : Objet(material), orig(orig), normal(glm::normalize(normal)) {}
 
-Plan::Plan(Material* material, glm::vec3&& orig, glm::vec3&& normal) : Objet(material), orig(orig), normal(normal) {}
+Plan::Plan(Material* material, glm::vec3&& orig, glm::vec3&& normal) : Objet(material), orig(orig), normal(glm::normalize(normal)) {}
