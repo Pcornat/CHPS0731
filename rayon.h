@@ -33,7 +33,7 @@ public:
 		vect = glm::normalize(v);
 	}
 
-	glm::vec3 Lancer(const Scene& sc, int current) const;
+	glm::vec3 Lancer(const Scene& sc, int complexite) const;
 
 	bool shadowRay(const Scene& sc, float distLum);
 };

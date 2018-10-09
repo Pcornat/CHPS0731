@@ -32,7 +32,11 @@ Phong::Phong(glm::vec3&& ka, glm::vec3&& kd, float ks, float reflection) : ka(ka
  * @return The object's colour (the normal vector to make it simple)
  */
 glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& rayon, int rec) {
-	glm::vec3 diff(0, 0, 0), spec(0, 0, 0), R, L, refl(0, 0, 0);
+	glm::vec3 diff(0, 0, 0), spec(0, 0, 0), R, L, refl;
+	if (this->reflection != 0.0f) {
+		Rayon reflect(1e-4f * I.getNormal() + point, glm::normalize(glm::reflect(-rayon.Vect(), I.getNormal())));
+		refl = reflect.Lancer(s, rec - 1);
+	}
 	for (Light* light : s.Lights) {
 		/*
 		 * Diffus = max(N.L, 0) * Kd * Lc
@@ -45,13 +49,13 @@ glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, co
 			return this->ka;//*/
 		diff += glm::max(glm::dot(I.getNormal(), L), 0.0f) * this->kd * light->getCouleur();
 		spec += light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0f), this->ks);
-		if (this->reflection != 0.0f) {
-			Rayon reflect(1e-4f * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
-			refl += reflect.Lancer(s, --rec);
-		}
 	}
-	if (this->reflection != 0.0f) {
-		return (1 - this->reflection) * (this->reflection * ka + diff + spec) + this->reflection * refl;
-	} else
+	if (this->reflection != 0.0f)
+		return (1 - this->reflection) * (ka + diff + spec) + this->reflection * refl;
+	else
 		return ka + diff + spec;
+	/*if (this->reflection != 0.0f)
+		return (1 - this->reflection) * (this->reflection * ka + diff + spec) + this->reflection * refl;
+	else
+		return ka + diff + spec;*/
 }

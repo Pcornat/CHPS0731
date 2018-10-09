@@ -2,13 +2,13 @@
 #include "rayon.h"
 #include "objet.h"
 
-glm::vec3 Rayon::Lancer(const Scene& sc, int current) const {
+glm::vec3 Rayon::Lancer(const Scene& sc, int complexite) const {
 	glm::vec3 res = glm::vec3(0);//retourne noir de base
-	if (current == 0) return res;
+	if (complexite == 0) return res;
 	bool intersect = false;
 	std::vector<Intersection> I;
 	for (auto&& objet : sc.Objets) {
-		intersect = objet->calculIntersection(*this, sc, I, current);
+		intersect = objet->calculIntersection(*this, sc, I, complexite);
 	}
 	if (intersect) {
 		std::sort(I.begin(), I.end());
