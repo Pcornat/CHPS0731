@@ -39,20 +39,19 @@ glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, co
 		 * Speculaire= Lc * max(V.R, 0)^Ks
 		 * R, V, N, L = direction = vecteur normé
 		 */
-		L = light->getPosition() - point;
-		R = glm::normalize(glm::reflect(L, I.getNormal()));
-		Rayon rayShadow(point, L);
+		L = glm::normalize(light->getPosition() - point), R = glm::normalize(glm::reflect(L, I.getNormal()));
+		/*Rayon rayShadow(1e-4f * I.getNormal() + point, L);
 		if (rayShadow.shadowRay(s, glm::abs(glm::distance(light->getPosition(), point))))
-			return this->ka;
+			return this->ka;//*/
 		diff += glm::max(glm::dot(I.getNormal(), L), 0.0f) * this->kd * light->getCouleur();
 		spec += light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0f), this->ks);
 		if (this->reflection != 0.0f) {
-			Rayon ray(1e-4f * I.getNormal() + point, glm::reflect(-rayon.Vect(), I.getNormal()));
-			refl += ray.Lancer(s, --rec);
-		}//*/
+			Rayon reflect(1e-4f * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
+			refl += reflect.Lancer(s, --rec);
+		}
 	}
-	if (this->reflection != 0.0f)
-		//return (1-this->reflection) * (this->ka + diff + spec) + this->reflection * refl;
-		return this->reflection * (ka + diff + spec + refl);
-	return this->reflection * ka + diff + spec;
+	if (this->reflection != 0.0f) {
+		return (1 - this->reflection) * (this->reflection * ka + diff + spec) + this->reflection * refl;
+	} else
+		return ka + diff + spec;
 }

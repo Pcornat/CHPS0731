@@ -20,6 +20,10 @@ public:
 	void addObjet(Objet* o);
 
 	void addLight(Light* l);
+
+	void size_to_fit_light();
+
+	void size_to_fit_object();
 };
 
 #endif
