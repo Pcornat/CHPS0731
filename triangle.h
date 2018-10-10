@@ -24,15 +24,9 @@ public:
 
 	explicit Triangle(Material* material);
 
-	explicit Triangle(const glm::vec3& color);
-
-	explicit Triangle(glm::vec3&& color);
-
-	explicit Triangle(glm::vec3&& color, const glm::vec3& pointA, const glm::vec3& pointB, const glm::vec3& pointC);
-
-	explicit Triangle(const glm::vec3& color, const glm::vec3& pointA, const glm::vec3& pointB, const glm::vec3& pointC);
-
 	explicit Triangle(Material* material, const glm::vec3& pointA, const glm::vec3& pointB, const glm::vec3& pointC);
+
+	explicit Triangle(Material* material, glm::vec3&& pointA, glm::vec3&& pointB, glm::vec3&& pointC);
 
 	bool calculIntersection(const Rayon& rayon, const Scene& sc, std::vector<Intersection>& I, int rec) override;
 };

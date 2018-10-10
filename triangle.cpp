@@ -9,14 +9,6 @@ Triangle::Triangle(Material* material) : Objet(material) {
 
 }
 
-Triangle::Triangle(const glm::vec3& color) : Objet(color) {
-
-}
-
-Triangle::Triangle(glm::vec3&& color) : Objet(color) {
-
-}
-
 /**
  * Compute the intersection between a ray and a triangle object.
  * @param rayon The ray that is shot at the triangle.
@@ -43,12 +35,9 @@ bool Triangle::calculIntersection(const Rayon& rayon, const Scene& sc, std::vect
 Triangle::Triangle(Material* material, const glm::vec3& pointA, const glm::vec3& pointB, const glm::vec3& pointC)
 		: Objet(material), pointA(pointA), pointB(pointB), pointC(pointC) {}
 
-Triangle::Triangle(const glm::vec3& color, const glm::vec3& pointA, const glm::vec3& pointB, const glm::vec3& pointC)
-		: Objet(color), pointA(pointA), pointB(pointB), pointC(pointC) {}
-
-Triangle::Triangle(glm::vec3&& color, const glm::vec3& pointA, const glm::vec3& pointB, const glm::vec3& pointC)
-		: Objet(color), pointA(pointA), pointB(pointB), pointC(pointC) {}
-
 Triangle::~Triangle() {
 	delete this->material;
 }
+
+Triangle::Triangle(Material* material, glm::vec3&& pointA, glm::vec3&& pointB, glm::vec3&& pointC) : Objet(material), pointA(pointA),
+																									 pointB(pointB), pointC(pointC) {}

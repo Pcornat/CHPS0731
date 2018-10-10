@@ -45,47 +45,9 @@ bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector
 	return true;
 }
 
-/**
- * Constructor without colour
- * @param x coordinate of the center.
- * @param y coordinate of the center.
- * @param z coordinate of the center.
- * @param r Radius of the sphere.
- */
-Sphere::Sphere(const float x, const float y, const float z, const int r) : center(x, y, z), radius(r) {}
-
-/**
- * Colour is added
- * @param r Red
- * @param g Green
- * @param b Blue
- * @sa Sphere(float, float, float, r)
- */
-Sphere::Sphere(const float x, const float y, const float z, const int radius, const float r, const float g,
-			   const float b) : Objet(r, g, b),
-								center(x, y, z),
-								radius(radius) {}
-
-/**
- * It constructs the sphere with a material.
- * @param x coordinate of the center.
- * @param y coordinate of the center.
- * @param z coordinate of the center.
- * @param r radius of the sphere.
- * @param material The material of the sphere.
- */
-Sphere::Sphere(const float x, const float y, const float z, const int r, Material* const material) : Objet(material),
-																									 center(x, y, z),
-																									 radius(r) {}
-
 Sphere::~Sphere() {
 	delete material;
 }
-
-Sphere::Sphere(glm::vec3&& color, glm::vec3&& center, int radius) : Objet(color), center(center), radius(radius) {}
-
-Sphere::Sphere(const glm::vec3& color, const glm::vec3& center, int radius) : Objet(color), center(center),
-																			  radius(radius) {}
 
 Sphere::Sphere(Material* material, glm::vec3&& center, int radius) : Objet(material), center(center), radius(radius) {}
 

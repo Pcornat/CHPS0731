@@ -29,27 +29,10 @@ bool Plan::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 	return true;//*/
 }
 
-Plan::Plan(float r, float g, float b, float xOrig, float yOrig, float zOrig, float x, float y, float z) : Objet(r, g, b),
-																										  orig(xOrig, yOrig,
-																											   zOrig),
-																										  normal(x, y, z) {
-	this->normal = glm::normalize(this->normal);
-}
-
-Plan::Plan(Material* material, float xOrig, float yOrig, float zOrig, float x, float y, float z) : Objet(material),
-																								   orig(xOrig, yOrig, zOrig),
-																								   normal(x, y, z) {
-	this->normal = glm::normalize(this->normal);
-}
-
-Plan::Plan(float xOrig, float yOrig, float zOrig, float x, float y, float z) : orig(xOrig, yOrig, zOrig), normal(x, y, z) {
-	this->normal = glm::normalize(this->normal);
-}
-
-Plan::Plan(const glm::vec3& color, const glm::vec3& orig, const glm::vec3& normal) : Objet(color), orig(orig), normal(glm::normalize(normal)) {}
-
-Plan::Plan(glm::vec3&& color, glm::vec3&& orig, glm::vec3&& normal) : Objet(color), orig(orig), normal(glm::normalize(normal)) {}
-
 Plan::Plan(Material* material, const glm::vec3& orig, const glm::vec3& normal) : Objet(material), orig(orig), normal(glm::normalize(normal)) {}
 
 Plan::Plan(Material* material, glm::vec3&& orig, glm::vec3&& normal) : Objet(material), orig(orig), normal(glm::normalize(normal)) {}
+
+Plan::~Plan() {
+	delete material;
+}

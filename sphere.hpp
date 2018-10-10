@@ -22,19 +22,9 @@ public:
 
 	~Sphere() override;
 
-	explicit Sphere(float, float, float, int);
-
-	explicit Sphere(float, float, float, int, float, float, float);
-
-	explicit Sphere(float, float, float, int, Material*);
-
 	explicit Sphere(Material* material, const glm::vec3& center, int radius);
 
 	explicit Sphere(Material* material, glm::vec3&& center, int radius);
-
-	explicit Sphere(glm::vec3&& color, glm::vec3&& center, int radius);
-
-	explicit Sphere(const glm::vec3& color, const glm::vec3& center, int radius);
 
 	bool calculIntersection(const Rayon& rayon, const Scene&, std::vector<Intersection>& I, int) override;
 };

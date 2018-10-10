@@ -49,5 +49,5 @@ glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, co
 	}
 	Rayon reflect(1e-4f * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
 	refl = reflect.Lancer(s, rec - 1);
-	return (1 - this->reflection) * (ka + diff + spec) + this->reflection * refl;
+	return (1 - this->reflection) * (this->reflection * ka + diff + spec) + this->reflection * refl;
 }
