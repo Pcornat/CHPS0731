@@ -24,7 +24,6 @@ bool Plan::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 	if (!glm::intersectRayPlane(rayon.Orig(), rayon.Vect(), this->orig, this->normal, dist)) {
 		return false;
 	}
-	glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist);
 	I.emplace_back(dist, this->normal, this);
 	return true;//*/
 }

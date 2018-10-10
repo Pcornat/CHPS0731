@@ -23,12 +23,8 @@ bool Triangle::calculIntersection(const Rayon& rayon, const Scene& sc, std::vect
 	if (!glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), this->pointA, this->pointB, this->pointC, baryCentre, dist)) {
 		return false;
 	}
-	glm::vec3 point = rayon.Orig() + (rayon.Vect() * dist), norm(baryCentre.x, baryCentre.y, -dist);
+	glm::vec3 norm(baryCentre.x, baryCentre.y, -1.0f);
 	I.emplace_back(dist, norm, this);
-	/*Rayon ray;
-	ray.Orig(point);
-	ray.Vect(glm::normalize(norm));
-	ray.Lancer(sc, --rec);//*/
 	return true;
 }
 
