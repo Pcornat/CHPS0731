@@ -27,7 +27,7 @@ int main() {
 			  glm::highp_dvec3(-1.0f, 0.0f, 0.0f));
 	Plan right(new Phong(glm::highp_dvec3(0.0f, 0.2f, 0.2f), glm::highp_dvec3(0.6f, 0.0f, 0.0f), 128.0f, 0.6f), glm::highp_dvec3(-10.0f, 0.0f, 0.0f),
 			   glm::highp_dvec3(1.0f, 0.0f, 0.0f));
-    Plan floor(new Phong(glm::highp_dvec3(0.2f, 0.2f, 0.2f), glm::highp_dvec3(0.2f, 0.6f, 0.3f), 0.f, 0.4f),
+    Plan floor(new Phong(glm::highp_dvec3(0.2f, 0.2f, 0.2f), glm::highp_dvec3(0.0f, 1.0f, 0.0f), 128.f, 0.0f),
                glm::highp_dvec3(0.0f, -10.0f, 0.0f),
                glm::highp_dvec3(0.0f, 1.0f, 0.0f));
 	Plan closedBox(new Phong(glm::highp_dvec3(0.0f, 0.0f, 0.0f), glm::highp_dvec3(1.0f, 1.0f, 1.0f), 128.0f, 0.35f),
