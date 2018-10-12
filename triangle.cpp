@@ -18,22 +18,23 @@ Triangle::Triangle(Material* material) : Objet(material) {
  * @return True : intersection, false : no intersection.
  */
 bool Triangle::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector<Intersection>& I, int rec) {
-	float dist = 0.10f;
-	glm::vec2 baryCentre;
+	double dist = 0;
+	glm::highp_dvec2 baryCentre;
 	if (!glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), this->pointA, this->pointB, this->pointC, baryCentre, dist)) {
 		return false;
 	}
-	glm::vec3 norm(baryCentre.x, baryCentre.y, -1.0f);
+	glm::highp_dvec3 norm(baryCentre.x, baryCentre.y, -1.0f);
 	I.emplace_back(dist, norm, this);
 	return true;
 }
 
-Triangle::Triangle(Material* material, const glm::vec3& pointA, const glm::vec3& pointB, const glm::vec3& pointC)
+Triangle::Triangle(Material* material, const glm::highp_dvec3& pointA, const glm::highp_dvec3& pointB, const glm::highp_dvec3& pointC)
 		: Objet(material), pointA(pointA), pointB(pointB), pointC(pointC) {}
 
 Triangle::~Triangle() {
 	delete this->material;
 }
 
-Triangle::Triangle(Material* material, glm::vec3&& pointA, glm::vec3&& pointB, glm::vec3&& pointC) : Objet(material), pointA(pointA),
-																									 pointB(pointB), pointC(pointC) {}
+Triangle::Triangle(Material* material, glm::highp_dvec3&& pointA, glm::highp_dvec3&& pointB, glm::highp_dvec3&& pointC) : Objet(material),
+																														  pointA(pointA),
+																														  pointB(pointB), pointC(pointC) {}

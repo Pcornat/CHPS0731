@@ -9,69 +9,69 @@ class Image;
 
 class Camera {
 protected:
-	glm::vec3 centre; // position de l'oeil
-	float largeur; // Largeur de l'ecran
-	float hauteur; // Hauteur de l'ecran
-	float dist; // Distance focale de la camera
-	glm::vec3 dir; // Direction de vue de la camera
-	glm::vec3 haut; // Vecteur definissant l'orientation de la "tete" de la camera
+	glm::highp_dvec3 centre; // position de l'oeil
+	double largeur; // Largeur de l'ecran
+	double hauteur; // Hauteur de l'ecran
+	double dist; // Distance focale de la camera
+	glm::highp_dvec3 dir; // Direction de vue de la camera
+	glm::highp_dvec3 haut; // Vecteur definissant l'orientation de la "tete" de la camera
 
 public:
 	Camera() {
-		centre = glm::vec3(0, 0, -3);
+		centre = glm::highp_dvec3(0, 0, -3);
 		largeur = 2;
-		hauteur = 2 * 3.0f / 4.0f;
+		hauteur = 2 * 3.0 / 4.0;
 		dist = 10;
-		dir = glm::vec3(0, 0, 1);
-		haut = glm::vec3(0, 1, 0);
+		dir = glm::highp_dvec3(0, 0, 1);
+		haut = glm::highp_dvec3(0, 1, 0);
 	}
 
-	glm::vec3 Centre() const {
+	glm::highp_dvec3 Centre() const {
 		return centre;
 	}
 
-	float Largeur() const {
+	double Largeur() const {
 		return largeur;
 	}
 
-	float Hauteur() const {
+	double Hauteur() const {
 		return hauteur;
 	}
 
-	float Dist() const {
+	double Dist() const {
 		return dist;
 	}
 
-	glm::vec3 Dir() const {
+	glm::highp_dvec3 Dir() const {
 		return dir;
 	}
 
-	glm::vec3 Haut() const {
+	glm::highp_dvec3 Haut() const {
 		return haut;
 	}
 
-	void Centre(const glm::vec3& c) {
+	void Centre(const glm::highp_dvec3& c) {
 		centre = c;
 	}
 
-	void Largeur(float l) {
+	void Largeur(double l) {
 		largeur = l;
 	}
 
-	void Hauteur(float h) {
+	void Hauteur(double h) {
 		hauteur = h;
 	}
 
-	void Dist(float d) {
+	void Dist(double d) {
 		dist = d;
 	}
 
-	void Dir(const glm::vec3& d) {
+	void Dir(const glm::highp_dvec3& d) {
 		dir = d;
 		dir = glm::normalize(dir);
 	}
 
-	void Haut(const glm::vec3& h);
+	void Haut(const glm::highp_dvec3& h);
 
 	void Calculer_image(Image&, Scene& sc, int) const;
 };

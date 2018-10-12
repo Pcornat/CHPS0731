@@ -14,7 +14,7 @@
  */
 class Sphere : public Objet {
 private:
-	glm::vec3 center;
+	glm::highp_dvec3 center;
 	int radius;
 
 public:
@@ -22,9 +22,9 @@ public:
 
 	~Sphere() override;
 
-	explicit Sphere(Material* material, const glm::vec3& center, int radius);
+	explicit Sphere(Material* material, const glm::highp_dvec3& center, int radius);
 
-	explicit Sphere(Material* material, glm::vec3&& center, int radius);
+	explicit Sphere(Material* material, glm::highp_dvec3&& center, int radius);
 
 	bool calculIntersection(const Rayon& rayon, const Scene&, std::vector<Intersection>& I, int) override;
 };

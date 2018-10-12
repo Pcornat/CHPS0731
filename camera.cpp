@@ -1,18 +1,18 @@
 #include "camera.h"
 #include "image.h"
 
-void Camera::Haut(const glm::vec3& h) {
+void Camera::Haut(const glm::highp_dvec3& h) {
 	haut = h - (dir * (dir * h));
 	if (glm::length(haut) != 0.0)
 		haut = glm::normalize(haut);
 }
 
 void Camera::Calculer_image(Image& im, Scene& sc, int complexite) const {
-	glm::vec3 foyer; // Foyer optique de la camera
-	glm::vec3 droite; // Vecteur partant sur la droite dans le plan de l'ecran
-	float dx, dy; // dimension des macro-pixels
+	glm::highp_dvec3 foyer; // Foyer optique de la camera
+	glm::highp_dvec3 droite; // Vecteur partant sur la droite dans le plan de l'ecran
+	double dx, dy; // dimension des macro-pixels
 	int x, y; // Position dans l'image du pixel en cours de calcul
-	glm::vec3 hg; // Position du pixel au centre du premier macro-pixel de l'ecran (en haut a gauche)
+	glm::highp_dvec3 hg; // Position du pixel au centre du premier macro-pixel de l'ecran (en haut a gauche)
 
 	// On calcule la position du foyer de la camera
 	foyer = centre - (dir * dist);
@@ -35,13 +35,13 @@ void Camera::Calculer_image(Image& im, Scene& sc, int complexite) const {
 		for (x = 0 ; x < im.getLargeur() ; x++) {
 			// On calcule la position dans l'espace de ce point
 			Rayon ray; // Rayon a lancer
-			glm::vec3 vect; // Vecteur directeur du rayon a lancer
-			glm::vec3 res;
-			glm::vec3 pt; // Position de l'intersection entre le rayon a lancer et l'ecran
+			glm::highp_dvec3 vect; // Vecteur directeur du rayon a lancer
+			glm::highp_dvec3 res;
+			glm::highp_dvec3 pt; // Position de l'intersection entre le rayon a lancer et l'ecran
 
 			pt = hg + (droite * (dx * x)) - (haut * (dy * y));
-			pt.x = pt.x - (dx / 2.0f);
-			pt.y = pt.y - (dy / 2.0f);
+			pt.x = pt.x - (dx / 2.0);
+			pt.y = pt.y - (dy / 2.0);
 
 			// On prepare le rayon qui part du foyer et qui passe par ce point
 			ray.Orig(pt);

@@ -5,26 +5,26 @@
 
 class Light {
 protected:
-	glm::vec3 position;
-	glm::vec3 couleur;
+	glm::highp_dvec3 position;
+	glm::highp_dvec3 couleur;
 public:
 	Light() = default;
 
 	~Light() = default;
 
-	explicit Light(float, float, float, float, float, float);
+	explicit Light(double, double, double, double, double, double);
 
-	explicit Light(const glm::vec3& position, const glm::vec3& couleur);
+	explicit Light(const glm::highp_dvec3& position, const glm::highp_dvec3& couleur);
 
-	explicit Light(glm::vec3&& position, glm::vec3&& couleur);
+	explicit Light(glm::highp_dvec3&& position, glm::highp_dvec3&& couleur);
 
-	void setPosition(glm::vec3 p);
+	void setPosition(glm::highp_dvec3 p);
 
-	void setColor(glm::vec3 c);
+	void setColor(glm::highp_dvec3 c);
 
-	const glm::vec3& getPosition() const;
+	const glm::highp_dvec3& getPosition() const;
 
-	const glm::vec3& getCouleur() const;
+	const glm::highp_dvec3& getCouleur() const;
 };
 
 #endif
