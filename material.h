@@ -11,9 +11,13 @@ class Rayon;
 class Material {
 
 protected:
+	///Refraction or not Refraction ? That is the question :D
+	bool refraction;
 
 public:
 	Material() = default;
+
+	explicit Material(bool refraction) : refraction(refraction) {}
 
 	virtual ~Material() = default;
 

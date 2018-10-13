@@ -35,7 +35,7 @@ public:
 
 	glm::highp_dvec3 Lancer(const Scene& sc, int complexite) const;
 
-    bool shadowRay(const Scene &sc, double distLum, int complexite);
+	bool shadowRay(const Scene& sc, double distLum, int complexite);
 };
 
 #endif

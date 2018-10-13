@@ -21,7 +21,7 @@ glm::highp_dvec3 Rayon::Lancer(const Scene& sc, int complexite) const {
 
 Rayon::Rayon(const glm::highp_dvec3& orig, const glm::highp_dvec3& vect) : orig(orig), vect(vect) {}
 
-bool Rayon::shadowRay(const Scene &sc, double distLum, int complexite) {
+bool Rayon::shadowRay(const Scene& sc, double distLum, int complexite) {
 	std::vector<Intersection> I;
 	for (auto objet : sc.Objets) {
 		objet->calculIntersection(*this, sc, I, complexite);

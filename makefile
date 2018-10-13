@@ -31,10 +31,10 @@ mrproper:	clean
 sphere.o: sphere.hpp objet.h intersection.h material.h rayon.h scene.h
 sphere.o: phong.hpp light.h
 intersection.o: intersection.h
+image.o: image.h png/lodepng.h
 scene.o: scene.h
 phong.o: phong.hpp material.h intersection.h light.h scene.h rayon.h
 triangle.o: triangle.h objet.h intersection.h material.h rayon.h scene.h
-image.o: image.h png/lodepng.h
 light.o: light.h
 rayon.o: rayon.h scene.h intersection.h objet.h material.h
 camera.o: camera.h scene.h rayon.h intersection.h image.h

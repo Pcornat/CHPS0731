@@ -12,7 +12,9 @@
  * @param kd Diffusion coef
  * @param ks Specular coef
  */
-Phong::Phong(const glm::highp_dvec3& ka, const glm::highp_dvec3& kd, double ks, double reflection) : ka(ka), kd(kd), ks(ks), reflection(reflection) {}
+Phong::Phong(bool refraction, const glm::highp_dvec3& ka, const glm::highp_dvec3& kd, double ks, double reflection) : Material(refraction), ka(ka),
+																													  kd(kd), ks(ks),
+																													  reflection(reflection) {}
 
 /**
  * Construct a phong material with r-value.
@@ -20,7 +22,8 @@ Phong::Phong(const glm::highp_dvec3& ka, const glm::highp_dvec3& kd, double ks, 
  * @param kd Diffusion coef
  * @param ks Specular coef
  */
-Phong::Phong(glm::highp_dvec3&& ka, glm::highp_dvec3&& kd, double ks, double reflection) : ka(ka), kd(kd), ks(ks), reflection(reflection) {}
+Phong::Phong(bool refraction, glm::highp_dvec3&& ka, glm::highp_dvec3&& kd, double ks, double reflection) : Material(refraction), ka(ka), kd(kd),
+																											ks(ks), reflection(reflection) {}
 
 /**
  * Computes colour from the phong model. It also takes care of the reflection.
@@ -42,9 +45,6 @@ glm::highp_dvec3 Phong::computeColour(const Intersection& I, const glm::highp_dv
 		 */
 		L = glm::normalize(point - light->getPosition()), R = glm::normalize(glm::reflect(-L, I.getNormal()));
 		Rayon rayShadow(offset * I.getNormal() + point, -L);
-        amb += this->ka;
-        diff += glm::max(glm::dot(I.getNormal(), -L), 0.0) * this->kd * light->getCouleur();
-        spec += light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0), this->ks);
         if (rayShadow.shadowRay(s, glm::distance(point, light->getPosition()), rec - 1))
             if (this->reflection != 0.0f) {
                 Rayon reflect(offset * I.getNormal() + point,
@@ -52,10 +52,10 @@ glm::highp_dvec3 Phong::computeColour(const Intersection& I, const glm::highp_dv
                 refl = reflect.Lancer(s, rec - 1);
                 return (1.0 - this->reflection) * (0.5 * (this->reflection * amb + diff + spec)) +
                        this->reflection * refl;
-            } else {
-                return 0.5 * (amb + diff + spec);
             }
-
+		amb += this->ka;
+		diff += glm::max(glm::dot(I.getNormal(), -L), 0.0) * this->kd * light->getCouleur();
+		spec += light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0), this->ks);
 	}
 	if (this->reflection != 0.0f) {
 		Rayon reflect(offset * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));

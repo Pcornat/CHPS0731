@@ -26,7 +26,7 @@ private:
 	///Specular coeff
 	double ks;
 
-	///Reflection %
+	///Reflection percentage
 	double reflection;
 
 public:
@@ -34,9 +34,9 @@ public:
 
 	~Phong() override = default;
 
-	explicit Phong(const glm::highp_dvec3&, const glm::highp_dvec3&, double, double);
+	explicit Phong(bool, const glm::highp_dvec3&, const glm::highp_dvec3&, double, double);
 
-	explicit Phong(glm::highp_dvec3&&, glm::highp_dvec3&&, double, double);
+	explicit Phong(bool, glm::highp_dvec3&&, glm::highp_dvec3&&, double, double);
 
 	glm::highp_dvec3 computeColour(const Intersection& I, const glm::highp_dvec3& point, const Scene& s, const Rayon& rayon, int rec) override;
 };
