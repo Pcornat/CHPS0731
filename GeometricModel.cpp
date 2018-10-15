@@ -1,3 +1,5 @@
+#include <memory>
+
 #include <iostream>
 #include "GeometricModel.h"
 #include "OBJLoader.h"
@@ -6,7 +8,7 @@ GeometricModel::GeometricModel(std::string&& name) : name(name) {
 	this->loader->loadModel(this->name, *this);
 }
 
-GeometricModel::GeometricModel(const std::string& name) : nb_faces(0), nb_vertex(0), name(name), loader(new OBJLoader()) {
+GeometricModel::GeometricModel(const std::string& name) : nb_vertex(0), nb_faces(0), loader(new OBJLoader()), name(name) {
 	this->loader->loadModel(this->name, *this);
 }
 
@@ -32,4 +34,36 @@ const std::vector<glm::vec3>& GeometricModel::getListCoords() const {
 
 const std::vector<glm::vec4>& GeometricModel::getListTangents() const {
 	return listTangents;
+}
+
+GeometricModel& GeometricModel::operator=(const GeometricModel& model) {
+	if (this != &model) {
+		this->nb_vertex = model.nb_vertex;
+		this->nb_faces = model.nb_faces;
+		this->name = model.name;
+		this->listVertex = model.listVertex;
+		this->listFaces = model.listFaces;
+		this->listCoordFaces = model.listCoordFaces;
+		this->listCoords = model.listCoords;
+		this->listNormals = model.listNormals;
+		this->listTangents = model.listTangents;
+		this->loader = std::make_unique<OBJLoader>();
+	}
+	return *this;
+}
+
+GeometricModel& GeometricModel::operator=(GeometricModel&& model) noexcept {
+	if (this != &model) {
+		this->nb_vertex = model.nb_vertex;
+		this->nb_faces = model.nb_faces;
+		this->name = std::move(model.name);
+		this->listVertex = std::move(model.listVertex);
+		this->listFaces = std::move(model.listFaces);
+		this->listCoordFaces = std::move(model.listCoordFaces);
+		this->listCoords = std::move(model.listCoords);
+		this->listNormals = std::move(model.listNormals);
+		this->listTangents = std::move(model.listTangents);
+		this->loader = std::move(model.loader);
+	}
+	return *this;
 }

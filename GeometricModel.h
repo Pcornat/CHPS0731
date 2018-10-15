@@ -2,9 +2,9 @@
 #ifndef _GEOMETRIC_MODEL_H
 #define _GEOMETRIC_MODEL_H
 
-#include <glm/glm.hpp>
 #include <vector>
 #include <memory>
+#include <glm/glm.hpp>
 #include "OBJLoader.h"
 
 class GeometricModel {
@@ -44,6 +44,10 @@ public:
 	const std::vector<glm::vec3>& getListCoords() const;
 
 	const std::vector<glm::vec4>& getListTangents() const;
+
+	GeometricModel& operator=(const GeometricModel& model);
+
+	GeometricModel& operator=(GeometricModel&& model) noexcept;
 };
 
 

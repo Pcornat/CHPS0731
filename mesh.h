@@ -12,15 +12,20 @@
 class Mesh : public Objet {
 private:
 	GeometricModel model;
+	unsigned int sphereRadius;
 
 public:
 	Mesh() = default;
 
-	Mesh(const std::string& name);
+	explicit Mesh(const std::string& name);
+
+	explicit Mesh(std::string&& name);
 
 	~Mesh() override = default;
 
 	bool calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& vector1, int i) override;
+
+	Mesh& operator=(Mesh&& mesh) noexcept;
 };
 
 

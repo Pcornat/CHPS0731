@@ -51,10 +51,10 @@ bool OBJLoader::loadModel(const std::string& filename, GeometricModel& model) {
 
 			std::vector<int> Vlist_per_face;
 			std::vector<int> VTlist_per_face;
-			size_t pos;
-			size_t old_pos = 2;
+			int pos;
+			int old_pos = 2;
 			do {
-				pos = line.find_first_of(' ', old_pos + 1);
+				pos = static_cast<int>(line.find_first_of(' ', static_cast<unsigned long>(old_pos + 1)));
 
 				std::string segment = line.substr(old_pos, pos - 1);
 				std::istringstream isegment(segment);
@@ -115,10 +115,10 @@ bool OBJLoader::loadModel(const std::string& filename, GeometricModel& model) {
 void OBJLoader::setupForTextureCoordinates(GeometricModel& model) {
 	using Face = GeometricModel::Face;
 	std::vector<glm::vec3> packcoords;
-	for (int i = 0; i < model.nb_vertex; i++)
+	for (std::size_t i = 0; i < model.nb_vertex; i++)
 		packcoords.emplace_back(-1.0, -1.0, -1.0);
 
-	for (int i = 0; i < model.nb_faces; i++) {
+	for (std::size_t i = 0; i < model.nb_faces; i++) {
 		Face c_face = model.listFaces[i];
 		Face vt_face = model.listCoordFaces[i];
 
