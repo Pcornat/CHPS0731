@@ -1,4 +1,3 @@
-
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -66,7 +65,7 @@ bool OBJLoader::loadModel(std::string filename, GeometricModel& model) {
 				int pp = static_cast<int>(segment.find_first_of('/'));
 
 				if (pp != -1) {
-					std::string segmentVt = segment.substr(static_cast<unsigned long>(pp + 1), std::string::npos);
+					std::string segmentVt = segment.substr(static_cast<std::size_t>(pp + 1), std::string::npos);
 					if (segmentVt.find_first_of('/') != 0) {
 						std::istringstream isegmentVt(segmentVt);
 						isegmentVt >> VT;
@@ -125,8 +124,8 @@ void OBJLoader::setupForTextureCoordinates(GeometricModel& model) {
 
 		glm::vec3 ctex = model.listCoords[vt_face.s1];
 		if (packcoords[c_face.s1][0] == -1.0)    // pack vide :OK
-			packcoords[(int) c_face.s1] = ctex;
-		else if (packcoords[(int) c_face.s1] != ctex)    // deja un vertex assign� : On dedouble le sommet
+			packcoords[c_face.s1] = ctex;
+		else if (packcoords[c_face.s1] != ctex)    // deja un vertex assign� : On dedouble le sommet
 		{
 			packcoords.push_back(ctex);
 			model.listFaces[i].s1 = static_cast<int>(model.listVertex.size());
@@ -137,8 +136,8 @@ void OBJLoader::setupForTextureCoordinates(GeometricModel& model) {
 
 		ctex = model.listCoords[vt_face.s2];
 		if (packcoords[c_face.s2][0] == -1.0)    // pack vide :OK
-			packcoords[(int) c_face.s2] = ctex;
-		else if (packcoords[(int) c_face.s2] != ctex)    // deja un vertex assign� : On dedouble le sommet
+			packcoords[c_face.s2] = ctex;
+		else if (packcoords[c_face.s2] != ctex)    // deja un vertex assign� : On dedouble le sommet
 		{
 			packcoords.push_back(ctex);
 			model.listFaces[i].s2 = static_cast<int>(model.listVertex.size());
@@ -149,8 +148,8 @@ void OBJLoader::setupForTextureCoordinates(GeometricModel& model) {
 
 		ctex = model.listCoords[vt_face.s3];
 		if (packcoords[c_face.s3][0] == -1.0)    // pack vide :OK
-			packcoords[(int) c_face.s3] = ctex;
-		else if (packcoords[(int) c_face.s3] != ctex)    // deja un vertex assign� : On dedouble le sommet
+			packcoords[c_face.s3] = ctex;
+		else if (packcoords[c_face.s3] != ctex)    // deja un vertex assign� : On dedouble le sommet
 		{
 			packcoords.push_back(ctex);
 			model.listFaces[i].s3 = static_cast<int>(model.listVertex.size());
@@ -176,7 +175,7 @@ void OBJLoader::computeNormals(GeometricModel& model) {
 		model.listNormals[model.listFaces[i].s2] += v;
 		model.listNormals[model.listFaces[i].s3] += v;
 	}
-	for (auto& listNormal : model.listNormals)
+	for (auto&& listNormal : model.listNormals)
 		listNormal = glm::normalize(listNormal);
 
 }
@@ -188,7 +187,7 @@ void OBJLoader::computeTangents(GeometricModel& model) {
 	auto tan1 = new glm::vec3[model.listVertex.size()];
 	auto tan2 = new glm::vec3[model.listVertex.size()];
 
-	for (int i = 0; i < (int) model.listFaces.size(); i++) {
+	for (std::size_t i = 0; i < model.listFaces.size(); i++) {
 		Face c_face = model.listFaces[i];
 		glm::vec3 v1 = model.listVertex[c_face.s1];
 		glm::vec3 v2 = model.listVertex[c_face.s2];
@@ -231,5 +230,5 @@ void OBJLoader::computeTangents(GeometricModel& model) {
 
 	}
 
-	delete[] tan1;
+	delete[] tan1, delete[] tan2;
 }

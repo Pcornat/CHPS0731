@@ -31,7 +31,17 @@ public:
 
 	~GeometricModel() = default;
 
+	const std::vector<glm::vec3>& getListVertex() const;
 
+	const std::vector<Face>& getListFaces() const;
+
+	const std::vector<Face>& getListCoordFaces() const;
+
+	const std::vector<glm::vec3>& getListNormals() const;
+
+	const std::vector<glm::vec3>& getListCoords() const;
+
+	const std::vector<glm::vec4>& getListTangents() const;
 };
 
 
