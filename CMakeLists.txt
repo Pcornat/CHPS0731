@@ -28,4 +28,10 @@ add_executable(RayTrace
 		intersection.h
 		light.cpp
 		light.h
-		main.cpp triangle.cpp triangle.h)
+		main.cpp
+		triangle.cpp
+		triangle.h
+		GeometricModel.cpp
+		GeometricModel.h
+		OBJLoader.cpp
+		OBJLoader.h)

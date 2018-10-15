@@ -7,8 +7,8 @@
 #include "phong.hpp"
 
 int main() {
-	const unsigned int h = 480 * 2;
-	const unsigned int l = 640 * 2;
+	const unsigned int h = 1080;
+	const unsigned int l = 1920;
 	Camera myCamera;
 	Scene scene;
 	Image myImage(h, l);
@@ -20,7 +20,7 @@ int main() {
 					  glm::highp_dvec3(1.7f, -2.0f, 100.0f),
 					  glm::highp_dvec3(-2.7f, -2.0f, 100.0f), glm::highp_dvec3(-0.7f, 3.0f, 100.0f));*/
 	Plan background(new Phong(false, glm::highp_dvec3(0.f, 0.f, 0.f), glm::highp_dvec3(1.0f, 1.0f, 1.0f), 128.0f, 1.0f),
-					glm::highp_dvec3(0.0f, 0.0f, 300.0f),
+					glm::highp_dvec3(0.0f, 0.0f, 150.0f),
 					glm::highp_dvec3(0.0f, 0.0f, -1.0f));
 	Plan rooftop(new Phong(false, glm::highp_dvec3(0.2f, 0.2f, 0.0f), glm::highp_dvec3(0.5f, 0.0f, 0.6f), 128.f, 0.3f),
 				 glm::highp_dvec3(0.0f, 10.0f, 0.0f),

@@ -53,7 +53,7 @@ glm::highp_dvec3 Phong::computeColour(const Intersection& I, const glm::highp_dv
 				Rayon reflect(offset * I.getNormal() + point,
 							  glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
 				refl = reflect.Lancer(s, rec - 1);
-				return (1.0 - this->reflection) * (0.5 * (this->reflection * amb + diff + spec)) +
+				return (1.0 - this->reflection) * (0.5 * (amb + diff + spec)) +
 					   this->reflection * refl;
 			} else {
 				return 0.5 * (amb + diff + spec);
@@ -63,7 +63,7 @@ glm::highp_dvec3 Phong::computeColour(const Intersection& I, const glm::highp_dv
 	if (this->reflection != 0.0f) {
 		Rayon reflect(offset * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
 		refl = reflect.Lancer(s, rec - 1);
-		return (1.0 - this->reflection) * (this->reflection * amb + diff + spec) + this->reflection * refl;
+		return (1.0 - this->reflection) * (amb + diff + spec) + this->reflection * refl;
 	} else
 		return amb + diff + spec;
 }
