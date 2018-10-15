@@ -45,6 +45,9 @@ glm::highp_dvec3 Phong::computeColour(const Intersection& I, const glm::highp_dv
 		 */
 		L = glm::normalize(point - light->getPosition()), R = glm::normalize(glm::reflect(-L, I.getNormal()));
 		Rayon rayShadow(offset * I.getNormal() + point, -L);
+		amb += this->ka;
+		diff += glm::max(glm::dot(I.getNormal(), -L), 0.0) * this->kd * light->getCouleur();
+		spec += light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0), this->ks);
         if (rayShadow.shadowRay(s, glm::distance(point, light->getPosition()), rec - 1))
             if (this->reflection != 0.0f) {
                 Rayon reflect(offset * I.getNormal() + point,
@@ -52,10 +55,9 @@ glm::highp_dvec3 Phong::computeColour(const Intersection& I, const glm::highp_dv
                 refl = reflect.Lancer(s, rec - 1);
                 return (1.0 - this->reflection) * (0.5 * (this->reflection * amb + diff + spec)) +
                        this->reflection * refl;
-            }
-		amb += this->ka;
-		diff += glm::max(glm::dot(I.getNormal(), -L), 0.0) * this->kd * light->getCouleur();
-		spec += light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0), this->ks);
+			} else {
+				return 0.5 * (amb + diff + spec);
+			}
 	}
 	if (this->reflection != 0.0f) {
 		Rayon reflect(offset * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));

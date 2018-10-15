@@ -16,9 +16,9 @@ int main() {
 				  1);
 	Sphere secSpher(new Phong(false, glm::highp_dvec3(0.2f, 0.0f, 0.0f), glm::highp_dvec3(0.0f, 0.5f, 0.392f), 128.0f, 0.0f),
 					glm::highp_dvec3(2.5f, -1.7f, 50.0f), 1);
-	Triangle triangle(new Phong(false, glm::highp_dvec3(0.2f, 0.2f, 0.0f), glm::highp_dvec3(1.0f, 1.0f, 1.0f), 128.0f, 0.25f),
+	/*Triangle triangle(new Phong(false, glm::highp_dvec3(0.2f, 0.2f, 0.0f), glm::highp_dvec3(1.0f, 1.0f, 1.0f), 128.0f, 0.25f),
 					  glm::highp_dvec3(1.7f, -2.0f, 100.0f),
-					  glm::highp_dvec3(-2.7f, -2.0f, 100.0f), glm::highp_dvec3(-0.7f, 3.0f, 100.0f));
+					  glm::highp_dvec3(-2.7f, -2.0f, 100.0f), glm::highp_dvec3(-0.7f, 3.0f, 100.0f));*/
 	Plan background(new Phong(false, glm::highp_dvec3(0.f, 0.f, 0.f), glm::highp_dvec3(1.0f, 1.0f, 1.0f), 128.0f, 1.0f),
 					glm::highp_dvec3(0.0f, 0.0f, 300.0f),
 					glm::highp_dvec3(0.0f, 0.0f, -1.0f));
@@ -31,12 +31,13 @@ int main() {
 	Plan right(new Phong(false, glm::highp_dvec3(0.0f, 0.2f, 0.2f), glm::highp_dvec3(0.6f, 0.0f, 0.0f), 128.0f, 0.6f),
 			   glm::highp_dvec3(-10.0f, 0.0f, 0.0f),
 			   glm::highp_dvec3(1.0f, 0.0f, 0.0f));
-	Plan floor(new Phong(false, glm::highp_dvec3(0.2f, 0.2f, 0.2f), glm::highp_dvec3(0.0f, 1.0f, 0.0f), 128.f, 0.0f),
+	Plan floor(new Phong(false, glm::highp_dvec3(0.2f, 0.2f, 0.2f), glm::highp_dvec3(0.0f, 1.0f, 0.0f), 128.f, 0.f),
 			   glm::highp_dvec3(0.0f, -10.0f, 0.0f),
 			   glm::highp_dvec3(0.0f, 1.0f, 0.0f));
-	Plan closedBox(new Phong(false, glm::highp_dvec3(0.0f, 0.0f, 0.0f), glm::highp_dvec3(1.0f, 1.0f, 1.0f), 128.0f, 0.35f),
-				   glm::highp_dvec3(0.0f, 0.0f, -10.0f),
-				   glm::highp_dvec3(0.0f, 0.0f, 1.0f));
+	Plan closedBox(
+			new Phong(false, glm::highp_dvec3(0.0f, 0.0f, 0.0f), glm::highp_dvec3(1.0f, 1.0f, 1.0f), 128.0f, 0.5f),
+			glm::highp_dvec3(0.0f, 0.0f, -10.0f),
+			glm::highp_dvec3(0.0f, 0.0f, 1.0f));
 	Light light(glm::highp_dvec3(1.0f, 4.0f, 4.0f), glm::highp_dvec3(1.0f, 1.0f, 1.0f));
 	scene.addLight(&light);
 	scene.addObjet(&sphere);
@@ -48,7 +49,7 @@ int main() {
 	scene.addObjet(&right);
 	scene.addObjet(&closedBox);
 	scene.addObjet(&background);
-    myCamera.Calculer_image(myImage, scene, 10);
+	myCamera.Calculer_image(myImage, scene, 20);
 
 	myImage.Save("out.png");
 
