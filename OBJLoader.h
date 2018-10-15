@@ -1,23 +1,24 @@
 #ifndef _GEOMETRIC_LOADER_H
 #define _GEOMETRIC_LOADER_H
-using namespace std;
+
+#include <string>
 
 class GeometricModel;
 
 class OBJLoader {
 public:
-	OBJLoader();
+	OBJLoader() = default;
 
-	~OBJLoader();
+	~OBJLoader() = default;
 
-	bool loadModel(string name, GeometricModel* model);
+	bool loadModel(std::string name, GeometricModel& model);
 
 private:
-	void setupForTextureCoordinates(GeometricModel* model);
+	void setupForTextureCoordinates(GeometricModel& model);
 
-	void computeNormals(GeometricModel* model);
+	void computeNormals(GeometricModel& model);
 
-	void computeTangents(GeometricModel* model);
+	void computeTangents(GeometricModel& model);
 };
 
 #endif

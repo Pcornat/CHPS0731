@@ -34,4 +34,4 @@ add_executable(RayTrace
 		GeometricModel.cpp
 		GeometricModel.h
 		OBJLoader.cpp
-		OBJLoader.h)
+		OBJLoader.h mesh.cpp mesh.h)
