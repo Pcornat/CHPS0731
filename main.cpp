@@ -19,10 +19,10 @@ int main() {
 	/*Triangle triangle(new Phong(false, glm::highp_dvec3(0.2f, 0.2f, 0.0f), glm::highp_dvec3(1.0f, 1.0f, 1.0f), 128.0f, 0.25f),
 					  glm::highp_dvec3(1.7f, -2.0f, 100.0f),
 					  glm::highp_dvec3(-2.7f, -2.0f, 100.0f), glm::highp_dvec3(-0.7f, 3.0f, 100.0f));*/
-	Plan background(new Phong(false, glm::highp_dvec3(0.f, 0.f, 0.f), glm::highp_dvec3(1.0f, 1.0f, 1.0f), 128.0f, 1.0f),
-					glm::highp_dvec3(0.0f, 0.0f, 150.0f),
+	Plan background(new Phong(false, glm::highp_dvec3(0.f, 0.f, 0.f), glm::highp_dvec3(0.3f, 0.3f, 0.3f), 128.0f, 1.0f),
+					glm::highp_dvec3(0.0f, 0.0f, 100.0f),
 					glm::highp_dvec3(0.0f, 0.0f, -1.0f));
-	Plan rooftop(new Phong(false, glm::highp_dvec3(0.2f, 0.2f, 0.0f), glm::highp_dvec3(0.5f, 0.0f, 0.6f), 128.f, 0.3f),
+	Plan rooftop(new Phong(false, glm::highp_dvec3(0.2f, 0.2f, 0.0f), glm::highp_dvec3(0.5f, 0.0f, 0.5f), 128.f, 0.3f),
 				 glm::highp_dvec3(0.0f, 10.0f, 0.0f),
 				 glm::highp_dvec3(0.0f, -1.0f, 0.0f));
 	Plan left(new Phong(false, glm::highp_dvec3(0.2f, 0.0f, 0.2f), glm::highp_dvec3(0.0f, 0.6f, 0.0f), 128.f, 0.25f),
@@ -31,14 +31,14 @@ int main() {
 	Plan right(new Phong(false, glm::highp_dvec3(0.0f, 0.2f, 0.2f), glm::highp_dvec3(0.6f, 0.0f, 0.0f), 128.0f, 0.6f),
 			   glm::highp_dvec3(-10.0f, 0.0f, 0.0f),
 			   glm::highp_dvec3(1.0f, 0.0f, 0.0f));
-	Plan floor(new Phong(false, glm::highp_dvec3(0.2f, 0.2f, 0.2f), glm::highp_dvec3(0.0f, 1.0f, 0.0f), 128.f, 0.f),
+	Plan floor(new Phong(false, glm::highp_dvec3(0.2f, 0.2f, 0.2f), glm::highp_dvec3(0.2f, 0.0f, 0.5f), 128.f, 0.f),
 			   glm::highp_dvec3(0.0f, -10.0f, 0.0f),
 			   glm::highp_dvec3(0.0f, 1.0f, 0.0f));
 	Plan closedBox(
-			new Phong(false, glm::highp_dvec3(0.0f, 0.0f, 0.0f), glm::highp_dvec3(1.0f, 1.0f, 1.0f), 128.0f, 0.5f),
+			new Phong(false, glm::highp_dvec3(0.0f, 0.0f, 0.0f), glm::highp_dvec3(0.3f, 0.3f, 0.3f), 128.0f, 0.8f),
 			glm::highp_dvec3(0.0f, 0.0f, -10.0f),
 			glm::highp_dvec3(0.0f, 0.0f, 1.0f));
-	Light light(glm::highp_dvec3(1.0f, 4.0f, 4.0f), glm::highp_dvec3(1.0f, 1.0f, 1.0f));
+	Light light(glm::highp_dvec3(1.0f, 4.0f, 30.0f), glm::highp_dvec3(1.0f, 1.0f, 1.0f));
 	scene.addLight(&light);
 	scene.addObjet(&sphere);
 	scene.addObjet(&secSpher);
@@ -49,7 +49,7 @@ int main() {
 	scene.addObjet(&right);
 	scene.addObjet(&closedBox);
 	scene.addObjet(&background);
-	myCamera.Calculer_image(myImage, scene, 20);
+	myCamera.Calculer_image(myImage, scene, 200);
 
 	myImage.Save("out.png");
 
