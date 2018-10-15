@@ -22,12 +22,14 @@ private:
 	std::vector<glm::vec3> listCoords;
 	std::vector<glm::vec4> listTangents;
 	std::unique_ptr<OBJLoader> loader;
-	std::string m_Name;
+	std::string name;
 
 public:
 	GeometricModel() = default;
 
-	explicit GeometricModel(std::string gname);
+	explicit GeometricModel(const std::string& name);
+
+	explicit GeometricModel(std::string&& name);
 
 	~GeometricModel() = default;
 

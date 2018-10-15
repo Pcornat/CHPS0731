@@ -7,3 +7,5 @@
 bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& vector1, int i) {
 	return false;
 }
+
+Mesh::Mesh(const std::string& name) : model(name) {}

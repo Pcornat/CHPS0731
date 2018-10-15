@@ -7,7 +7,7 @@
 #include "OBJLoader.h"
 #include "GeometricModel.h"
 
-bool OBJLoader::loadModel(std::string filename, GeometricModel& model) {
+bool OBJLoader::loadModel(const std::string& filename, GeometricModel& model) {
 	using Face = GeometricModel::Face;
 	if (filename.find_last_of(".obj") == std::string::npos)
 		throw std::logic_error(std::string("ERROR : OBJ Geometric Model Loader : ") + filename + std::string(" is not an .obj file.\n"));

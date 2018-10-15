@@ -16,6 +16,8 @@ private:
 public:
 	Mesh() = default;
 
+	Mesh(const std::string& name);
+
 	~Mesh() override = default;
 
 	bool calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& vector1, int i) override;

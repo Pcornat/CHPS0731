@@ -11,7 +11,7 @@ public:
 
 	~OBJLoader() = default;
 
-	bool loadModel(std::string name, GeometricModel& model);
+	bool loadModel(const std::string& name, GeometricModel& model);
 
 private:
 	void setupForTextureCoordinates(GeometricModel& model);
