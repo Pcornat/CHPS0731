@@ -29,6 +29,7 @@ mrproper:	clean
 # DO NOT DELETE THIS LINE
 
 mesh.o: mesh.h objet.h intersection.h material.h GeometricModel.h OBJLoader.h
+mesh.o: plan.hpp rayon.h scene.h triangle.h
 sphere.o: sphere.hpp objet.h intersection.h material.h rayon.h scene.h
 sphere.o: phong.hpp light.h
 intersection.o: intersection.h

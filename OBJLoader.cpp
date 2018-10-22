@@ -30,25 +30,21 @@ bool OBJLoader::loadModel(const std::string& filename, GeometricModel& model) {
 
 		if (line.find("vt") == 0) // Texture coordinates
 		{
-
 			float x, y;
 			std::istringstream iline(line.substr(3));
 			iline >> x >> y; // u,v only for now
 			glm::vec3 vLocal(x, y, 0.0);
 			model.listCoords.push_back(vLocal);
-
 		} else if (line.find("vn") == 0) // Texture coordinates
 		{
 			//ignore for now
 		} else if (line.find('v') == 0) // Vertex
 		{
-
 			std::istringstream iline(line.substr(2));
 			iline >> v[0] >> v[1] >> v[2];
 			model.listVertex.push_back(v);
 		} else if (line.find('f') == 0)  // Faces
 		{
-
 			std::vector<int> Vlist_per_face;
 			std::vector<int> VTlist_per_face;
 			int pos;
@@ -74,13 +70,11 @@ bool OBJLoader::loadModel(const std::string& filename, GeometricModel& model) {
 						VTlist_per_face.push_back(0); // Store 0 if no tex coord
 				} else
 					VTlist_per_face.push_back(0);// Store 0 if no tex coord
-
 				old_pos = pos + 1;
 			} while (pos != -1);
 
 			if (Vlist_per_face.size() != 3)
 				throw std::logic_error(std::string("ERROR : Geometric Model : ") + filename + std::string(" is not a triangle-based mesh.\n"));
-
 			// Vertex numerotation begins at 1 in .obj definition
 			F.s1 = Vlist_per_face[0] - 1;
 			F.s2 = Vlist_per_face[1] - 1;

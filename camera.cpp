@@ -31,8 +31,8 @@ void Camera::Calculer_image(Image& im, Scene& sc, int complexite) const {
 
 	// Pour chaque pixel de l'image a calculer
 #pragma omp parallel for collapse(2)
-	for (y = 0 ; y < im.getHauteur() ; y++) {
-		for (x = 0 ; x < im.getLargeur() ; x++) {
+	for (y = 0; y < im.getHauteur(); y++) {
+		for (x = 0; x < im.getLargeur(); x++) {
 			// On calcule la position dans l'espace de ce point
 			Rayon ray; // Rayon a lancer
 			glm::highp_dvec3 vect; // Vecteur directeur du rayon a lancer

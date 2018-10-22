@@ -47,6 +47,11 @@ public:
 
 	GeometricModel& operator=(const GeometricModel& model);
 
+	/**
+	 * Moving assignment operator.
+	 * @param model Rvalue model to move.
+	 * @return the new GeometricModel.
+	 */
 	GeometricModel& operator=(GeometricModel&& model) noexcept;
 };
 
