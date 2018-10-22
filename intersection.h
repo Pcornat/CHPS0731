@@ -29,6 +29,8 @@ public:
 
 	Objet* getObj() const;
 
+	void setObj(Objet* obj);
+
 	// Opérateur de tri des intersections
 	int operator<(const Intersection& i) const {
 		return dist < i.dist;

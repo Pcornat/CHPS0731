@@ -21,3 +21,7 @@ double Intersection::getDist() const {
 Objet* Intersection::getObj() const {
 	return obj;
 }
+
+void Intersection::setObj(Objet* obj) {
+	Intersection::obj = obj;
+}

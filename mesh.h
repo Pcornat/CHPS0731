@@ -15,21 +15,26 @@ private:
 	///Model for the mesh.
 	GeometricModel model;
 
-	///Center of the model, where it will be.
-	glm::vec3 center;
-
 	///Globing box. Better for the tree of accelerating structure.
 	std::array<Plan, 6> box;
+
+	///Center of the model, where it will be.
+	glm::vec3 center;
 
 	///Factor to make the model bigger.
 	unsigned int factor;
 
+	/*
+	 * Private method under
+	 */
+	void globingBox();
+
 public:
 	Mesh() = default;
 
-	explicit Mesh(Material* material, const std::string& name, unsigned int factor);
+	explicit Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor);
 
-	explicit Mesh(Material* material, std::string&& name, unsigned int factor);
+	explicit Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor);
 
 	~Mesh() override = default;
 

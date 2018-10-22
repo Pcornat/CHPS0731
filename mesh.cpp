@@ -11,35 +11,115 @@ bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 	for (auto&& face : model.getListFaces()) {
 		Triangle triangle;
 		try {
-			triangle = Triangle(nullptr, listVertex.at(face.s1) + this->center, listVertex.at(face.s2) + this->center,
-								listVertex.at(face.s3) + this->center);
+			glm::vec3 facteur(this->factor);
+			triangle = Triangle(nullptr, facteur * listVertex.at(static_cast<unsigned long>(face.s1)) + this->center,
+								facteur * listVertex.at(static_cast<unsigned long>(face.s2)) + this->center,
+								facteur * listVertex.at(static_cast<unsigned long>(face.s3)) + this->center);
 		} catch (const std::exception& e) {
 			std::cerr << e.what() << std::endl;
 			exit(EXIT_FAILURE);
 		}
 		if ((intersect = triangle.calculIntersection(rayon, scene, I, complexite))) {
-			glm::vec3 s1s2(listVertex.at(face.s2) - listVertex.at(face.s1));
-			glm::vec3 s1s3(listVertex.at(face.s3) - listVertex.at(face.s1));
+			glm::vec3 s1s2(listVertex.at(static_cast<unsigned long>(face.s2)) - listVertex.at(static_cast<unsigned long>(face.s1)));
+			glm::vec3 s1s3(listVertex.at(static_cast<unsigned long>(face.s3)) - listVertex.at(static_cast<unsigned long>(face.s1)));
 			I.at(I.size() - 1).setNormal(glm::cross(s1s2, s1s3));
+			I.at(I.size() - 1).setObj(this);
 		}
 	}
 	return intersect;
 }
 
-Mesh::Mesh(Material* material, const std::string& name, unsigned int factor) : Objet(material), model(name), factor(factor) {
-	glm::vec3 min(std::numeric_limits<float>::lowest()), max;
-	auto& listVertex(model.getListVertex());
-	/* TODO : min max sur les x, y et z pour la boîte */
-	for (auto&& face : model.getListFaces()) {
-
-	}
+Mesh::Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor) : Objet(material), model(name), center(center),
+																										factor(factor) {
+	globingBox();
 }
 
-Mesh::Mesh(Material* material, std::string&& name, unsigned int factor) : Objet(material), model(name), factor(factor) {}
+Mesh::Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor) : Objet(material), model(name), center(center),
+																							  factor(factor) {
+	this->globingBox();
+}
 
 Mesh& Mesh::operator=(Mesh&& mesh) noexcept {
 	if (this != &mesh) {
 		this->model = std::move(mesh.model);
+		this->box = std::move(mesh.box);
+		this->center = mesh.center;
+		this->factor = mesh.factor;
 	}
 	return *this;
+}
+
+void Mesh::globingBox() {
+	float xMin = std::numeric_limits<float>::max(), yMin = std::numeric_limits<float>::max(), zMin = std::numeric_limits<float>::max(),
+			xMax = 0, yMax = 0, zMax = 0;
+	auto& listVertex(this->model.getListVertex());
+	for (auto&& face : this->model.getListFaces()) {
+		const auto& vertexS1(listVertex.at(static_cast<unsigned long>(face.s1))),
+				vertexS2(listVertex.at(static_cast<unsigned long>(face.s2))),
+				vertexS3(listVertex.at(static_cast<unsigned long>(face.s3)));
+
+		/*
+		 * Trouver le xMin.
+		 */
+		if (xMin > vertexS1.x)
+			xMin = vertexS1.x;
+		if (xMin > vertexS2.x)
+			xMin = vertexS2.x;
+		if (xMin > vertexS3.x)
+			xMin = vertexS3.x;
+
+		/*
+		 * Trouver le yMin
+		 */
+		if (yMin > vertexS1.y)
+			yMin = vertexS1.y;
+		if (yMin > vertexS2.y)
+			yMin = vertexS2.y;
+		if (yMin > vertexS3.y)
+			yMin = vertexS3.y;
+
+		/*
+		 * Trouver le zMin
+		 */
+		if (zMin > vertexS1.z)
+			zMin = vertexS1.z;
+		if (zMin > vertexS2.z)
+			zMin = vertexS2.z;
+		if (zMin > vertexS3.z)
+			zMin = vertexS3.z;
+
+		/*
+		 * Trouver le xMax
+		 */
+		if (xMax < vertexS1.x)
+			xMax = vertexS1.x;
+		if (xMax < vertexS2.x)
+			xMax = vertexS2.x;
+		if (xMax < vertexS3.x)
+			xMax = vertexS3.x;
+
+		/*
+		 * Trouver le yMax
+		 */
+		if (yMax < vertexS1.y)
+			yMax = vertexS1.y;
+		if (yMax < vertexS2.y)
+			yMax = vertexS2.y;
+		if (yMax < vertexS3.y)
+			yMax = vertexS3.y;
+
+		/*
+		 * Trouver le zMax
+		 */
+		if (zMax < vertexS1.z)
+			zMax = vertexS1.z;
+		if (zMax < vertexS2.z)
+			zMax = vertexS2.z;
+		if (zMax < vertexS3.z)
+			zMax = vertexS3.z;
+	}
+
+	//TODO : faire les six plans à la main T-T
+
+
 }
