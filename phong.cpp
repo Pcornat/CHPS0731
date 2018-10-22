@@ -44,7 +44,8 @@ glm::highp_dvec3
 Phong::computeColour(const Intersection &I, const glm::highp_dvec3 &point, const Scene &s, const Rayon &rayon,
 					 int rec) {
 	double offset = std::numeric_limits<double>::epsilon() * 1000000;
-	glm::highp_dvec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, refl(0, 0, 0);
+	glm::highp_dvec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, refl(0, 0, 0), min(0, 0, 0), max(1, 1, 1);
+	double shad = 1;
 	for (auto light : s.Lights) {
 		/*
 		 * Diffus = max(N.L, 0) * Kd * Lc
@@ -53,24 +54,31 @@ Phong::computeColour(const Intersection &I, const glm::highp_dvec3 &point, const
 		 */
 		L = glm::normalize(point - light->getPosition()), R = glm::normalize(glm::reflect(-L, I.getNormal()));
 		Rayon rayShadow(offset * I.getNormal() + point, -L);
-		amb += this->ka;
-		diff += glm::max(glm::dot(I.getNormal(), -L), 0.0) * glm::perlin(0.1 * point) * light->getCouleur();
-		spec += light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0), this->ks);
+
+		amb = glm::clamp(amb + this->ka, min, max);
+		/*diff += glm::max(glm::dot(I.getNormal(), -L), 0.0) * glm::perlin(0.1 * point) * light->getCouleur();*/
+		diff = glm::clamp(diff + glm::max(glm::dot(I.getNormal(), -L), 0.0) * this->kd * light->getCouleur(),
+						  min, max);
+
+
+		spec = glm::clamp(spec + light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0), this->ks),
+						  min, max);
+
+
 		if (rayShadow.shadowRay(s, glm::distance(point, light->getPosition()), rec - 1)) {
 			if (this->reflection != 0.0f) {
 				Rayon reflect(offset * I.getNormal() + point,
 							  glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
 				refl = reflect.Lancer(s, rec - 1);
-				return (1.0 - this->reflection) * (0.5 * (amb + diff + spec)) + this->reflection * refl;
-			} else {
-				return 0.5 * (amb + diff + spec);
-			}
+				shad *= 0.9;
+			} else
+				shad *= 0.9;
 		}
 	}
 	if (this->reflection != 0.0f) {
 		Rayon reflect(offset * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
 		refl = reflect.Lancer(s, rec - 1);
-		return (1.0 - this->reflection) * (amb + diff + spec) + this->reflection * refl;
+		return (1.0 - this->reflection) * shad * (amb + diff + spec) + this->reflection * refl;
 	} else
-		return amb + diff + spec;
+		return shad * (amb + diff + spec);
 }

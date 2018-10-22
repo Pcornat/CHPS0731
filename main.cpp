@@ -16,7 +16,7 @@ int main() {
 				  glm::highp_dvec3(-2.5, -0.2, 80.0),
 				  1);
 	Sphere secSpher(
-			new Phong(false, glm::highp_dvec3(0.2f, 0.0f, 0.0f), glm::highp_dvec3(0.0f, 0.5f, 0.392f), 128.0f, 0.0f),
+			new Phong(false, glm::highp_dvec3(0.2f, 0.0f, 0.0f), glm::highp_dvec3(0.0f, 0.5f, 0.392f), 128.0f, 0.3f),
 			glm::highp_dvec3(2.5f, -1.7f, 75.0f), 1);
 	/*Triangle triangle(new Phong(false, glm::highp_dvec3(0.2f, 0.2f, 0.0f), glm::highp_dvec3(1.0f, 1.0f, 1.0f), 128.0f, 0.25f),
 					  glm::highp_dvec3(1.7f, -2.0f, 100.0f),
@@ -40,9 +40,13 @@ int main() {
 			new Phong(false, glm::highp_dvec3(0.0f, 0.0f, 0.0f), glm::highp_dvec3(0.3f, 0.3f, 0.3f), 128.0f, 0.8f),
 			glm::highp_dvec3(0.0f, 0.0f, -10.0f),
 			glm::highp_dvec3(0.0f, 0.0f, 1.0f));
-	Light light1(glm::highp_dvec3(1.0f, 4.0f, 80.0f), glm::highp_dvec3(1.0f, 1.0f, 1.0f));
+	Light light1(glm::highp_dvec3(1.0f, 4.0f, 80.0f), glm::highp_dvec3(0.33f, 0.33f, 0.33f));
+	Light light2(glm::highp_dvec3(4.0f, 4.0f, 80.0f), glm::highp_dvec3(0.33f, 0.33f, 0.33f));
+	Light light3(glm::highp_dvec3(1.0f, 4.0f, 80.0f), glm::highp_dvec3(0.33f, 0.33f, 0.33f));
 
 	scene.addLight(&light1);
+	scene.addLight(&light2);
+	scene.addLight(&light3);
 	scene.addObjet(&sphere);
 	scene.addObjet(&secSpher);
 	//scene.addObjet(&triangle);
