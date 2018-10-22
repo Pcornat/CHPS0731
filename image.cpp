@@ -37,6 +37,7 @@ void Image::Save(std::string name) {
 			image[4 * width * y + 4 * x + 2] = (unsigned char) (round(tmp.z * 255.0));
 			image[4 * width * y + 4 * x + 3] = 255;
 		}
+	/* TODO : TONE MAPPING HERE */
 	encodeOneStep(name.c_str(), image, width, height);
 	std::cout << "Done!" << std::endl;
 }
