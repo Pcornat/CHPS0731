@@ -1,62 +1,64 @@
-//
-// Created by Florent on 15/10/2018.
-//
-
 #include "mesh.h"
 #include "triangle.h"
 
 bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) {
 	bool intersect = false;
 	auto& listVertex(model.getListVertex());
-	for (auto&& face : model.getListFaces()) {
-		Triangle triangle;
-		try {
-			glm::vec3 facteur(this->factor);
-			triangle = Triangle(nullptr, facteur * listVertex.at(static_cast<unsigned long>(face.s1)) + this->center,
-								facteur * listVertex.at(static_cast<unsigned long>(face.s2)) + this->center,
-								facteur * listVertex.at(static_cast<unsigned long>(face.s3)) + this->center);
-		} catch (const std::exception& e) {
-			std::cerr << e.what() << std::endl;
-			exit(EXIT_FAILURE);
+	if (this->box.calculIntersection(rayon, scene, I, complexite)) {
+		for (auto&& face : model.getListFaces()) {
+			Triangle triangle;
+			try {
+				glm::vec3 facteur(this->factor);
+				triangle = Triangle(nullptr, facteur * listVertex.at(static_cast<unsigned long>(face.s1)) + this->center,
+									facteur * listVertex.at(static_cast<unsigned long>(face.s2)) + this->center,
+									facteur * listVertex.at(static_cast<unsigned long>(face.s3)) + this->center);
+			} catch (const std::exception& e) {
+				std::cerr << e.what() << std::endl;
+				exit(EXIT_FAILURE);
+			}
+			if ((intersect = triangle.calculIntersection(rayon, scene, I, complexite))) {
+				glm::vec3 s1s2(listVertex.at(static_cast<unsigned long>(face.s2)) - listVertex.at(static_cast<unsigned long>(face.s1)));
+				glm::vec3 s1s3(listVertex.at(static_cast<unsigned long>(face.s3)) - listVertex.at(static_cast<unsigned long>(face.s1)));
+				I.at(I.size() - 1).setNormal(glm::cross(s1s2, s1s3));
+				I.at(I.size() - 1).setObj(this);
+			}
 		}
-		if ((intersect = triangle.calculIntersection(rayon, scene, I, complexite))) {
-			glm::vec3 s1s2(listVertex.at(static_cast<unsigned long>(face.s2)) - listVertex.at(static_cast<unsigned long>(face.s1)));
-			glm::vec3 s1s3(listVertex.at(static_cast<unsigned long>(face.s3)) - listVertex.at(static_cast<unsigned long>(face.s1)));
-			I.at(I.size() - 1).setNormal(glm::cross(s1s2, s1s3));
-			I.at(I.size() - 1).setObj(this);
-		}
-	}
-	return intersect;
+		return true;
+	} else
+		return false;
 }
 
 Mesh::Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor) : Objet(material), model(name), center(center),
 																										factor(factor) {
-	globingBox();
+	this->boundingBox();
 }
 
 Mesh::Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor) : Objet(material), model(name), center(center),
 																							  factor(factor) {
-	this->globingBox();
+	this->boundingBox();
 }
 
 Mesh& Mesh::operator=(Mesh&& mesh) noexcept {
 	if (this != &mesh) {
 		this->model = std::move(mesh.model);
-		this->box = std::move(mesh.box);
+		this->box = mesh.box;
 		this->center = mesh.center;
 		this->factor = mesh.factor;
+		this->material = mesh.material;
+		mesh.material = nullptr;
 	}
 	return *this;
 }
 
-void Mesh::globingBox() {
+void Mesh::boundingBox() {
 	float xMin = std::numeric_limits<float>::max(), yMin = std::numeric_limits<float>::max(), zMin = std::numeric_limits<float>::max(),
 			xMax = 0, yMax = 0, zMax = 0;
 	auto& listVertex(this->model.getListVertex());
-	for (auto&& face : this->model.getListFaces()) {
-		const auto& vertexS1(listVertex.at(static_cast<unsigned long>(face.s1))),
-				vertexS2(listVertex.at(static_cast<unsigned long>(face.s2))),
-				vertexS3(listVertex.at(static_cast<unsigned long>(face.s3)));
+	//Objectif : paralléliser la boucle. Problème : min max, concurrence en écriture.
+	for (auto face = model.getListFaces().begin(); face != model.getListFaces().end(); ++face) {
+		const auto& vertexS1(listVertex.at(static_cast<unsigned long>(face->s1))),
+				vertexS2(listVertex.at(static_cast<unsigned long>(face->s2))),
+				vertexS3(listVertex.at(static_cast<unsigned long>(face->s3)));
 
 		/*
 		 * Trouver le xMin.
@@ -118,8 +120,9 @@ void Mesh::globingBox() {
 		if (zMax < vertexS3.z)
 			zMax = vertexS3.z;
 	}
+	this->box = BoundingBox(xMin, yMin, zMin, xMax, yMax, zMax);
+}
 
-	//TODO : faire les six plans à la main T-T
-
-
+Mesh::~Mesh() {
+	delete this->material;
 }

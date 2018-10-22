@@ -8,6 +8,10 @@ class Scene;
 
 class Rayon;
 
+/**
+ * \class Material
+ * Material class, derived only for the different material possible (Phong only at the moment).
+ */
 class Material {
 
 protected:

@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.10)
 include_directories(.)
 include_directories(./png)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe -march=native -std=c++14 -Wall -Wextra -fopenmp")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lstdc++ -lm -fopenmp")
+
 add_executable(RayTrace
 		png/lodepng.h
 		png/lodepng.cpp
@@ -34,4 +37,4 @@ add_executable(RayTrace
 		GeometricModel.cpp
 		GeometricModel.h
 		OBJLoader.cpp
-		OBJLoader.h mesh.cpp mesh.h)
+		OBJLoader.h mesh.cpp mesh.h bounding_box.cpp bounding_box.h)

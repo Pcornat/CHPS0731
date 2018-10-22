@@ -9,14 +9,15 @@
 #include "objet.h"
 #include "GeometricModel.h"
 #include "plan.hpp"
+#include "bounding_box.h"
 
 class Mesh : public Objet {
 private:
 	///Model for the mesh.
 	GeometricModel model;
 
-	///Globing box. Better for the tree of accelerating structure.
-	std::array<Plan, 6> box;
+	///Bounding box. Better for the tree of accelerating structure in the future, than a sphere.
+	BoundingBox box;
 
 	///Center of the model, where it will be.
 	glm::vec3 center;
@@ -27,16 +28,30 @@ private:
 	/*
 	 * Private method under
 	 */
-	void globingBox();
+	void boundingBox();
 
 public:
 	Mesh() = default;
 
+	/**
+	 * Construct a mesh with l-value.
+	 * @param material @see Material
+	 * @param name
+	 * @param center
+	 * @param factor
+	 */
 	explicit Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor);
 
+	/**
+	 * Construct a mesh with r-value parameters.
+	 * @param material
+	 * @param name
+	 * @param center
+	 * @param factor
+	 */
 	explicit Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor);
 
-	~Mesh() override = default;
+	~Mesh() override;
 
 	/**
 	 * Compute intersection between the model and the ray.
@@ -48,6 +63,11 @@ public:
 	 */
 	bool calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& vector1, int i) override;
 
+	/**
+	 * Moving assignment operator
+	 * @param mesh
+	 * @return
+	 */
 	Mesh& operator=(Mesh&& mesh) noexcept;
 };
 
