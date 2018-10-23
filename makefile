@@ -44,6 +44,9 @@ light.o: light.h
 intersection.o: intersection.h
 rayon.o: rayon.h scene.h intersection.h objet.h material.h
 camera.o: camera.h scene.h rayon.h intersection.h image.h
+texture.o: texture.h material.h intersection.h mesh.h objet.h
+texture.o: GeometricModel.h OBJLoader.h plan.hpp rayon.h scene.h
+texture.o: bounding_box.h
 main.o: image.h camera.h scene.h rayon.h intersection.h objet.h material.h
 main.o: sphere.hpp plan.hpp phong.hpp light.h mesh.h GeometricModel.h
 main.o: OBJLoader.h bounding_box.h

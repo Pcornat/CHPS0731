@@ -1,7 +1,6 @@
 #include "mesh.h"
 
 bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) {
-	bool intersect = false;
 	auto& listVertex(model.getListVertex());
 	auto& listNormals(model.getListNormals());
 	if (this->box.calculIntersection(rayon, scene, I, complexite)) {
@@ -25,13 +24,15 @@ bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 		return false;
 }
 
-Mesh::Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor) : Objet(material), model(name), center(center),
-																										factor(factor) {
+Mesh::Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor, float angle, const glm::vec3& axis)
+		: Objet(material), model(name, angle, axis), center(center),
+		  factor(factor) {
 	this->boundingBox();
 }
 
-Mesh::Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor) : Objet(material), model(name), center(center),
-																							  factor(factor) {
+Mesh::Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor, float angle, glm::vec3&& axis)
+		: Objet(material), model(name, angle, axis), center(center),
+		  factor(factor) {
 	this->boundingBox();
 }
 

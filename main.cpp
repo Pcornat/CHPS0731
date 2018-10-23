@@ -6,16 +6,20 @@
 #include "phong.hpp"
 #include "mesh.h"
 
-int main() {
+int main(int argc, char* argv[]) {
 	const unsigned int h = 1080;
 	const unsigned int l = 1920;
 	Camera myCamera;
 	Scene scene;
 	Image myImage(h, l);
 	Mesh mesh;
+	if (argc != 2) {
+		std::cerr << "Nombre d'arguments insuffisant." << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	try {
-		mesh = Mesh(new Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.f, 0.f), 128.0f, 0.0f), "BunnyLow.obj",
-					glm::vec3(0.f, 0.f, 75.f), 10);
+		mesh = Mesh(new Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f), std::string(argv[1]),
+					glm::vec3(0.f, 0.f, 100.f), 15, 180.f, glm::vec3(0, 1, 0));
 	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 		exit(EXIT_FAILURE);

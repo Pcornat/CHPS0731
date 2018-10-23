@@ -40,7 +40,7 @@ public:
 	 * @param center
 	 * @param factor
 	 */
-	explicit Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor);
+	explicit Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor, float angle, const glm::vec3& axis);
 
 	/**
 	 * Construct a mesh with r-value parameters.
@@ -49,7 +49,7 @@ public:
 	 * @param center
 	 * @param factor
 	 */
-	explicit Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor);
+	explicit Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor, float angle, glm::vec3&& axis);
 
 	~Mesh() override;
 

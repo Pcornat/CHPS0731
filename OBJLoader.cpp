@@ -7,7 +7,11 @@
 #include "OBJLoader.h"
 #include "GeometricModel.h"
 
-bool OBJLoader::loadModel(const std::string& filename, GeometricModel& model) {
+#define GLM_ENABLE_EXPERIMENTAL
+
+#include <glm/gtx/rotate_vector.hpp>
+
+bool OBJLoader::loadModel(const std::string& filename, GeometricModel& model, float angle, const glm::vec3& axis) {
 	using Face = GeometricModel::Face;
 	if (filename.find_last_of(".obj") == std::string::npos)
 		throw std::logic_error(std::string("ERROR : OBJ Geometric Model Loader : ") + filename + std::string(" is not an .obj file.\n"));
@@ -42,6 +46,7 @@ bool OBJLoader::loadModel(const std::string& filename, GeometricModel& model) {
 		{
 			std::istringstream iline(line.substr(2));
 			iline >> v[0] >> v[1] >> v[2];
+			v = glm::rotate(v, angle, axis);
 			model.listVertex.push_back(v);
 		} else if (line.find('f') == 0)  // Faces
 		{
@@ -225,4 +230,8 @@ void OBJLoader::computeTangents(GeometricModel& model) {
 	}
 
 	delete[] tan1, delete[] tan2;
+}
+
+bool OBJLoader::loadModel(const std::string& name, GeometricModel& model, float angle, glm::vec3&& axis) {
+	return this->loadModel(name, model, angle, axis);
 }

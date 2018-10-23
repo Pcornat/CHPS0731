@@ -27,9 +27,9 @@ private:
 public:
 	GeometricModel() = default;
 
-	explicit GeometricModel(const std::string& name);
+	explicit GeometricModel(const std::string& name, float angle, const glm::vec3& axis);
 
-	explicit GeometricModel(std::string&& name);
+	explicit GeometricModel(std::string&& name, float angle, glm::vec3&& axis);
 
 	~GeometricModel() = default;
 
