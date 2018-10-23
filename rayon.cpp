@@ -2,8 +2,8 @@
 #include "rayon.h"
 #include "objet.h"
 
-glm::highp_dvec3 Rayon::Lancer(const Scene& sc, int complexite) const {
-	glm::highp_dvec3 res = glm::highp_dvec3(0);//retourne noir de base
+glm::vec3 Rayon::Lancer(const Scene& sc, int complexite) const {
+	glm::vec3 res = glm::vec3(0);//retourne noir de base
 	if (complexite == 0) return res;
 	std::vector<Intersection> I;
 	for (auto objet : sc.Objets) {
@@ -19,9 +19,9 @@ glm::highp_dvec3 Rayon::Lancer(const Scene& sc, int complexite) const {
 	return res;
 }
 
-Rayon::Rayon(const glm::highp_dvec3& orig, const glm::highp_dvec3& vect) : orig(orig), vect(vect) {}
+Rayon::Rayon(const glm::vec3& orig, const glm::vec3& vect) : orig(orig), vect(vect) {}
 
-bool Rayon::shadowRay(const Scene& sc, double distLum, int complexite) {
+bool Rayon::shadowRay(const Scene& sc, float distLum, int complexite) {
 	std::vector<Intersection> I;
 	for (auto objet : sc.Objets) {
 		objet->calculIntersection(*this, sc, I, complexite);

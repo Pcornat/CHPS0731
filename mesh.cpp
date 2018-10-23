@@ -4,23 +4,21 @@
 bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) {
 	bool intersect = false;
 	auto& listVertex(model.getListVertex());
+	auto& listNormals(model.getListNormals());
 	if (this->box.calculIntersection(rayon, scene, I, complexite)) {
 		for (auto&& face : model.getListFaces()) {
-			Triangle triangle;
-			try {
-				glm::vec3 facteur(this->factor);
-				triangle = Triangle(nullptr, facteur * listVertex.at(static_cast<unsigned long>(face.s1)) + this->center,
-									facteur * listVertex.at(static_cast<unsigned long>(face.s2)) + this->center,
-									facteur * listVertex.at(static_cast<unsigned long>(face.s3)) + this->center);
-			} catch (const std::exception& e) {
-				std::cerr << e.what() << std::endl;
-				exit(EXIT_FAILURE);
-			}
-			if ((intersect = triangle.calculIntersection(rayon, scene, I, complexite))) {
-				glm::vec3 s1s2(listVertex.at(static_cast<unsigned long>(face.s2)) - listVertex.at(static_cast<unsigned long>(face.s1)));
-				glm::vec3 s1s3(listVertex.at(static_cast<unsigned long>(face.s3)) - listVertex.at(static_cast<unsigned long>(face.s1)));
-				I.at(I.size() - 1).setNormal(glm::cross(s1s2, s1s3));
-				I.at(I.size() - 1).setObj(this);
+			float dist = 0.f;
+			glm::vec2 baryPos;
+			glm::vec3 facteur(this->factor),
+					pointA = facteur * listVertex.at(static_cast<unsigned long>(face.s1)) + this->center,
+					pointB = facteur * listVertex.at(static_cast<unsigned long>(face.s2)) + this->center,
+					pointC = facteur * listVertex.at(static_cast<unsigned long>(face.s3)) + this->center;
+			if ((intersect = glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), pointA, pointB, pointC, baryPos, dist))) {
+				glm::vec3 baryCenter(baryPos.x, baryPos.y, 1 - baryPos.x - baryPos.y),
+						norm(listNormals.at(static_cast<unsigned long>(face.s1)) * baryCenter +
+							 listNormals.at(static_cast<unsigned long>(face.s2)) * baryCenter +
+							 listNormals.at(static_cast<unsigned long>(face.s3)) * baryCenter);
+				I.emplace_back(dist, norm, this);
 			}
 		}
 		return true;

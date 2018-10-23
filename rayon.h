@@ -8,34 +8,34 @@
 class Rayon {
 protected:
 
-	glm::highp_dvec3 orig;
-	glm::highp_dvec3 vect;
+	glm::vec3 orig;
+	glm::vec3 vect;
 
 public:
 	Rayon() = default;
 
-	explicit Rayon(const glm::highp_dvec3& orig, const glm::highp_dvec3& vect);
+	explicit Rayon(const glm::vec3& orig, const glm::vec3& vect);
 
-	glm::highp_dvec3 Orig() const {
+	glm::vec3 Orig() const {
 		return orig;
 	}
 
-	glm::highp_dvec3 Vect() const {
+	glm::vec3 Vect() const {
 		return vect;
 	}
 
 
-	void Orig(const glm::highp_dvec3& o) {
+	void Orig(const glm::vec3& o) {
 		orig = o;
 	}
 
-	void Vect(const glm::highp_dvec3& v) {
+	void Vect(const glm::vec3& v) {
 		vect = glm::normalize(v);
 	}
 
-	glm::highp_dvec3 Lancer(const Scene& sc, int complexite) const;
+	glm::vec3 Lancer(const Scene& sc, int complexite) const;
 
-	bool shadowRay(const Scene& sc, double distLum, int complexite);
+	bool shadowRay(const Scene& sc, float distLum, int complexite);
 };
 
 #endif

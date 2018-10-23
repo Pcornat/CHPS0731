@@ -15,17 +15,17 @@
  */
 class Plan : public Objet {
 private:
-	glm::highp_dvec3 orig;
-	glm::highp_dvec3 normal;
+	glm::vec3 orig;
+	glm::vec3 normal;
 
 public:
 	Plan() = default;
 
 	~Plan() override;
 
-	explicit Plan(Material* material, const glm::highp_dvec3& orig, const glm::highp_dvec3& normal);
+	explicit Plan(Material* material, const glm::vec3& orig, const glm::vec3& normal);
 
-	explicit Plan(Material* material, glm::highp_dvec3&& orig, glm::highp_dvec3&& normal);
+	explicit Plan(Material* material, glm::vec3&& orig, glm::vec3&& normal);
 
 	bool calculIntersection(const Rayon&, const Scene&, std::vector<Intersection>&, int) override;
 };

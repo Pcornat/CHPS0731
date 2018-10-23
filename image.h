@@ -9,7 +9,7 @@ class Image {
 protected:
 	unsigned int hauteur; // position de l'oeil
 	unsigned int largeur; // Largeur de l'ecran
-	glm::highp_dvec3* pixels;
+	glm::vec3* pixels;
 public:
 	Image(unsigned int, unsigned int);
 
@@ -23,7 +23,7 @@ public:
 
 	~Image();
 
-	void setPixel(int, int, glm::highp_dvec3);
+	void setPixel(int, int, glm::vec3);
 };
 
 #endif

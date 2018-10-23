@@ -9,69 +9,69 @@ class Image;
 
 class Camera {
 protected:
-	glm::highp_dvec3 centre; // position de l'oeil
-	double largeur; // Largeur de l'ecran
-	double hauteur; // Hauteur de l'ecran
-	double dist; // Distance focale de la camera
-	glm::highp_dvec3 dir; // Direction de vue de la camera
-	glm::highp_dvec3 haut; // Vecteur definissant l'orientation de la "tete" de la camera
+	glm::vec3 centre; // position de l'oeil
+	float largeur; // Largeur de l'ecran
+	float hauteur; // Hauteur de l'ecran
+	float dist; // Distance focale de la camera
+	glm::vec3 dir; // Direction de vue de la camera
+	glm::vec3 haut; // Vecteur definissant l'orientation de la "tete" de la camera
 
 public:
 	Camera() {
-		centre = glm::highp_dvec3(0, 0, -3);
+		centre = glm::vec3(0, 0, -3);
 		largeur = 2;
-		hauteur = 2 * 9.0 / 16.0;
-		dist = 10;
-		dir = glm::highp_dvec3(0, 0, 1);
-		haut = glm::highp_dvec3(0, 1, 0);
+		hauteur = 2 * 9.0f / 16.0f;
+		dist = 10.0f;
+		dir = glm::vec3(0, 0, 1);
+		haut = glm::vec3(0, 1, 0);
 	}
 
-	glm::highp_dvec3 Centre() const {
+	glm::vec3 Centre() const {
 		return centre;
 	}
 
-	double Largeur() const {
+	float Largeur() const {
 		return largeur;
 	}
 
-	double Hauteur() const {
+	float Hauteur() const {
 		return hauteur;
 	}
 
-	double Dist() const {
+	float Dist() const {
 		return dist;
 	}
 
-	glm::highp_dvec3 Dir() const {
+	glm::vec3 Dir() const {
 		return dir;
 	}
 
-	glm::highp_dvec3 Haut() const {
+	glm::vec3 Haut() const {
 		return haut;
 	}
 
-	void Centre(const glm::highp_dvec3& c) {
+	void Centre(const glm::vec3& c) {
 		centre = c;
 	}
 
-	void Largeur(double l) {
+	void Largeur(float l) {
 		largeur = l;
 	}
 
-	void Hauteur(double h) {
+	void Hauteur(float h) {
 		hauteur = h;
 	}
 
-	void Dist(double d) {
+	void Dist(float d) {
 		dist = d;
 	}
 
-	void Dir(const glm::highp_dvec3& d) {
+	void Dir(const glm::vec3& d) {
 		dir = d;
 		dir = glm::normalize(dir);
 	}
 
-	void Haut(const glm::highp_dvec3& h);
+	void Haut(const glm::vec3& h);
 
 	void Calculer_image(Image&, Scene& sc, int) const;
 };

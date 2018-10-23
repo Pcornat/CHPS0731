@@ -12,9 +12,9 @@
  * @param kd Diffusion coef
  * @param ks Specular coef
  */
-Phong::Phong(bool refraction, const glm::highp_dvec3& ka, const glm::highp_dvec3& kd, double ks, double reflection) : Material(refraction), ka(ka),
-																													  kd(kd), ks(ks),
-																													  reflection(reflection) {}
+Phong::Phong(bool refraction, const glm::vec3& ka, const glm::vec3& kd, float ks, float reflection) : Material(refraction), ka(ka),
+																									  kd(kd), ks(ks),
+																									  reflection(reflection) {}
 
 /**
  * Construct a phong material with r-value.
@@ -22,8 +22,8 @@ Phong::Phong(bool refraction, const glm::highp_dvec3& ka, const glm::highp_dvec3
  * @param kd Diffusion coef
  * @param ks Specular coef
  */
-Phong::Phong(bool refraction, glm::highp_dvec3&& ka, glm::highp_dvec3&& kd, double ks, double reflection) : Material(refraction), ka(ka), kd(kd),
-																											ks(ks), reflection(reflection) {}
+Phong::Phong(bool refraction, glm::vec3&& ka, glm::vec3&& kd, float ks, float reflection) : Material(refraction), ka(ka), kd(kd),
+																							ks(ks), reflection(reflection) {}
 
 /**
  * Computes colour from the phong model. It also takes care of the reflection.
@@ -34,9 +34,9 @@ Phong::Phong(bool refraction, glm::highp_dvec3&& ka, glm::highp_dvec3&& kd, doub
  * @param rec The reflection depth
  * @return The object's colour (the normal vector to make it simple)
  */
-glm::highp_dvec3 Phong::computeColour(const Intersection& I, const glm::highp_dvec3& point, const Scene& s, const Rayon& rayon, int rec) {
-	double offset = std::numeric_limits<double>::epsilon() * 1000000;
-	glm::highp_dvec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, refl(0, 0, 0);
+glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& rayon, int rec) {
+	float offset = std::numeric_limits<float>::epsilon() * 10000;
+	glm::vec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, refl(0, 0, 0);
 	for (auto light : s.Lights) {
 		/*
 		 * Diffus = max(N.L, 0) * Kd * Lc
@@ -46,24 +46,24 @@ glm::highp_dvec3 Phong::computeColour(const Intersection& I, const glm::highp_dv
 		L = glm::normalize(point - light->getPosition()), R = glm::normalize(glm::reflect(-L, I.getNormal()));
 		Rayon rayShadow(offset * I.getNormal() + point, -L);
 		amb += this->ka;
-		diff += glm::max(glm::dot(I.getNormal(), -L), 0.0) * this->kd * light->getCouleur();
-		spec += light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0), this->ks);
+		diff += glm::max(glm::dot(I.getNormal(), -L), 0.0f) * this->kd * light->getCouleur();
+		spec += light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0f), this->ks);
 		if (rayShadow.shadowRay(s, glm::distance(point, light->getPosition()), rec - 1)) {
 			if (this->reflection != 0.0f) {
 				Rayon reflect(offset * I.getNormal() + point,
 							  glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
 				refl = reflect.Lancer(s, rec - 1);
-				return (1.0 - this->reflection) * (0.5 * (amb + diff + spec)) +
+				return (1.0f - this->reflection) * (0.5f * (amb + diff + spec)) +
 					   this->reflection * refl;
 			} else {
-				return 0.5 * (amb + diff + spec);
+				return 0.5f * (amb + diff + spec);
 			}
 		}
 	}
 	if (this->reflection != 0.0f) {
 		Rayon reflect(offset * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
 		refl = reflect.Lancer(s, rec - 1);
-		return (1.0 - this->reflection) * (amb + diff + spec) + this->reflection * refl;
+		return (1.0f - this->reflection) * (amb + diff + spec) + this->reflection * refl;
 	} else
 		return amb + diff + spec;
 }
