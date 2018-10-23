@@ -14,9 +14,9 @@ bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 					pointC = facteur * listVertex.at(static_cast<unsigned long>(face.s3)) + this->center;
 			if ((intersect = glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), pointA, pointB, pointC, baryPos, dist))) {
 				glm::vec3 baryCenter(baryPos.x, baryPos.y, 1 - baryPos.x - baryPos.y),
-						norm(listNormals.at(static_cast<unsigned long>(face.s1)) * baryCenter +
-							 listNormals.at(static_cast<unsigned long>(face.s2)) * baryCenter +
-							 listNormals.at(static_cast<unsigned long>(face.s3)) * baryCenter);
+						norm(glm::normalize(listNormals.at(static_cast<unsigned long>(face.s1)) * baryCenter +
+											listNormals.at(static_cast<unsigned long>(face.s2)) * baryCenter +
+											listNormals.at(static_cast<unsigned long>(face.s3)) * baryCenter));
 				I.emplace_back(dist, norm, this);
 			}
 		}

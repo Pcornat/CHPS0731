@@ -37,4 +37,4 @@ add_executable(RayTrace
 		GeometricModel.cpp
 		GeometricModel.h
 		OBJLoader.cpp
-		OBJLoader.h mesh.cpp mesh.h bounding_box.cpp bounding_box.h)
+		OBJLoader.h mesh.cpp mesh.h bounding_box.cpp bounding_box.h texture.cpp texture.h)
