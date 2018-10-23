@@ -23,7 +23,7 @@ bool Triangle::calculIntersection(const Rayon& rayon, const Scene& sc, std::vect
 	if (!glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), this->pointA, this->pointB, this->pointC, baryCentre, dist)) {
 		return false;
 	}
-	glm::highp_dvec3 norm(baryCentre.x, baryCentre.y, -1.0f);
+	glm::highp_dvec3 norm = glm::cross(this->pointA - this->pointB, this->pointA - this->pointC);
 	I.emplace_back(dist, norm, this);
 	return true;
 }
@@ -37,4 +37,5 @@ Triangle::~Triangle() {
 
 Triangle::Triangle(Material* material, glm::highp_dvec3&& pointA, glm::highp_dvec3&& pointB, glm::highp_dvec3&& pointC) : Objet(material),
 																														  pointA(pointA),
-																														  pointB(pointB), pointC(pointC) {}
+																														  pointB(pointB),
+																														  pointC(pointC) {}

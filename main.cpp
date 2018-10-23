@@ -15,9 +15,8 @@ int main() {
 	Image myImage(h, l);
 	Mesh mesh;
 	try {
-		mesh = Mesh(new Phong(false, glm::highp_dvec3(0.2f, 0.f, 0.f), glm::highp_dvec3(0.f, 0.f, 0.3f), 128.0f, 0.0f), "BunnyLow.obj",
-					glm::vec3(0.f, 0.f, 150.f),
-					10);
+		mesh = Mesh(new Phong(false, glm::highp_dvec3(0.1f, 0.2f, 0.1f), glm::highp_dvec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f), "BunnyLow.obj",
+					glm::vec3(-3.5f, -0.2f, 150.f), 10);
 	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 		exit(EXIT_FAILURE);
