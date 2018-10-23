@@ -29,7 +29,7 @@ mrproper:	clean
 # DO NOT DELETE THIS LINE
 
 mesh.o: mesh.h objet.h intersection.h material.h GeometricModel.h OBJLoader.h
-mesh.o: plan.hpp rayon.h scene.h bounding_box.h triangle.h
+mesh.o: plan.hpp rayon.h scene.h bounding_box.h
 sphere.o: sphere.hpp objet.h intersection.h material.h rayon.h scene.h
 sphere.o: phong.hpp light.h
 bounding_box.o: bounding_box.h objet.h intersection.h material.h plan.hpp
@@ -45,7 +45,7 @@ intersection.o: intersection.h
 rayon.o: rayon.h scene.h intersection.h objet.h material.h
 camera.o: camera.h scene.h rayon.h intersection.h image.h
 main.o: image.h camera.h scene.h rayon.h intersection.h objet.h material.h
-main.o: sphere.hpp triangle.h plan.hpp phong.hpp light.h mesh.h
-main.o: GeometricModel.h OBJLoader.h bounding_box.h
+main.o: sphere.hpp plan.hpp phong.hpp light.h mesh.h GeometricModel.h
+main.o: OBJLoader.h bounding_box.h
 GeometricModel.o: GeometricModel.h OBJLoader.h
 OBJLoader.o: OBJLoader.h GeometricModel.h

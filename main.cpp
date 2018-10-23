@@ -2,7 +2,6 @@
 #include "camera.h"
 #include "objet.h"
 #include "sphere.hpp"
-#include "triangle.h"
 #include "plan.hpp"
 #include "phong.hpp"
 #include "mesh.h"

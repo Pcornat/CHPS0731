@@ -1,5 +1,4 @@
 #include "mesh.h"
-#include "triangle.h"
 
 bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) {
 	bool intersect = false;
@@ -52,11 +51,13 @@ void Mesh::boundingBox() {
 	float xMin = std::numeric_limits<float>::max(), yMin = std::numeric_limits<float>::max(), zMin = std::numeric_limits<float>::max(),
 			xMax = 0, yMax = 0, zMax = 0;
 	auto& listVertex(this->model.getListVertex());
+	auto& listFace(model.getListFaces());
 	//Objectif : paralléliser la boucle. Problème : min max, concurrence en écriture.
-	for (auto face = model.getListFaces().begin(); face != model.getListFaces().end(); ++face) {
-		const auto& vertexS1(listVertex.at(static_cast<unsigned long>(face->s1))),
-				vertexS2(listVertex.at(static_cast<unsigned long>(face->s2))),
-				vertexS3(listVertex.at(static_cast<unsigned long>(face->s3)));
+#pragma omp parallel for reduction(min: xMin) reduction(min: yMin) reduction(min: zMin) reduction(max: xMax) reduction(max: yMax) reduction(max: zMax)
+	for (std::size_t i = 0; i < listFace.size(); ++i) {
+		const auto& vertexS1(listVertex.at(static_cast<unsigned long>(listFace.at(i).s1))),
+				vertexS2(listVertex.at(static_cast<unsigned long>(listFace.at(i).s2))),
+				vertexS3(listVertex.at(static_cast<unsigned long>(listFace.at(i).s3)));
 
 		/*
 		 * Trouver le xMin.

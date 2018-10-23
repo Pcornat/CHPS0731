@@ -1,8 +1,5 @@
 #include <memory>
-
-#include <iostream>
 #include "GeometricModel.h"
-#include "OBJLoader.h"
 
 GeometricModel::GeometricModel(std::string&& name) : name(name) {
 	this->loader->loadModel(this->name, *this);
