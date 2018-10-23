@@ -41,7 +41,7 @@ light.o: light.h
 rayon.o: rayon.h scene.h intersection.h objet.h material.h
 camera.o: camera.h scene.h rayon.h intersection.h image.h
 main.o: image.h camera.h scene.h rayon.h intersection.h objet.h material.h
-main.o: sphere.hpp triangle.h plan.hpp phong.hpp light.h
+main.o: sphere.hpp triangle.h plan.hpp phong.hpp light.h plan_light.h
 GeometricModel.o: GeometricModel.h glm/glm.hpp glm/detail/_fixes.hpp
 GeometricModel.o: glm/detail/setup.hpp glm/simd/platform.h glm/fwd.hpp
 GeometricModel.o: glm/detail/qualifier.hpp glm/detail/setup.hpp glm/vec2.hpp
@@ -240,3 +240,4 @@ OBJLoader.o: glm/common.hpp glm/packing.hpp glm/detail/func_packing.inl
 OBJLoader.o: glm/detail/type_half.hpp glm/detail/type_half.inl
 OBJLoader.o: glm/geometric.hpp glm/matrix.hpp glm/vector_relational.hpp
 OBJLoader.o: glm/integer.hpp glm/detail/func_integer.inl
+plan_light.o: plan_light.h light.h

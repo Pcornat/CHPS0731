@@ -5,6 +5,7 @@
 #include "triangle.h"
 #include "plan.hpp"
 #include "phong.hpp"
+#include "plan_light.h"
 
 int main() {
 	const unsigned int h = 1080;
@@ -40,13 +41,11 @@ int main() {
 			new Phong(false, glm::highp_dvec3(0.0f, 0.0f, 0.0f), glm::highp_dvec3(0.3f, 0.3f, 0.3f), 128.0f, 0.8f),
 			glm::highp_dvec3(0.0f, 0.0f, -10.0f),
 			glm::highp_dvec3(0.0f, 0.0f, 1.0f));
-	Light light1(glm::highp_dvec3(1.0f, 4.0f, 80.0f), glm::highp_dvec3(0.33f, 0.33f, 0.33f));
-	Light light2(glm::highp_dvec3(4.0f, 4.0f, 80.0f), glm::highp_dvec3(0.33f, 0.33f, 0.33f));
-	Light light3(glm::highp_dvec3(1.0f, 4.0f, 80.0f), glm::highp_dvec3(0.33f, 0.33f, 0.33f));
+	/*Light light1(glm::highp_dvec3(1.0f, 4.0f, 80.0f), glm::highp_dvec3(1.f, 1.f, 1.f));*/
+	Plan_light light(glm::highp_dvec3(1.0f, 4.0f, 80.0f), glm::highp_dvec3(1.f, 1.f, 1.f), 20.f, 20.f);
 
-	scene.addLight(&light1);
-	scene.addLight(&light2);
-	scene.addLight(&light3);
+	scene.addLight(&light);
+
 	scene.addObjet(&sphere);
 	scene.addObjet(&secSpher);
 	//scene.addObjet(&triangle);

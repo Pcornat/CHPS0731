@@ -21,7 +21,7 @@ public:
 		centre = glm::highp_dvec3(0, 0, -3);
 		largeur = 2;
 		hauteur = 2 * 9.0 / 16.0;
-		dist = 10;
+		dist = 7;
 		dir = glm::highp_dvec3(0, 0, 1);
 		haut = glm::highp_dvec3(0, 1, 0);
 	}
