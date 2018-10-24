@@ -19,6 +19,19 @@ const glm::highp_dvec3& Light::getCouleur() const {
 	return couleur;
 }
 
-Light::Light(const glm::highp_dvec3& position, const glm::highp_dvec3& couleur) : position(position), couleur(couleur) {}
+Light::Light(const glm::highp_dvec3 &position, const glm::highp_dvec3 &couleur, unsigned short type) : position(
+		position), couleur(couleur), type(type) {}
 
-Light::Light(glm::highp_dvec3&& position, glm::highp_dvec3&& couleur) : position(position), couleur(couleur) {}
+Light::Light(glm::highp_dvec3 &&position, glm::highp_dvec3 &&couleur, unsigned short type) : position(position),
+																							 couleur(couleur),
+																							 type(type) {}
+
+void Light::setType(unsigned short type) {
+	Light::type = type;
+}
+
+unsigned short Light::getType() const {
+	return type;
+}
+
+

@@ -42,7 +42,9 @@ int main() {
 			glm::highp_dvec3(0.0f, 0.0f, -10.0f),
 			glm::highp_dvec3(0.0f, 0.0f, 1.0f));
 	/*Light light1(glm::highp_dvec3(1.0f, 4.0f, 80.0f), glm::highp_dvec3(1.f, 1.f, 1.f));*/
-	Plan_light light(glm::highp_dvec3(1.0f, 4.0f, 80.0f), glm::highp_dvec3(1.f, 1.f, 1.f), 20.f, 20.f);
+
+	Plan_light light(glm::highp_dvec3(1.0f, 4.0f, 80.0f), glm::highp_dvec3(1.f, 1.f, 1.f), 2.f, 2.f, 0.200000f, 1);
+
 
 	scene.addLight(&light);
 

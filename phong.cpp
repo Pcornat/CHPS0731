@@ -7,6 +7,7 @@
 #include "phong.hpp"
 #include "scene.h"
 #include "rayon.h"
+#include "plan_light.h"
 
 /**
  * Construct a phong material.
@@ -44,7 +45,10 @@ glm::highp_dvec3
 Phong::computeColour(const Intersection &I, const glm::highp_dvec3 &point, const Scene &s, const Rayon &rayon,
 					 int rec) {
 	double offset = std::numeric_limits<double>::epsilon() * 1000000;
-	glm::highp_dvec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, refl(0, 0, 0), min(0, 0, 0), max(1, 1, 1);
+	glm::highp_dvec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, Li, Lightpos, Ltmp, refl(0, 0, 0), min(0, 0,
+																											  0), max(
+			1, 1, 1);
+	float nbOk = 0, nbTotal = 0;
 	double shad = 1;
 	for (auto light : s.Lights) {
 		/*
@@ -52,6 +56,8 @@ Phong::computeColour(const Intersection &I, const glm::highp_dvec3 &point, const
 		 * Speculaire= Lc * max(V.R, 0)^Ks
 		 * R, V, N, L = direction = vecteur normé
 		 */
+
+
 		L = glm::normalize(point - light->getPosition()), R = glm::normalize(glm::reflect(-L, I.getNormal()));
 		Rayon rayShadow(offset * I.getNormal() + point, -L);
 
@@ -64,21 +70,35 @@ Phong::computeColour(const Intersection &I, const glm::highp_dvec3 &point, const
 		spec = glm::clamp(spec + light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0), this->ks),
 						  min, max);
 
+		if (light->getType() == 1) {
+			auto *planLight = (Plan_light *) light;
+			Li = planLight->getPosition();
+			Ltmp = Li;
+			Lightpos = glm::normalize(point - Li);
+			if (rayShadow.shadowRay(s, glm::distance(point, Lightpos), rec - 1)) {
+				for (float i = 0.f; i < planLight->getWidth(); i += planLight->getSampleStep()) {
+					Li.x += i;
+					Li.y = Ltmp.y;
+					for (float j = 0.f; j < planLight->getHeight(); j += planLight->getSampleStep()) {
+						Li.y += j;
+						Lightpos = glm::normalize(point - Li);
+						Rayon rayShadow(offset * I.getNormal() + point, -Lightpos);
+						if (rayShadow.shadowRay(s, glm::distance(point, Lightpos), rec - 1)) {
+							nbOk++;
+						}
+					}
+				}
 
-		if (rayShadow.shadowRay(s, glm::distance(point, light->getPosition()), rec - 1)) {
-			if (this->reflection != 0.0f) {
-				Rayon reflect(offset * I.getNormal() + point,
-							  glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
-				refl = reflect.Lancer(s, rec - 1);
-				shad *= 0.9;
-			} else
-				shad *= 0.9;
+				nbTotal = ((planLight->getWidth() / planLight->getSampleStep() * planLight->getHeight() /
+							planLight->getSampleStep()));
+				shad = nbOk / nbTotal;
+			}
 		}
+		if (this->reflection != 0.0f) {
+			Rayon reflect(offset * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
+			refl = reflect.Lancer(s, rec - 1);
+			return (1.0 - this->reflection) * shad * (amb + diff + spec) + this->reflection * refl;
+		} else
+			return shad * (amb + diff + spec);
 	}
-	if (this->reflection != 0.0f) {
-		Rayon reflect(offset * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
-		refl = reflect.Lancer(s, rec - 1);
-		return (1.0 - this->reflection) * shad * (amb + diff + spec) + this->reflection * refl;
-	} else
-		return shad * (amb + diff + spec);
 }

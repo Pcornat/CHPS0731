@@ -35,6 +35,7 @@ plan.o: plan.hpp objet.h intersection.h material.h rayon.h scene.h phong.hpp
 plan.o: light.h
 scene.o: scene.h
 phong.o: phong.hpp material.h intersection.h light.h scene.h rayon.h
+phong.o: plan_light.h
 triangle.o: triangle.h objet.h intersection.h material.h rayon.h scene.h
 image.o: image.h png/lodepng.h
 light.o: light.h
