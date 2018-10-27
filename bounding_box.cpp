@@ -6,7 +6,6 @@
 
 BoundingBox::BoundingBox(float xMin, float yMin, float zMin, float xMax, float yMax, float zMax) : xMin(xMin), yMin(yMin), zMin(zMin), xMax(xMax),
 																								   yMax(yMax), zMax(zMax) {
-	//TODO : creation of the box.
 	box[0] = Plan(nullptr, glm::vec3(0, 0, this->zMin), glm::vec3(0, 0, -1));
 	box[1] = Plan(nullptr, glm::vec3(0, 0, this->zMax), glm::vec3(0, 0, 1));
 	box[2] = Plan(nullptr, glm::vec3(this->xMin, 0, 0), glm::vec3(-1, 0, 0));
