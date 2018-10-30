@@ -17,8 +17,14 @@ BoundingBox::BoundingBox(float xMin, float yMin, float zMin, float xMax, float y
 bool BoundingBox::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) {
 	for (auto&& plan : box) {
 		if (plan.calculIntersection(rayon, scene, I, complexite)) {
+			auto& intersect = I.back();
+			glm::vec3 point = rayon.Orig() + rayon.Vect() * intersect.getDist();
 			I.pop_back();
-			return true;
+			bool condX = (point.x <= this->xMax) && (point.x >= this->xMin),
+					condY = (point.y <= this->yMax) && (point.y >= this->yMin),
+					condZ = (point.z <= this->zMax) && (point.z >= this->zMin);
+			if (condX && condY && condZ) //If point is inside/on the box, then intersection is true.
+				return true;
 		}
 	}
 	return false;

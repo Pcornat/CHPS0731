@@ -3,7 +3,7 @@
 bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) {
 	auto& listVertex(model.getListVertex());
 	auto& listNormals(model.getListNormals());
-	if (this->box.calculIntersection(rayon, scene, I, complexite)) {
+	//if (this->box.calculIntersection(rayon, scene, I, complexite)) {
 		for (auto&& face : model.getListFaces()) {
 			float dist = 0.f;
 			glm::vec2 baryPos;
@@ -20,8 +20,8 @@ bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 			}
 		}
 		return true;
-	} else
-		return false;
+	/*} else
+		return false;//*/
 }
 
 Mesh::Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor, float angle, const glm::vec3& axis)
