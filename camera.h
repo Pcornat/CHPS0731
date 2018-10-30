@@ -71,7 +71,7 @@ public:
 		dir = glm::normalize(dir);
 	}
 
-	void Haut(const glm::vec3& h);
+	void setHaut(const glm::vec3& h);
 
 	void Calculer_image(Image&, Scene& sc, int) const;
 };

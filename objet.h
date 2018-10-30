@@ -14,7 +14,7 @@ class Rayon;
 
 /**
  * \class Objet
- * This class exists to do polymorphism inside the code. It is OOP.
+ * This class exists to do polymorphism inside the code.
  */
 class Objet {
 protected:

@@ -22,19 +22,19 @@ Image::~Image() {
 
 void Image::Save(std::string name) {
 	std::cout << "Saving:" << name << "..." << std::endl;
-	unsigned width = largeur, height = hauteur;
+	unsigned width = Image::largeur, height = Image::hauteur;
 	std::vector<unsigned char> image;
 	image.resize(width * height * 4);
 #pragma omp parallel for collapse(2)
 	for (unsigned y = 0; y < height; y++)
 		for (unsigned x = 0; x < width; x++) {
-			glm::vec3 tmp = pixels[x + largeur * y];
+			glm::vec3 tmp = Image::pixels[x + Image::largeur * y];
 			tmp.x = glm::max(glm::min(1.0f, tmp.x), 0.0f);
 			tmp.y = glm::max(glm::min(1.0f, tmp.y), 0.0f);
 			tmp.z = glm::max(glm::min(1.0f, tmp.z), 0.0f);
-			image[4 * width * y + 4 * x + 0] = (unsigned char) (round(tmp.x * 255.0));
-			image[4 * width * y + 4 * x + 1] = (unsigned char) (round(tmp.y * 255.0));
-			image[4 * width * y + 4 * x + 2] = (unsigned char) (round(tmp.z * 255.0));
+			image[4 * width * y + 4 * x + 0] = static_cast<unsigned char>(round(tmp.x * 255.0));
+			image[4 * width * y + 4 * x + 1] = static_cast<unsigned char>(round(tmp.y * 255.0));
+			image[4 * width * y + 4 * x + 2] = static_cast<unsigned char>(round(tmp.z * 255.0));
 			image[4 * width * y + 4 * x + 3] = 255;
 		}
 	encodeOneStep(name.c_str(), image, width, height);
@@ -57,20 +57,20 @@ Image::Image(std::string name) {
 #pragma omp parallel for collapse(2)
 	for (unsigned y = 0; y < height; y++)
 		for (unsigned x = 0; x < width; x++) {
-			pixels[x + largeur * y] = glm::vec3(image[4 * width * y + 4 * x + 0] / 255.0,
+			Image::pixels[x + Image::largeur * y] = glm::vec3(image[4 * width * y + 4 * x + 0] / 255.0,
 												image[4 * width * y + 4 * x + 1] / 255.0,
 												image[4 * width * y + 4 * x + 2] / 255.0);
 		}
 }
 
 int Image::getHauteur() {
-	return hauteur;
+	return Image::hauteur;
 }
 
 int Image::getLargeur() {
-	return largeur;
+	return Image::largeur;
 }
 
 void Image::setPixel(int x, int y, glm::vec3 c) {
-	pixels[x + largeur * y] = c;
+	Image::pixels[x + Image::largeur * y] = c;
 }

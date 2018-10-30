@@ -29,8 +29,16 @@ public:
 		orig = o;
 	}
 
+	void Orig(glm::vec3&& o) {
+		Rayon::orig = o;
+	}
+
 	void Vect(const glm::vec3& v) {
 		vect = glm::normalize(v);
+	}
+
+	void Vect(glm::vec3&& v) {
+		Rayon::vect = glm::normalize(v);
 	}
 
 	glm::vec3 Lancer(const Scene& sc, int complexite) const;
