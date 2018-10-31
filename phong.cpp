@@ -83,7 +83,8 @@ glm::highp_dvec3 Phong::computeColour(const Intersection& I, const glm::highp_dv
 			nbTotal = ((light->getWidth() * light->getHeight()) / light->getSampleStep());
 			shad = nbOk / nbTotal;
 		}*/
-
+		if (shad == 0)
+			shad = 1;
 		if (this->reflection != 0.0f) {
 			Rayon reflect(offset * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
 			refl = reflect.Lancer(s, rec - 1);
