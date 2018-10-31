@@ -6,6 +6,7 @@
 #define PROJECT_PLAN_LIGHT_H
 
 #include "light.h"
+#include "rayon.h"
 
 class Plan_light : public Light {
 protected:
@@ -14,20 +15,25 @@ protected:
 	float sampleStep;
 
 public:
-	virtual ~Plan_light();
+	~Plan_light() override = default;
 
 	Plan_light() = default;
 
+	/**
+	 *
+	 * @param position
+	 * @param couleur
+	 * @param height
+	 * @param width
+	 * @param sampleStep
+	 * @param type
+	 */
 	explicit Plan_light(glm::highp_dvec3 &&position, glm::highp_dvec3 &&couleur, float height, float width,
 						float sampleStep, unsigned short type);
 
 	void setHeight(float height);
 
 	void setWidth(float width);
-
-	unsigned short getType() const;
-
-	void setType(unsigned short type);
 
 	float getSampleStep() const;
 
@@ -36,6 +42,8 @@ public:
 	float getWidth() const;
 
 	void setSampleStep(float sampleStep);
+
+	float computeShadow(const glm::vec3& point, const Intersection& I, const Scene& sc, int complexite) override;
 };
 
 

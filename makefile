@@ -35,14 +35,13 @@ image.o: image.h png/lodepng.h
 plan.o: plan.hpp objet.h intersection.h material.h rayon.h scene.h phong.hpp
 plan.o: light.h
 scene.o: scene.h
-phong.o: phong.hpp material.h intersection.h light.h scene.h rayon.h
-phong.o: plan_light.h
+phong.o: phong.hpp material.h intersection.h light.h rayon.h scene.h
 triangle.o: triangle.h objet.h intersection.h material.h rayon.h scene.h
-light.o: light.h
+light.o: light.h rayon.h scene.h intersection.h
 rayon.o: rayon.h scene.h intersection.h objet.h material.h
 camera.o: camera.h scene.h rayon.h intersection.h image.h
 main.o: image.h camera.h scene.h rayon.h intersection.h objet.h material.h
 main.o: sphere.hpp triangle.h plan.hpp phong.hpp light.h plan_light.h
 GeometricModel.o: GeometricModel.h OBJLoader.h
 OBJLoader.o: OBJLoader.h GeometricModel.h
-plan_light.o: plan_light.h light.h
+plan_light.o: plan_light.h light.h rayon.h scene.h intersection.h
