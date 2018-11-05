@@ -42,8 +42,7 @@ Phong::Phong(bool refraction, glm::highp_dvec3&& ka, glm::highp_dvec3&& kd, doub
 glm::highp_dvec3 Phong::computeColour(const Intersection& I, const glm::highp_dvec3& point, const Scene& s, const Rayon& rayon, int rec) {
 	double offset = std::numeric_limits<double>::epsilon() * 1000000;
 	glm::highp_dvec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, Li, Ld, Ltmp, refl(0, 0, 0), min(0, 0, 0), max(1, 1, 1);
-	float nbOk = 0.f, nbTotal = 0.f;
-	double shad = 1.f;
+	double shad;
 	for (auto light : s.Lights) {
 		/*
 		 * Diffus = max(N.L, 0) * Kd * Lc
@@ -83,8 +82,6 @@ glm::highp_dvec3 Phong::computeColour(const Intersection& I, const glm::highp_dv
 			nbTotal = ((light->getWidth() * light->getHeight()) / light->getSampleStep());
 			shad = nbOk / nbTotal;
 		}*/
-		if (shad == 0)
-			shad = 1;
 		if (this->reflection != 0.0f) {
 			Rayon reflect(offset * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
 			refl = reflect.Lancer(s, rec - 1);
