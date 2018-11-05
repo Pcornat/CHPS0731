@@ -8,6 +8,7 @@
 #include <glm/glm.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/intersect.hpp>
+#include <glm/gtc/noise.hpp>
 
 
 class Rayon;

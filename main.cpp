@@ -4,11 +4,12 @@
 #include "sphere.hpp"
 #include "plan.hpp"
 #include "phong.hpp"
+#include "plan_light.h"
 #include "mesh.h"
 
-int main(int argc, char* argv[]) {
-	const unsigned int h = 1080 * 2;
-	const unsigned int l = 1920 * 2;
+int main() {
+	const unsigned int h = 1080;
+	const unsigned int l = 1920;
 	Camera myCamera;
 	Scene scene;
 	Image myImage(h, l);
@@ -53,6 +54,7 @@ int main(int argc, char* argv[]) {
 			glm::vec3(0.0f, 0.0f, 0.0f));
 	Light light(glm::vec3(1.0f, 4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0);
 	scene.addLight(&light);
+
 	scene.addObjet(&sphere);
 	scene.addObjet(&secSpher);
 	//scene.addObjet(&triangle);

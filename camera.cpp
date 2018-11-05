@@ -47,6 +47,7 @@ void Camera::Calculer_image(Image& im, Scene& sc, int complexite) const {
 			ray.Vect(glm::normalize(pt - foyer)); //Vecteur directeur du rayon.
 
 			res = ray.Lancer(sc, complexite);
+			// TODO: ToneMapping
 			im.setPixel(x, y, glm::abs(res));
 		}
 		//std::cout << "Ligne " << y << std::endl;

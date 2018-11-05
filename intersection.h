@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 
+
 class Objet;
 
 class Intersection {
