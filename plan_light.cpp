@@ -5,8 +5,7 @@
 #include <iostream>
 #include "plan_light.h"
 
-Plan_light::Plan_light(glm::highp_dvec3&& position, glm::highp_dvec3&& couleur, float height, float width,
-					   float sampleStep, unsigned short type) : Light(
+Plan_light::Plan_light(glm::vec3&& position, glm::vec3&& couleur, float height, float width, float sampleStep) : Light(
 		position, couleur), height(height), width(width), sampleStep(sampleStep) {}
 
 void Plan_light::setHeight(float height) {

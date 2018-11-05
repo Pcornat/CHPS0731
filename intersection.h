@@ -33,11 +33,11 @@ public:
 	void setObj(Objet* obj);
 
 	// Opérateur de tri des intersections
-	int operator<(const Intersection& i) const {
+	bool operator<(const Intersection& i) const {
 		return dist < i.dist;
 	}
 
-	int operator>(const Intersection& i) const {
+	bool operator>(const Intersection& i) const {
 		return dist > i.dist;
 	}
 };

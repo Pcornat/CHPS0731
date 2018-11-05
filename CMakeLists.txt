@@ -39,4 +39,8 @@ add_executable(RayTrace
 		OBJLoader.cpp
 		OBJLoader.h
 		plan_light.cpp
-		plan_light.h)
+		plan_light.h
+		mesh.cpp
+		mesh.h
+		bounding_box.cpp
+		bounding_box.h)

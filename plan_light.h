@@ -28,8 +28,7 @@ public:
 	 * @param sampleStep
 	 * @param type
 	 */
-	explicit Plan_light(glm::highp_dvec3 &&position, glm::highp_dvec3 &&couleur, float height, float width,
-						float sampleStep, unsigned short type);
+	explicit Plan_light(glm::vec3&& position, glm::vec3&& couleur, float height, float width, float sampleStep);
 
 	void setHeight(float height);
 

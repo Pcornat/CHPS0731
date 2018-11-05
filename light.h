@@ -13,26 +13,26 @@
 class Light {
 protected:
 	///It is the center of the light.
-	glm::highp_dvec3 position;
+	glm::vec3 position;
 	///Its colour, white almost each time.
-	glm::highp_dvec3 couleur;
+	glm::vec3 couleur;
 
 public:
 	Light() = default;
 
 	virtual ~Light() = default;
 
-	explicit Light(const glm::highp_dvec3& position, const glm::highp_dvec3& couleur);
+	explicit Light(const glm::vec3& position, const glm::vec3& couleur);
 
-	explicit Light(glm::highp_dvec3&& position, glm::highp_dvec3&& couleur);
+	explicit Light(glm::vec3&& position, glm::vec3&& couleur);
 
-	void setPosition(glm::highp_dvec3 p);
+	void setPosition(glm::vec3 p);
 
-	void setColor(glm::highp_dvec3 c);
+	void setColor(glm::vec3 c);
 
-	const glm::highp_dvec3& getPosition() const;
+	const glm::vec3& getPosition() const;
 
-	const glm::highp_dvec3& getCouleur() const;
+	const glm::vec3& getCouleur() const;
 
 	virtual float computeShadow(const glm::vec3& point, const Intersection& I, const Scene& sc, int complexite) = 0;
 
