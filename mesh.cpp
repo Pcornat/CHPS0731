@@ -4,22 +4,22 @@ bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 	auto& listVertex(model.getListVertex());
 	auto& listNormals(model.getListNormals());
 	//if (this->box.calculIntersection(rayon, scene, I, complexite)) {
-		for (auto&& face : model.getListFaces()) {
-			float dist = 0.f;
-			glm::vec2 baryPos;
-			glm::vec3 facteur(this->factor),
-					pointA = facteur * listVertex.at(static_cast<unsigned long>(face.s1)) + this->center,
-					pointB = facteur * listVertex.at(static_cast<unsigned long>(face.s2)) + this->center,
-					pointC = facteur * listVertex.at(static_cast<unsigned long>(face.s3)) + this->center;
-			if (glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), pointA, pointB, pointC, baryPos, dist)) {
-				I.emplace_back(dist,
-							   listNormals.at(static_cast<unsigned long>(face.s1)) * baryPos.x +
-							   listNormals.at(static_cast<unsigned long>(face.s2)) * baryPos.y +
-							   listNormals.at(static_cast<unsigned long>(face.s3)) * (1 - baryPos.x - baryPos.y),
-							   this);
-			}
+	for (auto&& face : model.getListFaces()) {
+		float dist = 0.f;
+		glm::vec2 baryPos;
+		glm::vec3 facteur(this->factor),
+				pointA = facteur * listVertex.at(static_cast<unsigned long>(face.s1)) + this->center,
+				pointB = facteur * listVertex.at(static_cast<unsigned long>(face.s2)) + this->center,
+				pointC = facteur * listVertex.at(static_cast<unsigned long>(face.s3)) + this->center;
+		if (glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), pointA, pointB, pointC, baryPos, dist)) {
+			I.emplace_back(dist,
+						   listNormals.at(static_cast<unsigned long>(face.s1)) * baryPos.x +
+						   listNormals.at(static_cast<unsigned long>(face.s2)) * baryPos.y +
+						   listNormals.at(static_cast<unsigned long>(face.s3)) * (1 - baryPos.x - baryPos.y),
+						   this);
 		}
-		return true;
+	}
+	return true;
 	/*} else
 		return false;//*/
 }

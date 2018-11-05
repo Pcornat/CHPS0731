@@ -1,7 +1,7 @@
 #include <memory>
 #include "GeometricModel.h"
 
-GeometricModel::GeometricModel(std::string&& name, float angle, glm::vec3&& axis) : name(name) {
+GeometricModel::GeometricModel(std::string&& name, float angle, glm::vec3&& axis) : nb_vertex(0), nb_faces(0), loader(new OBJLoader()), name(name) {
 	this->loader->loadModel(this->name, *this, angle, axis);
 }
 
