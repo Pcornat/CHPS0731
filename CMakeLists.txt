@@ -31,7 +31,4 @@ add_executable(RayTrace
 		main.cpp
 		triangle.cpp
 		triangle.h
-		GeometricModel.cpp
-		GeometricModel.h
-		OBJLoader.cpp
-		OBJLoader.h plan_light.cpp plan_light.h)
+		plan_light.cpp plan_light.h)
