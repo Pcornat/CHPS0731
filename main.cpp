@@ -7,8 +7,8 @@
 #include "mesh.h"
 
 int main(int argc, char* argv[]) {
-	const unsigned int h = 1080;
-	const unsigned int l = 1920;
+	const unsigned int h = 1080 * 2;
+	const unsigned int l = 1920 * 2;
 	Camera myCamera;
 	Scene scene;
 	Image myImage(h, l);
@@ -19,21 +19,21 @@ int main(int argc, char* argv[]) {
 	}
 	try {
 		mesh = Mesh(new Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f), std::string(argv[1]),
-					glm::vec3(0.f, 0.f, 100.f), 15, 180.f, glm::vec3(0, 1, 0));
+					glm::vec3(0.f, 0.f, 5.f), 10, 180.f, glm::vec3(0, 1, 0));
 	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 		exit(EXIT_FAILURE);
 	}//*/
 
-	Sphere sphere(new Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.0f, 0.0f), 128.0f, 0.0f),
-				  glm::vec3(-2.5f, -0.2f, 100.0f), 1);
-	Sphere secSpher(new Phong(false, glm::vec3(0.2f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.392f), 128.0f, 0.0f),
-					glm::vec3(2.5f, -1.7f, 100.0f), 1);
+	Sphere sphere(new Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.0f, 0.0f), 128.0f, 1.0f),
+				  glm::vec3(-2.5f, -0.2f, 5.0f), 1);
+	Sphere secSpher(new Phong(false, glm::vec3(0.2f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.392f), 128.0f, 0.5f),
+					glm::vec3(2.5f, -1.7f, 10.0f), 1);
 	/*Triangle triangle(new Phong(false, glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.4f, 0.3f, 0.3f), 128.0f, 0.25f),
 					  glm::vec3(1.7f, -2.0f, 100.0f),
 					  glm::vec3(-2.7f, -2.0f, 100.0f), glm::vec3(-0.7f, 3.0f, 100.0f));*/
-	Plan background(new Phong(false, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 0.0f),
-					glm::vec3(0.0f, 0.0f, 200.0f),
+	Plan background(new Phong(false, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 1.0f),
+					glm::vec3(0.0f, 0.0f, 20.0f),
 					glm::vec3(0.0f, 0.0f, -1.0f));
 	Plan rooftop(new Phong(false, glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.5f, 0.0f, 0.5f), 128.f, 0.0f),
 				 glm::vec3(0.0f, 10.0f, 0.0f),
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
 			new Phong(false, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 1.0f),
 			glm::vec3(0.0f, 0.0f, -10.0f),
 			glm::vec3(0.0f, 0.0f, 0.0f));
-	Light light(glm::vec3(1.0f, 4.0f, 4.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0);
+	Light light(glm::vec3(1.0f, 4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0);
 	scene.addLight(&light);
 	scene.addObjet(&sphere);
 	scene.addObjet(&secSpher);

@@ -17,14 +17,7 @@ protected:
 	glm::vec3 haut; // Vecteur definissant l'orientation de la "tete" de la camera
 
 public:
-	Camera() {
-		centre = glm::vec3(0, 0, -3);
-		largeur = 2;
-		hauteur = 2 * 9.0f / 16.0f;
-		dist = 10.0f;
-		dir = glm::vec3(0, 0, 1);
-		haut = glm::vec3(0, 1, 0);
-	}
+	Camera() : centre(glm::vec3(0, 0, -3)), largeur(2), hauteur(2 * 9.0f / 16.0f), dist(1.0f), dir(glm::vec3(0, 0, 1)), haut(glm::vec3(0, 1, 0)) {}
 
 	glm::vec3 Centre() const {
 		return centre;
