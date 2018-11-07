@@ -63,61 +63,61 @@ void Mesh::boundingBox() {
 		/*
 		 * Trouver le xMin.
 		 */
-		if (xMin > vertexS1.x)
+		if (std::isgreater(xMin, vertexS1.x))
 			xMin = vertexS1.x;
-		if (xMin > vertexS2.x)
+		if (std::isgreater(xMin, vertexS2.x))
 			xMin = vertexS2.x;
-		if (xMin > vertexS3.x)
+		if (std::isgreater(xMin, vertexS3.x))
 			xMin = vertexS3.x;
 
 		/*
 		 * Trouver le yMin
 		 */
-		if (yMin > vertexS1.y)
+		if (std::isgreater(yMin, vertexS1.y))
 			yMin = vertexS1.y;
-		if (yMin > vertexS2.y)
+		if (std::isgreater(yMin, vertexS2.y))
 			yMin = vertexS2.y;
-		if (yMin > vertexS3.y)
+		if (std::isgreater(yMin, vertexS3.y))
 			yMin = vertexS3.y;
 
 		/*
 		 * Trouver le zMin
 		 */
-		if (zMin > vertexS1.z)
+		if (std::isgreater(zMin, vertexS1.z))
 			zMin = vertexS1.z;
-		if (zMin > vertexS2.z)
+		if (std::isgreater(zMin, vertexS2.z))
 			zMin = vertexS2.z;
-		if (zMin > vertexS3.z)
+		if (std::isgreater(zMin, vertexS3.z))
 			zMin = vertexS3.z;
 
 		/*
 		 * Trouver le xMax
 		 */
-		if (xMax < vertexS1.x)
+		if (std::isless(xMax, vertexS1.x))
 			xMax = vertexS1.x;
-		if (xMax < vertexS2.x)
+		if (std::isless(xMax, vertexS2.x))
 			xMax = vertexS2.x;
-		if (xMax < vertexS3.x)
+		if (std::isless(xMax, vertexS3.x))
 			xMax = vertexS3.x;
 
 		/*
 		 * Trouver le yMax
 		 */
-		if (yMax < vertexS1.y)
+		if (std::isless(yMax, vertexS1.y))
 			yMax = vertexS1.y;
-		if (yMax < vertexS2.y)
+		if (std::isless(yMax, vertexS2.y))
 			yMax = vertexS2.y;
-		if (yMax < vertexS3.y)
+		if (std::isless(yMax, vertexS3.y))
 			yMax = vertexS3.y;
 
 		/*
 		 * Trouver le zMax
 		 */
-		if (zMax < vertexS1.z)
+		if (std::isless(zMax, vertexS1.z))
 			zMax = vertexS1.z;
-		if (zMax < vertexS2.z)
+		if (std::isless(zMax, vertexS2.z))
 			zMax = vertexS2.z;
-		if (zMax < vertexS3.z)
+		if (std::isless(zMax, vertexS3.z))
 			zMax = vertexS3.z;
 	}
 	this->box = BoundingBox(xMin, yMin, zMin, xMax, yMax, zMax);

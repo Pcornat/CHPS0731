@@ -26,7 +26,7 @@ Phong::Phong(bool refraction, glm::vec3&& ka, glm::vec3&& kd, float ks, float re
 		refraction), ka(ka), kd(kd),
 																							ks(ks),
 																							reflection(
-																													reflection) {}
+																									reflection) {}
 
 /**
  * Computes colour from the phong model. It also takes care of the reflection.
@@ -41,8 +41,8 @@ Phong::Phong(bool refraction, glm::vec3&& ka, glm::vec3&& kd, float ks, float re
  */
 glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& rayon, int rec) {
 	float offset = std::numeric_limits<float>::epsilon() * 1000;
-	glm::vec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, Li, Ld, Ltmp, refl(0, 0, 0), min(0, 0, 0), max(1, 1, 1);
-	float shad;
+	glm::vec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, refl(0, 0, 0), min(0, 0, 0), max(1, 1, 1);
+	float shad = 1.0f;
 	for (auto light : s.Lights) {
 		/*
 		 * Diffus = max(N.L, 0) * Kd * Lc
@@ -82,11 +82,13 @@ glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, co
 			nbTotal = ((light->getWidth() * light->getHeight()) / light->getSampleStep());
 			shad = nbOk / nbTotal;
 		}*/
-		if (this->reflection != 0.0f) {
+	}
+	if (this->reflection != 0.0f) {
+		if (std::isgreater(refl.x, 1e-4f) || std::isgreater(refl.y, 1e-4f) || std::isgreater(refl.z, 1e-4f)) {
 			Rayon reflect(offset * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
 			refl = reflect.Lancer(s, rec - 1);
-			return (1.0f - this->reflection) * shad * (amb + diff + spec) + this->reflection * refl;
-		} else
-			return shad * (amb + diff + spec);
-	}
+		}
+		return (1.0f - this->reflection) * shad * (amb + diff + spec) + this->reflection * refl;
+	} else
+		return shad * (amb + diff + spec);
 }
