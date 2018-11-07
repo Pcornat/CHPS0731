@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
 			new Phong(false, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 1.0f),
 			glm::vec3(0.0f, 0.0f, -10.0f),
 			glm::vec3(0.0f, 0.0f, 0.0f));
-	Plan_light light(glm::vec3(1.0f, 4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 2.0f, 2.0f, 0.2f);
+	Plan_light light(glm::vec3(1.0f, 4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 2.0f, 2.0f, 0.2000000000f);
 	scene.addLight(&light);
 
 	scene.addObjet(&sphere);
