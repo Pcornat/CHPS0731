@@ -11,10 +11,9 @@
  * @param kd Diffusion coef
  * @param ks Specular coef
  */
-Phong::Phong(bool refraction, const glm::vec3& ka, const glm::vec3& kd, float ks, float reflection)
-		: Material(refraction), ka(ka),
-		  kd(kd), ks(ks),
-		  reflection(reflection) {}
+Phong::Phong(bool refraction, const glm::vec3& ka, const glm::vec3& kd, float ks, float reflection) : Material(refraction),
+																									  ka(ka), kd(kd), ks(ks),
+																									  reflection(reflection) {}
 
 /**
  * Construct a phong material with r-value.
@@ -22,11 +21,9 @@ Phong::Phong(bool refraction, const glm::vec3& ka, const glm::vec3& kd, float ks
  * @param kd Diffusion coef
  * @param ks Specular coef
  */
-Phong::Phong(bool refraction, glm::vec3&& ka, glm::vec3&& kd, float ks, float reflection) : Material(
-		refraction), ka(ka), kd(kd),
-																							ks(ks),
-																							reflection(
-																									reflection) {}
+Phong::Phong(bool refraction, glm::vec3&& ka, glm::vec3&& kd, float ks, float reflection) : Material(refraction),
+																							ka(ka), kd(kd), ks(ks),
+																							reflection(reflection) {}
 
 /**
  * Computes colour from the phong model. It also takes care of the reflection.
@@ -40,7 +37,7 @@ Phong::Phong(bool refraction, glm::vec3&& ka, glm::vec3&& kd, float ks, float re
  * @return The object's colour (the normal vector to make it simple)
  */
 glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& rayon, int rec) {
-	float offset = std::numeric_limits<float>::epsilon() * 1000;
+	float offset = 1e-4f;
 	glm::vec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, refl(1, 1, 1), min(0, 0, 0), max(1, 1, 1);
 	float shad = 1.0f;
 	for (auto light : s.Lights) {
@@ -55,7 +52,7 @@ glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, co
 		//Rayon rayShadow(offset * I.getNormal() + point, -L);
 
 		amb = glm::clamp(amb + this->ka, min, max);
-		/*diff += glm::max(glm::dot(I.getNormal(), -L), 0.0) * glm::perlin(0.1 * point) * light->getCouleur();*/
+		//diff += glm::max(glm::dot(I.getNormal(), -L), 0.0) * glm::perlin(0.1 * point) * light->getCouleur();
 		diff = glm::clamp(diff + glm::max(glm::dot(I.getNormal(), -L), 0.0f) * this->kd * light->getCouleur(),
 						  min, max);
 

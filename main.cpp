@@ -50,10 +50,10 @@ int main(int argc, char* argv[]) {
 			   glm::vec3(0.0f, -10.0f, 0.0f),
 			   glm::vec3(0.0f, 1.0f, 0.0f));
 	Plan closedBox(
-			new Phong(false, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 1.0f),
+			new Phong(false, glm::vec3(0.3f, 0.2f, 0.2f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 0.0f),
 			glm::vec3(0.0f, 0.0f, -10.0f),
 			glm::vec3(0.0f, 0.0f, 0.0f));
-	Plan_light light(glm::vec3(1.0f, 4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 2.0f, 2.0f, 0.2000000000f);
+	Plan_light light(glm::vec3(1.0f, 4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 2.0f, 2.0f, 0.1000000000f);
 	scene.addLight(&light);
 
 	scene.addObjet(&sphere);
@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
 	scene.addObjet(&right);
 	scene.addObjet(&closedBox);
 	scene.addObjet(&background);
-	scene.addObjet(&mesh);
+	//scene.addObjet(&mesh);
 	myCamera.Calculer_image(myImage, scene, 6);
 
 	myImage.Save("out.png");
