@@ -20,14 +20,12 @@ private:
 	BoundingBox box;
 
 	///Center of the model, where it will be.
-	glm::vec3 center;
+	glm::vec3 center{};
 
 	///Factor to make the model bigger.
-	unsigned int factor;
+	unsigned int factor = 1;
 
-	/*
-	 * Private method under
-	 */
+	///It creates the bounding box of the model.
 	void boundingBox();
 
 public:

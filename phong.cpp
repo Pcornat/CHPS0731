@@ -46,8 +46,6 @@ glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, co
 		 * Speculaire= Lc * max(V.R, 0)^Ks
 		 * R, V, N, L = direction = vecteur normé
 		 */
-
-
 		L = glm::normalize(point - light->getPosition()), R = glm::normalize(glm::reflect(-L, I.getNormal()));
 		//Rayon rayShadow(offset * I.getNormal() + point, -L);
 
@@ -60,25 +58,6 @@ glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, co
 		spec = glm::clamp(spec + light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0f), this->ks),
 						  min, max);
 		shad += light->computeShadow(point, I, s, rec);
-		/*Li = light->getPosition();
-		Ltmp = Li;
-		Ld = glm::normalize(point - Li);
-		if (rayShadow.shadowRay(s, glm::distance(point, Li), rec - 1)) {
-			for (int i = 0; i < light->getWidth() / light->getSampleStep(); i++) {
-				Li.x += light->getSampleStep();
-				Li.y = Ltmp.y;
-				for (int j = 0; j < light->getHeight() / light->getSampleStep(); j++) {
-					Li.y += light->getSampleStep();
-					Ld = glm::normalize(point - Li);
-					Rayon rayon1(offset * I.getNormal() + point, -Ld);
-					if (rayon1.shadowRay(s, glm::distance(point, Li), rec - 1)) {
-						nbOk++;
-					}
-				}
-			}
-			nbTotal = ((light->getWidth() * light->getHeight()) / light->getSampleStep());
-			shad = nbOk / nbTotal;
-		}*/
 	}
 	if (this->reflection != 0.0f)
 		if (std::isgreater(refl.x, 1e-4f) || std::isgreater(refl.y, 1e-4f) || std::isgreater(refl.z, 1e-4f)) {
