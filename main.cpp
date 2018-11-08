@@ -5,7 +5,6 @@
 #include "plan.hpp"
 #include "phong.hpp"
 #include "plan_light.h"
-#include "mesh.h"
 
 int main(int argc, char* argv[]) {
 	const unsigned int h = 1080;
@@ -13,7 +12,9 @@ int main(int argc, char* argv[]) {
 	Camera myCamera;
 	Scene scene;
 	Image myImage(h, l);
-	Mesh mesh;
+	/*std::stringstream ss;
+	std::time_t time;//*/
+	/*Mesh mesh;
 	if (argc != 2) {
 		std::cerr << "Nombre d'arguments insuffisant, nom d'un fichier .obj attendu." << std::endl;
 		exit(EXIT_FAILURE);
@@ -66,9 +67,12 @@ int main(int argc, char* argv[]) {
 	scene.addObjet(&closedBox);
 	scene.addObjet(&background);
 	//scene.addObjet(&mesh);
+
 	myCamera.Calculer_image(myImage, scene, 6);
 
+	/*std::time(&time);
+	ss << "out_" << std::put_time(std::localtime(&time), "%d_%m_%Y_%Hh%Mm%Ss") << ".png";
+	myImage.Save(ss.str());*/
 	myImage.Save("out.png");
-
 	return EXIT_SUCCESS;
 }

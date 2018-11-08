@@ -5,7 +5,7 @@ png/
 glm/
 .idea/
 cmake-build-debug/
-out.png
+*.png
 makefile.bak
 doc/*
 .vscode/
