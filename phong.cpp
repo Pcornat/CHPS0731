@@ -37,7 +37,7 @@ Phong::Phong(bool refraction, glm::vec3&& ka, glm::vec3&& kd, float ks, float re
  * @return The object's colour (the normal vector to make it simple)
  */
 glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& rayon, int rec) {
-	float offset = 1e-4f;
+	float offset = 1e-5f;
 	glm::vec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, refl(1, 1, 1), min(0, 0, 0), max(1, 1, 1);
 	float shad = 0.0f;
 	for (auto light : s.Lights) {
