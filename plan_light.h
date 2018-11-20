@@ -42,6 +42,15 @@ public:
 
 	void setSampleStep(float sampleStep);
 
+	/**
+	 * Compute shadows, soft shadows here. The distributed method.
+	 * \todo : change the method to the volume method.
+	 * @param point
+	 * @param I
+	 * @param sc
+	 * @param complexite
+	 * @return
+	 */
 	float computeShadow(const glm::vec3& point, const Intersection& I, const Scene& sc, int complexite) override;
 };
 

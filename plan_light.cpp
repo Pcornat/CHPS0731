@@ -35,7 +35,7 @@ void Plan_light::setSampleStep(float sampleStep) {
 float Plan_light::computeShadow(const glm::vec3& point, const Intersection& I, const Scene& sc, int complexite) {
 	Rayon rayShadow;
 	glm::vec3 light = this->position, normal = I.getNormal(), lightDir;
-	float offset = std::numeric_limits<float>::epsilon() * 100,
+	float offset = 1e-5f,
 			numberHeight = this->height / this->sampleStep,
 			numberWidth = this->width / this->sampleStep,
 			nbTotal = numberHeight * numberWidth;
