@@ -5,6 +5,8 @@
 #include "plan.hpp"
 #include "phong.hpp"
 #include "plan_light.h"
+#include "mesh.h"
+#include "texture.h"
 
 int main(int argc, char* argv[]) {
 	const unsigned int h = 1080;
@@ -14,13 +16,13 @@ int main(int argc, char* argv[]) {
 	Image myImage(h, l);
 	/*std::stringstream ss;
 	std::time_t time;//*/
-	/*Mesh mesh;
+	Mesh mesh;
 	if (argc != 2) {
 		std::cerr << "Nombre d'arguments insuffisant, nom d'un fichier .obj attendu." << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	try {
-		mesh = Mesh(new Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f),
+		mesh = Mesh(new /*Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f)*/ Texture(false),
 					std::string(argv[1]),
 					glm::vec3(0.f, 0.f, 5.f), 10, 180.f, glm::vec3(0, 1, 0));
 	} catch (std::exception& e) {
@@ -66,7 +68,7 @@ int main(int argc, char* argv[]) {
 	scene.addObjet(&right);
 	scene.addObjet(&closedBox);
 	scene.addObjet(&background);
-	//scene.addObjet(&mesh);
+	scene.addObjet(&mesh);
 
 	myCamera.Calculer_image(myImage, scene, 6);
 
