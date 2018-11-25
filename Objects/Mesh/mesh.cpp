@@ -53,7 +53,20 @@ void Mesh::boundingBox() {
 			xMax = 0, yMax = 0, zMax = 0;
 	auto& listVertex(this->model.getListVertex());
 	auto& listFace(model.getListFaces());
-	//Objectif : paralléliser la boucle. Problème : min max, concurrence en écriture.
+	//Lambda function to code faster.
+	auto min = [](float a, float b) {
+		if (std::isless(a, b))
+			return a;
+		else
+			return b;
+	};
+	auto max = [](float a, float b) {
+		if (std::isgreater(a, b))
+			return a;
+		else
+			return b;
+	};
+
 #pragma omp parallel for reduction(min: xMin) reduction(min: yMin) reduction(min: zMin) reduction(max: xMax) reduction(max: yMax) reduction(max: zMax)
 	for (std::size_t i = 0; i < listFace.size(); ++i) {
 		const auto& vertexS1(listVertex.at(static_cast<unsigned long>(listFace.at(i).s1))),
@@ -63,62 +76,44 @@ void Mesh::boundingBox() {
 		/*
 		 * Trouver le xMin.
 		 */
-		if (std::isgreater(xMin, vertexS1.x))
-			xMin = vertexS1.x;
-		if (std::isgreater(xMin, vertexS2.x))
-			xMin = vertexS2.x;
-		if (std::isgreater(xMin, vertexS3.x))
-			xMin = vertexS3.x;
+		xMin = min(xMin, vertexS1.x);
+		xMin = min(xMin, vertexS2.x);
+		xMin = min(xMin, vertexS3.x);
 
 		/*
 		 * Trouver le yMin
 		 */
-		if (std::isgreater(yMin, vertexS1.y))
-			yMin = vertexS1.y;
-		if (std::isgreater(yMin, vertexS2.y))
-			yMin = vertexS2.y;
-		if (std::isgreater(yMin, vertexS3.y))
-			yMin = vertexS3.y;
+		yMin = min(yMin, vertexS1.y);
+		yMin = min(yMin, vertexS2.y);
+		yMin = min(yMin, vertexS3.y);
 
 		/*
 		 * Trouver le zMin
 		 */
-		if (std::isgreater(zMin, vertexS1.z))
-			zMin = vertexS1.z;
-		if (std::isgreater(zMin, vertexS2.z))
-			zMin = vertexS2.z;
-		if (std::isgreater(zMin, vertexS3.z))
-			zMin = vertexS3.z;
+		zMin = min(zMin, vertexS1.z);
+		zMin = min(zMin, vertexS2.z);
+		zMin = min(zMin, vertexS3.z);
 
 		/*
 		 * Trouver le xMax
 		 */
-		if (std::isless(xMax, vertexS1.x))
-			xMax = vertexS1.x;
-		if (std::isless(xMax, vertexS2.x))
-			xMax = vertexS2.x;
-		if (std::isless(xMax, vertexS3.x))
-			xMax = vertexS3.x;
+		xMax = max(xMax, vertexS1.x);
+		xMax = max(xMax, vertexS2.x);
+		xMax = max(xMax, vertexS3.x);
 
 		/*
 		 * Trouver le yMax
 		 */
-		if (std::isless(yMax, vertexS1.y))
-			yMax = vertexS1.y;
-		if (std::isless(yMax, vertexS2.y))
-			yMax = vertexS2.y;
-		if (std::isless(yMax, vertexS3.y))
-			yMax = vertexS3.y;
+		yMax = max(yMax, vertexS1.y);
+		yMax = max(yMax, vertexS2.y);
+		yMax = max(yMax, vertexS3.y);
 
 		/*
 		 * Trouver le zMax
 		 */
-		if (std::isless(zMax, vertexS1.z))
-			zMax = vertexS1.z;
-		if (std::isless(zMax, vertexS2.z))
-			zMax = vertexS2.z;
-		if (std::isless(zMax, vertexS3.z))
-			zMax = vertexS3.z;
+		zMax = max(zMax, vertexS1.z);
+		zMax = max(zMax, vertexS2.z);
+		zMax = max(zMax, vertexS3.z);
 	}
 	this->box = BoundingBox(xMin, yMin, zMin, xMax, yMax, zMax);
 }

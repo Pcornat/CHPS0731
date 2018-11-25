@@ -75,7 +75,7 @@ void PostProcess::TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3>& pixels) {
 #pragma omp parallel for reduction(min: xMin) reduction(min: yMin) reduction(min: zMin)\
         reduction(max: xMax) reduction(max: yMax) reduction(max: zMax)
 	for (std::size_t i = 0; i < pixels.size(); ++i) {
-		auto& var = pixels.at(i);
+		const auto& var = pixels.at(i);
 
 		//So beautiful <3
 		xMin = min(var.x, xMin);

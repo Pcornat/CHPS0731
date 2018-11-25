@@ -17,12 +17,8 @@
  */
 class BoundingBox : public Objet {
 private:
-	float xMin;
-	float yMin;
-	float zMin;
-	float xMax;
-	float yMax;
-	float zMax;
+	glm::vec3 minPoint;
+	glm::vec3 maxPoint;
 
 	std::array<Plan, 6> box;
 
@@ -34,7 +30,7 @@ public:
 	~BoundingBox() override = default;
 
 	/**
-	 * Computes intersection with the box to check if we compute the mesh inside.
+	 * Computes intersection with the box to check if we compute the object inside.
 	 * @param rayon
 	 * @param scene
 	 * @param I
