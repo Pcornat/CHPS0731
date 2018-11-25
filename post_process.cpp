@@ -52,8 +52,39 @@ void PostProcess::TONE_MAPPING_LOTTES_PHONG(glm::vec3& input) {
 }
 
 void PostProcess::TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3>& pixels) {
-#pragma omp parallel for
+	glm::vec3 seuilHaut, seuilBas;
+	float xMin = std::numeric_limits<float>::max(),
+			xMax = 0,
+			yMin = std::numeric_limits<float>::max(),
+			yMax = 0,
+			zMin = std::numeric_limits<float>::max(),
+			zMax = 0;
+	//Lambda function to code faster.
+	auto min = [](float a, float b) {
+		if (std::isless(a, b))
+			return a;
+		else
+			return b;
+	};
+	auto max = [](float a, float b) {
+		if (std::isgreater(a, b))
+			return a;
+		else
+			return b;
+	};
+#pragma omp parallel for reduction(min: xMin) reduction(min: yMin) reduction(min: zMin)\
+        reduction(max: xMax) reduction(max: yMax) reduction(max: zMax)
 	for (std::size_t i = 0; i < pixels.size(); ++i) {
-		
+		auto& var = pixels.at(i);
+
+		//So beautiful <3
+		xMin = min(var.x, xMin);
+		yMin = min(var.y, yMin);
+		zMin = min(var.z, zMin);
+
+		xMax = max(var.x, xMax);
+		yMax = max(var.y, yMax);
+		zMax = max(var.z, zMax);
 	}
+	seuilBas = glm::vec3(xMin, yMin, zMin), seuilHaut = glm::vec3(xMax, yMax, zMax);
 }
