@@ -28,28 +28,28 @@ mrproper:	clean
 
 # DO NOT DELETE THIS LINE
 
-mesh.o: mesh.h objet.h intersection.h material.h GeometricModel.h OBJLoader.h
-mesh.o: plan.hpp rayon.h scene.h bounding_box.h
-bounding_box.o: bounding_box.h objet.h intersection.h material.h plan.hpp
-bounding_box.o: rayon.h scene.h
-image.o: image.h png/lodepng.h
-plan.o: plan.hpp objet.h intersection.h material.h rayon.h scene.h phong.hpp
-plan.o: light.h
-scene.o: scene.h
-phong.o: phong.hpp material.h intersection.h light.h rayon.h scene.h
-sphere.o: sphere.hpp objet.h intersection.h material.h rayon.h scene.h
-sphere.o: phong.hpp light.h
-triangle.o: triangle.h objet.h intersection.h material.h rayon.h scene.h
-light.o: light.h rayon.h scene.h intersection.h
+mesh.o: Objects/Mesh/mesh.h Objects/objet.h intersection.h Materials/material.h Objects/Mesh/GeometricModel.h Objects/Mesh/OBJLoader.h
+mesh.o: Objects/plan.hpp Camera/rayon.h Camera/scene.h Objects/Mesh/bounding_box.h
+bounding_box.o: Objects/Mesh/bounding_box.h Objects/objet.h intersection.h Materials/material.h Objects/plan.hpp
+bounding_box.o: Camera/rayon.h Camera/scene.h
+image.o: Image/image.h png/lodepng.h
+plan.o: Objects/plan.hpp Objects/objet.h intersection.h Materials/material.h Camera/rayon.h Camera/scene.h Materials/phong.h
+plan.o: Lights/light.h
+scene.o: Camera/scene.h
+phong.o: Materials/phong.h Materials/material.h intersection.h Lights/light.h Camera/rayon.h Camera/scene.h
+sphere.o: Objects/sphere.hpp Objects/objet.h intersection.h Materials/material.h Camera/rayon.h Camera/scene.h
+sphere.o: Materials/phong.h Lights/light.h
+triangle.o: Objects/triangle.h Objects/objet.h intersection.h Materials/material.h Camera/rayon.h Camera/scene.h
+light.o: Lights/light.h Camera/rayon.h Camera/scene.h intersection.h
 intersection.o: intersection.h
-rayon.o: rayon.h scene.h intersection.h objet.h material.h
-camera.o: camera.h scene.h rayon.h intersection.h image.h
-texture.o: texture.h material.h intersection.h mesh.h objet.h
-texture.o: GeometricModel.h OBJLoader.h plan.hpp rayon.h scene.h
-texture.o: bounding_box.h
-main.o: image.h camera.h scene.h rayon.h intersection.h objet.h material.h
-main.o: sphere.hpp plan.hpp phong.hpp light.h plan_light.h mesh.h
-main.o: GeometricModel.h OBJLoader.h bounding_box.h
-GeometricModel.o: GeometricModel.h OBJLoader.h
-OBJLoader.o: OBJLoader.h GeometricModel.h
-plan_light.o: plan_light.h light.h rayon.h scene.h intersection.h
+rayon.o: Camera/rayon.h Camera/scene.h intersection.h Objects/objet.h Materials/material.h
+camera.o: Camera/camera.h Camera/scene.h Camera/rayon.h intersection.h Image/image.h
+texture.o: Materials/texture.h Materials/material.h intersection.h Objects/Mesh/mesh.h Objects/objet.h
+texture.o: Objects/Mesh/GeometricModel.h Objects/Mesh/OBJLoader.h Objects/plan.hpp Camera/rayon.h Camera/scene.h
+texture.o: Objects/Mesh/bounding_box.h
+main.o: Image/image.h Camera/camera.h Camera/scene.h Camera/rayon.h intersection.h Objects/objet.h Materials/material.h
+main.o: Objects/sphere.hpp Objects/plan.hpp Materials/phong.h Lights/light.h Lights/plan_light.h Objects/Mesh/mesh.h
+main.o: Objects/Mesh/GeometricModel.h Objects/Mesh/OBJLoader.h Objects/Mesh/bounding_box.h
+GeometricModel.o: Objects/Mesh/GeometricModel.h Objects/Mesh/OBJLoader.h
+OBJLoader.o: Objects/Mesh/OBJLoader.h Objects/Mesh/GeometricModel.h
+plan_light.o: Lights/plan_light.h Lights/light.h Camera/rayon.h Camera/scene.h intersection.h

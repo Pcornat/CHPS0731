@@ -50,3 +50,10 @@ void PostProcess::TONE_MAPPING_LOTTES_PHONG(glm::vec3& input) {
 
 
 }
+
+void PostProcess::TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3>& pixels) {
+#pragma omp parallel for
+	for (std::size_t i = 0; i < pixels.size(); ++i) {
+		
+	}
+}

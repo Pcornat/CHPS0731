@@ -4,24 +4,25 @@
 #include <glm/glm.hpp>
 #include <iostream>
 #include <string>
+#include <vector>
 
 class Image {
 protected:
-	unsigned int hauteur; // position de l'oeil
-	unsigned int largeur; // Largeur de l'ecran
-	glm::vec3* pixels;
+	std::vector<glm::vec3> pixels;
+	std::size_t hauteur; // position de l'oeil
+	std::size_t largeur; // Largeur de l'ecran
 public:
 	Image(unsigned int, unsigned int);
 
 	Image(std::string name);
 
-	int getHauteur();
+	virtual ~Image() = default;
 
-	int getLargeur();
+	size_t getHauteur() const;
+
+	size_t getLargeur() const;
 
 	void Save(std::string);
-
-	~Image();
 
 	void setPixel(int, int, glm::vec3);
 };

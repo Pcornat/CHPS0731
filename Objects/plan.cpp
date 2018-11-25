@@ -3,7 +3,7 @@
 //
 
 #include "plan.hpp"
-#include "phong.hpp"
+#include "phong.h"
 
 /**
  * @param rayon

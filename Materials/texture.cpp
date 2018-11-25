@@ -3,7 +3,7 @@
 //
 
 #include "texture.h"
-#include "mesh.h"
+#include "Objects/Mesh/mesh.h"
 
 Texture::Texture(bool refraction) : Material(refraction) {}
 

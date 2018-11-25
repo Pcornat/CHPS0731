@@ -7,7 +7,7 @@
 
 
 #include "material.h"
-#include "light.h"
+#include "Lights/light.h"
 
 /**
  * \class Phong

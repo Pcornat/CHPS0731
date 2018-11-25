@@ -3,9 +3,9 @@
 #include "objet.h"
 #include "sphere.hpp"
 #include "plan.hpp"
-#include "phong.hpp"
-#include "plan_light.h"
-#include "mesh.h"
+#include "phong.h"
+#include "Lights/plan_light.h"
+#include "Objects/Mesh/mesh.h"
 #include "texture.h"
 
 int main(int argc, char* argv[]) {
@@ -19,15 +19,15 @@ int main(int argc, char* argv[]) {
 	Mesh mesh;
 	if (argc != 2) {
 		std::cerr << "Nombre d'arguments insuffisant, nom d'un fichier .obj attendu." << std::endl;
-		exit(EXIT_FAILURE);
+		return EXIT_FAILURE;
 	}
 	try {
 		mesh = Mesh(new /*Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f)*/ Texture(false),
 					std::string(argv[1]),
 					glm::vec3(0.f, 0.f, 5.f), 10, 180.f, glm::vec3(0, 1, 0));
-	} catch (std::exception& e) {
+	} catch (const std::exception& e) {
 		std::cerr << e.what() << std::endl;
-		exit(EXIT_FAILURE);
+		return EXIT_FAILURE;
 	}//*/
 
 	Sphere sphere(new Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.0f, 0.0f), 128.0f, 1.0f),
@@ -70,11 +70,21 @@ int main(int argc, char* argv[]) {
 	scene.addObjet(&background);
 	scene.addObjet(&mesh);
 
-	myCamera.Calculer_image(myImage, scene, 6);
+	try {
+		myCamera.Calculer_image(myImage, scene, 6);
+	} catch (const std::exception& e) {
+		std::cerr << "Exception: " << e.what() << std::endl;
+		return EXIT_FAILURE;
+	}
 
 	/*std::time(&time);
 	ss << "out_" << std::put_time(std::localtime(&time), "%d_%m_%Y_%Hh%Mm%Ss") << ".png";
 	myImage.Save(ss.str());*/
-	myImage.Save("out.png");
+	try {
+		myImage.Save("out.png");
+	} catch (const std::exception& e) {
+		std::cerr << "Exception: " << e.what() << std::endl;
+		return EXIT_FAILURE;
+	}
 	return EXIT_SUCCESS;
 }

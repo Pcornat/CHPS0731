@@ -3,7 +3,7 @@
 //
 #include "sphere.hpp"
 #include "rayon.h"
-#include "phong.hpp"
+#include "phong.h"
 
 
 /**
