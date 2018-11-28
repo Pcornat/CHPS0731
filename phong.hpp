@@ -16,7 +16,7 @@
  */
 
 class Phong : public Material {
-private:
+protected:
 	///Ambient coeff
 	glm::vec3 ka; //(R, G, B)
 
@@ -34,9 +34,9 @@ public:
 
 	~Phong() override = default;
 
-	explicit Phong(bool, const glm::vec3&, const glm::vec3&, float, float);
+	explicit Phong(bool refraction, const glm::vec3& ka, const glm::vec3& kd, float ks, float reflection);
 
-	explicit Phong(bool, glm::vec3&&, glm::vec3&&, float, float);
+	explicit Phong(bool refraction, glm::vec3&& ka, glm::vec3&& kd, float ks, float reflection);
 
 	glm::vec3 computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& rayon, int rec) override;
 };

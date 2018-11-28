@@ -43,10 +43,10 @@ int main(int argc, char* argv[]) {
 	Plan rooftop(new Phong(false, glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.5f, 0.0f, 0.5f), 128.f, 0.0f),
 				 glm::vec3(0.0f, 10.0f, 0.0f),
 				 glm::vec3(0.0f, -1.0f, 0.0f));
-	Plan left(new Phong(false, glm::vec3(0.2f, 0.0f, 0.2f), glm::vec3(0.0f, 0.6f, 0.0f), 128.f, 0.0f),
+	Plan left(new Phong(false, glm::vec3(0.2f, 0.0f, 0.2f), glm::vec3(0.0f, 0.6f, 0.0f), 128.f, 0.5f),
 			  glm::vec3(10.0f, 0.0f, 0.0f),
 			  glm::vec3(-1.0f, 0.0f, 0.0f));
-	Plan right(new Phong(false, glm::vec3(0.0f, 0.2f, 0.2f), glm::vec3(0.6f, 0.0f, 0.0f), 128.0f, 0.0f),
+	Plan right(new Phong(false, glm::vec3(0.0f, 0.2f, 0.2f), glm::vec3(0.6f, 0.0f, 0.0f), 128.0f, 0.5f),
 			   glm::vec3(-10.0f, 0.0f, 0.0f),
 			   glm::vec3(1.0f, 0.0f, 0.0f));
 	Plan floor(new Phong(false, glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.2f, 0.0f, 0.5f), 128.f, 0.f),
@@ -56,7 +56,10 @@ int main(int argc, char* argv[]) {
 			new Phong(false, glm::vec3(0.3f, 0.2f, 0.2f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 0.0f),
 			glm::vec3(0.0f, 0.0f, -10.0f),
 			glm::vec3(0.0f, 0.0f, 0.0f));
-	Plan_light light(glm::vec3(1.0f, 4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 2.0f, 2.0f, 0.1000000000f);
+	Plan_light light(glm::vec3(1.0f, 9.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f),
+					 glm::vec3(-1.0f, 9.0f, 0.f),
+					 glm::vec3(0.f, 9.0f, -2.0f),
+					 0.1000000000f);
 	scene.addLight(&light);
 
 	scene.addObjet(&sphere);
@@ -68,7 +71,7 @@ int main(int argc, char* argv[]) {
 	scene.addObjet(&right);
 	scene.addObjet(&closedBox);
 	scene.addObjet(&background);
-	scene.addObjet(&mesh);
+	//scene.addObjet(&mesh);
 
 	myCamera.Calculer_image(myImage, scene, 6);
 

@@ -10,8 +10,8 @@
 
 class Plan_light : public Light {
 protected:
-	float height;
-	float width;
+	glm::vec3 height;
+	glm::vec3 width;
 	float sampleStep;
 
 public:
@@ -28,17 +28,17 @@ public:
 	 * @param sampleStep
 	 * @param type
 	 */
-	explicit Plan_light(glm::vec3&& position, glm::vec3&& couleur, float height, float width, float sampleStep);
+	explicit Plan_light(glm::vec3&& position, glm::vec3&& couleur, glm::vec3&& height, glm::vec3&& width, float sampleStep);
 
-	void setHeight(float height);
+	const glm::vec3& getHeight() const;
 
-	void setWidth(float width);
+	void setHeight(const glm::vec3& height);
+
+	const glm::vec3& getWidth() const;
+
+	void setWidth(const glm::vec3& width);
 
 	float getSampleStep() const;
-
-	float getHeight() const;
-
-	float getWidth() const;
 
 	void setSampleStep(float sampleStep);
 

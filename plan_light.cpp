@@ -5,23 +5,23 @@
 #include <iostream>
 #include "plan_light.h"
 
-Plan_light::Plan_light(glm::vec3&& position, glm::vec3&& couleur, float height, float width, float sampleStep) : Light(
+Plan_light::Plan_light(glm::vec3&& position, glm::vec3&& couleur, glm::vec3&& height, glm::vec3&& width, float sampleStep) : Light(
 		position, couleur), height(height), width(width), sampleStep(sampleStep) {}
 
-void Plan_light::setHeight(float height) {
-	Plan_light::height = height;
-}
-
-void Plan_light::setWidth(float width) {
-	Plan_light::width = width;
-}
-
-float Plan_light::getHeight() const {
+const glm::vec3& Plan_light::getHeight() const {
 	return height;
 }
 
-float Plan_light::getWidth() const {
+void Plan_light::setHeight(const glm::vec3& height) {
+	Plan_light::height = height;
+}
+
+const glm::vec3& Plan_light::getWidth() const {
 	return width;
+}
+
+void Plan_light::setWidth(const glm::vec3& width) {
+	Plan_light::width = width;
 }
 
 float Plan_light::getSampleStep() const {
@@ -36,8 +36,8 @@ float Plan_light::computeShadow(const glm::vec3& point, const Intersection& I, c
 	Rayon rayShadow;
 	glm::vec3 light = this->position, normal = I.getNormal(), lightDir;
 	float offset = 1e-5f,
-			numberHeight = this->height / this->sampleStep,
-			numberWidth = this->width / this->sampleStep,
+			numberHeight = glm::abs(glm::length(this->position - this->height)) / this->sampleStep,
+			numberWidth = glm::abs(glm::length(this->position - this->width)) / this->sampleStep,
 			nbTotal = numberHeight * numberWidth;
 	float nbOk = 0.f;
 	rayShadow.Orig(offset * normal + point);
