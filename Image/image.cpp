@@ -10,7 +10,7 @@ void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsi
 	if (error) std::cerr << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 }
 
-Image::Image(const unsigned int h, const unsigned int l) : hauteur(h), largeur(l), pixels(largeur * hauteur) {}
+Image::Image(const unsigned int h, const unsigned int l) : pixels(l * h), hauteur(h), largeur(l) {}
 
 
 void Image::Save(std::string name) {

@@ -49,7 +49,7 @@ float Plan_light::computeShadow(const glm::vec3& point, const Intersection& I, c
 				++nbOk;
 			light.x += this->sampleStep;
 		}
-		light.x = static_cast<float>(this->position.x);
+		light.x = this->position.x;
 		light.y += this->sampleStep;
 	}
 	return 1 - (nbOk / nbTotal);

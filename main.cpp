@@ -34,9 +34,6 @@ int main(int argc, char* argv[]) {
 				  glm::vec3(-2.5f, -0.2f, 5.0f), 1);
 	Sphere secSpher(new Phong(false, glm::vec3(0.2f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.392f), 128.0f, 0.5f),
 					glm::vec3(2.5f, -1.7f, 10.0f), 1);
-	/*Triangle triangle(new Phong(false, glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.4f, 0.3f, 0.3f), 128.0f, 0.25f),
-					  glm::vec3(1.7f, -2.0f, 100.0f),
-					  glm::vec3(-2.7f, -2.0f, 100.0f), glm::vec3(-0.7f, 3.0f, 100.0f));*/
 	Plan background(new Phong(false, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 1.0f),
 					glm::vec3(0.0f, 0.0f, 20.0f),
 					glm::vec3(0.0f, 0.0f, -1.0f));
@@ -61,14 +58,13 @@ int main(int argc, char* argv[]) {
 
 	scene.addObjet(&sphere);
 	scene.addObjet(&secSpher);
-	//scene.addObjet(&triangle);
 	scene.addObjet(&rooftop);
 	scene.addObjet(&left);
 	scene.addObjet(&floor);
 	scene.addObjet(&right);
 	scene.addObjet(&closedBox);
 	scene.addObjet(&background);
-	scene.addObjet(&mesh);
+	//scene.addObjet(&mesh);
 
 	try {
 		myCamera.Calculer_image(myImage, scene, 6);

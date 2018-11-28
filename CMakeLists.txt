@@ -66,6 +66,8 @@ add_executable(RayTrace
 		png/lodepng.cpp
 		post_process.h
 		post_process.cpp
+		intersection.cpp
+		intersection.h
 		main.cpp
 		${CAMERA_SRC}
 		${IMAGE_SRC}

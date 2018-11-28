@@ -30,15 +30,15 @@ public:
 	 */
 	explicit Plan_light(glm::vec3&& position, glm::vec3&& couleur, float height, float width, float sampleStep);
 
-	void setHeight(float height);
-
-	void setWidth(float width);
-
 	float getSampleStep() const;
 
 	float getHeight() const;
 
+	void setHeight(float height);
+
 	float getWidth() const;
+
+	void setWidth(float width);
 
 	void setSampleStep(float sampleStep);
 
