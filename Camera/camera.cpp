@@ -1,3 +1,4 @@
+#include <chrono>
 #include "camera.h"
 #include "image.h"
 
@@ -11,7 +12,7 @@ void Camera::Calculer_image(Image& im, Scene& sc, int complexite) const {
 	glm::vec3 foyer; // Foyer optique de la camera
 	glm::vec3 droite; // Vecteur partant sur la droite dans le plan de l'ecran
 	float dx, dy; // dimension des macro-pixels
-	int x, y; // Position dans l'image du pixel en cours de calcul
+	//int x, y; // Position dans l'image du pixel en cours de calcul
 	glm::vec3 hg; // Position du pixel au centre du premier macro-pixel de l'ecran (en haut a gauche)
 
 	// On calcule la position du foyer de la camera
@@ -30,9 +31,11 @@ void Camera::Calculer_image(Image& im, Scene& sc, int complexite) const {
 	hg = Camera::centre + (droite * ((dx * 0.5f) - (Camera::largeur * 0.5f))) + (Camera::haut * ((Camera::hauteur * 0.5f) - (dy * 0.5f)));
 
 	// Pour chaque pixel de l'image a calculer
+	auto chrono = std::chrono::high_resolution_clock::now();//Lancement du chrono de calcul
 #pragma omp parallel for collapse(2)
-	for (y = 0; y < im.getHauteur(); y++) {
-		for (x = 0; x < im.getLargeur(); x++) {
+	for (std::size_t y = 0; y < im.getHauteur(); y++) {
+		for (std::size_t x = 0; x < im.getLargeur(); x++) {
+			//TODO : anti-aliasing
 			// On calcule la position dans l'espace de ce point
 			Rayon ray; // Rayon a lancer
 			glm::vec3 res;
@@ -47,9 +50,10 @@ void Camera::Calculer_image(Image& im, Scene& sc, int complexite) const {
 			ray.Vect(glm::normalize(pt - foyer)); //Vecteur directeur du rayon.
 
 			res = ray.Lancer(sc, complexite);
-			// TODO: ToneMapping
-			im.setPixel(x, y, glm::abs(res));
+			im.setPixel(static_cast<int>(x), static_cast<int>(y), glm::abs(res));
 		}
 		//std::cout << "Ligne " << y << std::endl;
 	}
+	double diff = std::chrono::duration<double>(std::chrono::high_resolution_clock::now() - chrono).count();
+	std::cout << "Calcul en : " << std::round(diff / 60.0) << "m" << static_cast<unsigned int>(std::round(diff)) % 60 << "s" << std::endl;
 }

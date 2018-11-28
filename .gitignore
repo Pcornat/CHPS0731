@@ -4,7 +4,7 @@ prog
 png/
 glm/
 .idea/
-cmake-build-debug/
+cmake-build-*
 *.png
 makefile.bak
 doc/*
