@@ -40,6 +40,8 @@ set(MATERIALS_SRC
 		Materials/material.cpp
 		Materials/phong.h
 		Materials/phong.cpp
+		Materials/perlin.h
+		Materials/perlin.cpp
 		Materials/texture.h
 		Materials/texture.cpp)
 
