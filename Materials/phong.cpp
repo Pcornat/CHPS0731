@@ -2,8 +2,7 @@
 // Created by kevin on 12/09/18.
 //
 
-#include <glm/gtc/noise.hpp>
-#include "phong.h"
+#include "phong.hpp"
 
 /**
  * Construct a phong material.
@@ -37,7 +36,7 @@ Phong::Phong(bool refraction, glm::vec3&& ka, glm::vec3&& kd, float ks, float re
  * @return The object's colour (the normal vector to make it simple)
  */
 glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& rayon, int rec) {
-	float offset = 1e-5f;
+	float offset = 1e-4f;
 	glm::vec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, refl(1, 1, 1), min(0, 0, 0), max(1, 1, 1);
 	float shad = 0.0f;
 	for (auto light : s.Lights) {
@@ -49,10 +48,14 @@ glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, co
 		L = glm::normalize(point - light->getPosition()), R = glm::normalize(glm::reflect(-L, I.getNormal()));
 		//Rayon rayShadow(offset * I.getNormal() + point, -L);
 
-		amb += this->ka;
-		diff += glm::max(glm::dot(I.getNormal(), -L), 0.0f) * glm::perlin(0.1f * point) * light->getCouleur();
-		//diff = glm::clamp(diff + glm::max(glm::dot(I.getNormal(), -L), 0.0f) * this->kd * light->getCouleur(), min, max);
-		spec += light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0f), this->ks);
+		amb = glm::clamp(amb + this->ka, min, max);
+		//diff += glm::max(glm::dot(I.getNormal(), -L), 0.0) * glm::perlin(0.1 * point) * light->getCouleur();
+		diff = glm::clamp(diff + glm::max(glm::dot(I.getNormal(), -L), 0.0f) * this->kd * light->getCouleur(),
+						  min, max);
+
+
+		spec = glm::clamp(spec + light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0f), this->ks),
+						  min, max);
 		shad += light->computeShadow(point, I, s, rec);
 	}
 	if (this->reflection != 0.0f)

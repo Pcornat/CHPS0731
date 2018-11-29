@@ -7,6 +7,7 @@
 #include "Lights/plan_light.h"
 #include "Objects/Mesh/mesh.h"
 #include "texture.h"
+#include "perlin.h"
 
 int main(int argc, char* argv[]) {
 	const unsigned int h = 1080;
@@ -40,10 +41,10 @@ int main(int argc, char* argv[]) {
 	Plan rooftop(new Phong(false, glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.5f, 0.0f, 0.5f), 128.f, 0.0f),
 				 glm::vec3(0.0f, 10.0f, 0.0f),
 				 glm::vec3(0.0f, -1.0f, 0.0f));
-	Plan left(new Phong(false, glm::vec3(0.2f, 0.0f, 0.2f), glm::vec3(0.0f, 0.6f, 0.0f), 128.f, 0.0f),
+	Plan left(new Phong(false, glm::vec3(0.2f, 0.0f, 0.2f), glm::vec3(0.0f, 0.6f, 0.0f), 128.f, 0.5f),
 			  glm::vec3(10.0f, 0.0f, 0.0f),
 			  glm::vec3(-1.0f, 0.0f, 0.0f));
-	Plan right(new Phong(false, glm::vec3(0.0f, 0.2f, 0.2f), glm::vec3(0.6f, 0.0f, 0.0f), 128.0f, 0.0f),
+	Plan right(new Phong(false, glm::vec3(0.0f, 0.2f, 0.2f), glm::vec3(0.6f, 0.0f, 0.0f), 128.0f, 0.5f),
 			   glm::vec3(-10.0f, 0.0f, 0.0f),
 			   glm::vec3(1.0f, 0.0f, 0.0f));
 	Plan floor(new Phong(false, glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.2f, 0.0f, 0.5f), 128.f, 0.f),
@@ -53,7 +54,10 @@ int main(int argc, char* argv[]) {
 			new Phong(false, glm::vec3(0.3f, 0.2f, 0.2f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 0.0f),
 			glm::vec3(0.0f, 0.0f, -10.0f),
 			glm::vec3(0.0f, 0.0f, 0.0f));
-	Plan_light light(glm::vec3(1.0f, 4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 2.0f, 2.0f, 0.1000000000f);
+	Plan_light light(glm::vec3(0.0f, 9.0f, -5.0f), glm::vec3(1.0f, 1.0f, 1.0f),
+					 glm::vec3(-10.0f, 0.f, 0.f),
+					 glm::vec3(0.f, 0.0f, -10.0f),
+					 0.1000000000f, 2.f, 2.f);
 	scene.addLight(&light);
 
 	scene.addObjet(&sphere);
