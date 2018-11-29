@@ -19,7 +19,7 @@ glm::vec3 Perlin::computeColour(const Intersection& I, const glm::vec3& point, c
 
 		amb = glm::clamp(amb + this->ka, min, max);
 
-		diff += glm::max(glm::dot(I.getNormal(), -L), 0.0f) * glm::perlin(0.1f * point) * light->getCouleur();
+		diff += glm::max(glm::dot(I.getNormal(), -L), 0.0f) * glm::perlin(this->coeff * point) * light->getCouleur();
 
 
 		spec = glm::clamp(spec + light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0f), this->ks),

@@ -5,14 +5,16 @@
 #ifndef PROJECT_PLAN_LIGHT_H
 #define PROJECT_PLAN_LIGHT_H
 
-#include "light.h"
 #include "rayon.h"
+#include "light.h"
 
 class Plan_light : public Light {
 protected:
-	glm::vec3 height;
-	glm::vec3 width;
+	glm::vec3 rightDir;
+	glm::vec3 depthDir;
 	float sampleStep;
+	float height;
+	float width;
 
 public:
 	~Plan_light() override = default;
@@ -23,24 +25,33 @@ public:
 	 *
 	 * @param position
 	 * @param couleur
-	 * @param height
-	 * @param width
+	 * @param rightDir
+	 * @param depthDir
 	 * @param sampleStep
 	 * @param type
 	 */
-	explicit Plan_light(glm::vec3&& position, glm::vec3&& couleur, glm::vec3&& height, glm::vec3&& width, float sampleStep);
+	explicit Plan_light(glm::vec3&& position, glm::vec3&& couleur, glm::vec3&& rightDir, glm::vec3&& depthDir, float sampleStep, float height,
+						float width);
 
-	const glm::vec3& getHeight() const;
+	const glm::vec3& getRightDir() const;
 
-	void setHeight(const glm::vec3& height);
+	void setRightDir(const glm::vec3& rightDir);
 
-	const glm::vec3& getWidth() const;
+	const glm::vec3& getDepthDir() const;
 
-	void setWidth(const glm::vec3& width);
+	void setDepthDir(const glm::vec3& depthDir);
 
 	float getSampleStep() const;
 
 	void setSampleStep(float sampleStep);
+
+	float getHeight() const;
+
+	void setHeight(float height);
+
+	float getWidth() const;
+
+	void setWidth(float width);
 
 	/**
 	 * Compute shadows, soft shadows here. The distributed method.

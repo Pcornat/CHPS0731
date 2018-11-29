@@ -1,8 +1,11 @@
 #ifndef __Raytracer__Light__
 #define __Raytracer__Light__
 
-#include <glm/glm.hpp>
 #include "rayon.h"
+
+#define GLM_ENABLE_EXPERIMENTAL
+
+#include <glm/glm.hpp>
 
 /**
  * @class Light

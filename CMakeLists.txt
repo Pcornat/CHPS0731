@@ -43,4 +43,8 @@ add_executable(RayTrace
 		mesh.cpp
 		mesh.h
 		bounding_box.cpp
-		bounding_box.h perlin.cpp perlin.h)
+		bounding_box.h
+		perlin.cpp
+		perlin.h
+		texture.cpp
+		texture.h)
