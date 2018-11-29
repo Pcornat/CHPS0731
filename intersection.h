@@ -34,11 +34,11 @@ public:
 
 	// Opérateur de tri des intersections
 	bool operator<(const Intersection& i) const {
-		return dist < i.dist;
+		return std::isless(dist, i.dist);
 	}
 
 	bool operator>(const Intersection& i) const {
-		return dist > i.dist;
+		return std::isgreater(dist, i.dist);
 	}
 };
 

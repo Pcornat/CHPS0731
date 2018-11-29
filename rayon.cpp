@@ -28,7 +28,7 @@ bool Rayon::shadowRay(const Scene& sc, float distLum, int complexite) {
 	}
 	if (!I.empty()) {
 		std::sort(I.begin(), I.end());
-		return I.at(0).getDist() < distLum; //true = shadow, false : light
+		return std::isless(I.at(0).getDist(), distLum); //true = shadow, false : light
 	}
 	return false;
 }

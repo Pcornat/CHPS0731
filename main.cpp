@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
 		exit(EXIT_FAILURE);
 	}
 	try {
-		mesh = Mesh(new /*Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f)*/ Texture(false),
+		mesh = Mesh(new Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f),
 					std::string(argv[1]),
 					glm::vec3(0.f, 0.f, 5.f), 10, 180.f, glm::vec3(0, 1, 0));
 	} catch (std::exception& e) {
@@ -56,11 +56,11 @@ int main(int argc, char* argv[]) {
 	Plan closedBox(
 			new Phong(false, glm::vec3(0.3f, 0.2f, 0.2f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 0.0f),
 			glm::vec3(0.0f, 0.0f, -10.0f),
-			glm::vec3(0.0f, 0.0f, 0.0f));
-	Plan_light light(glm::vec3(0.0f, 9.0f, -5.0f), glm::vec3(1.0f, 1.0f, 1.0f),
-					 glm::vec3(-10.0f, 0.f, 0.f),
-					 glm::vec3(0.f, 0.0f, -10.0f),
-					 0.1000000000f, 2.f, 2.f);
+			glm::vec3(0.0f, 0.0f, 1.0f));
+	Plan_light light(glm::vec3(0.0f, 9.0f, 5.0f), glm::vec3(1.0f, 1.0f, 1.0f),
+					 glm::vec3(-1.0f, 0.f, 0.f),
+					 glm::vec3(0.f, 0.0f, 1.0f),
+					 0.1000000000f, 5.f, 5.f);
 	scene.addLight(&light);
 
 	scene.addObjet(&sphere);
