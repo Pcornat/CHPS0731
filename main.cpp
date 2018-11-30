@@ -1,11 +1,11 @@
 #include <Materials/phong.h>
-#include "image.h"
-#include "camera.h"
-#include "objet.h"
-#include "sphere.hpp"
-#include "plan.hpp"
-#include "plan_light.h"
-#include "mesh.h"
+#include <image.h>
+#include <camera.h>
+#include <objet.h>
+#include <sphere.hpp>
+#include <plan.hpp>
+#include <plan_light.h>
+#include <mesh.h>
 
 int main(int argc, char* argv[]) {
 	const unsigned int h = 1080;
