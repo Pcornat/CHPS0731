@@ -6,6 +6,7 @@
 #include <plan.hpp>
 #include <plan_light.h>
 #include <mesh.h>
+#include <iomanip>
 
 int main(int argc, char* argv[]) {
 	const unsigned int h = 1080;
@@ -13,7 +14,7 @@ int main(int argc, char* argv[]) {
 	Camera myCamera;
 	Scene scene;
 	Image myImage(h, l);
-	/*std::stringstream ss;
+	std::stringstream ss;
 	std::time_t time;//*/
 	Mesh mesh;
 	if (argc != 2) {
@@ -21,16 +22,16 @@ int main(int argc, char* argv[]) {
 		return EXIT_FAILURE;
 	}
 	try {
-		mesh = Mesh(new Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f),
+		mesh = Mesh(new Phong(false, glm::vec3(0.2f, 0.3f, 0.2f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f),
 					std::string(argv[1]),
-					glm::vec3(0.f, -4.f, 8.f), 15, 180.f, glm::vec3(0, 1, 0));
+					glm::vec3(0.f, -3.8f, 8.f), 15, 180.f, glm::vec3(0, 1, 0));
 	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 		return EXIT_FAILURE;
 	}//*/
 
-	Sphere sphere(new Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.0f, 0.0f), 128.0f, 1.0f),
-				  glm::vec3(-2.5f, -0.2f, 10.0f), 1);
+	Sphere sphere(new Phong(false, glm::vec3(0.2f, 0.3f, 0.2f), glm::vec3(0.6f, 0.0f, 0.0f), 128.0f, 1.0f),
+				  glm::vec3(-2.5f, -4.0f, 10.0f), 1);
 	Sphere secSpher(new Phong(false, glm::vec3(0.2f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.392f), 128.0f, 0.5f),
 					glm::vec3(2.5f, -1.7f, 5.0f), 1);
 	Plan background(new Phong(false, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 1.0f),
@@ -75,9 +76,9 @@ int main(int argc, char* argv[]) {
 		return EXIT_FAILURE;
 	}
 
-	/*std::time(&time);
+	std::time(&time);
 	ss << "out_" << std::put_time(std::localtime(&time), "%d_%m_%Y_%Hh%Mm%Ss") << ".png";
-	myImage.Save(ss.str());*/
-	myImage.Save("out.png");
+	myImage.Save(ss.str());//*/
+	//myImage.Save("out.png");
 	return EXIT_SUCCESS;
 }
