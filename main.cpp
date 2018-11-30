@@ -1,13 +1,11 @@
+#include <Materials/phong.h>
 #include "image.h"
 #include "camera.h"
 #include "objet.h"
 #include "sphere.hpp"
 #include "plan.hpp"
-#include "phong.hpp"
 #include "plan_light.h"
 #include "mesh.h"
-#include "texture.h"
-#include "perlin.h"
 
 int main(int argc, char* argv[]) {
 	const unsigned int h = 1080;
@@ -32,12 +30,9 @@ int main(int argc, char* argv[]) {
 	}//*/
 
 	Sphere sphere(new Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.0f, 0.0f), 128.0f, 1.0f),
-				  glm::vec3(-2.5f, -0.2f, 5.0f), 1);
+				  glm::vec3(-2.5f, -0.2f, 10.0f), 1);
 	Sphere secSpher(new Phong(false, glm::vec3(0.2f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.392f), 128.0f, 0.5f),
-					glm::vec3(2.5f, -1.7f, 10.0f), 1);
-	/*Triangle triangle(new Phong(false, glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.4f, 0.3f, 0.3f), 128.0f, 0.25f),
-					  glm::vec3(1.7f, -2.0f, 100.0f),
-					  glm::vec3(-2.7f, -2.0f, 100.0f), glm::vec3(-0.7f, 3.0f, 100.0f));*/
+					glm::vec3(2.5f, -1.7f, 5.0f), 1);
 	Plan background(new Phong(false, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 1.0f),
 					glm::vec3(0.0f, 0.0f, 20.0f),
 					glm::vec3(0.0f, 0.0f, -1.0f));
@@ -65,7 +60,6 @@ int main(int argc, char* argv[]) {
 
 	scene.addObjet(&sphere);
 	scene.addObjet(&secSpher);
-	//scene.addObjet(&triangle);
 	scene.addObjet(&rooftop);
 	scene.addObjet(&left);
 	scene.addObjet(&floor);

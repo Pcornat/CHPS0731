@@ -6,7 +6,7 @@
 #define PROJECT_PERLIN_H
 
 
-#include "phong.hpp"
+#include "phong.h"
 
 class Perlin : public Phong {
 private:

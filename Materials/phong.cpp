@@ -2,7 +2,7 @@
 // Created by kevin on 12/09/18.
 //
 
-#include "phong.hpp"
+#include "phong.h"
 
 /**
  * Construct a phong material.
