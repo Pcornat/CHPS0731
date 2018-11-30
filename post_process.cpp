@@ -57,7 +57,7 @@ void PostProcess::TONE_MAPPING_LOTTES_PHONG(glm::vec3& input) {
 }
 
 void PostProcess::TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3>& pixels, const std::size_t& hauteur, const std::size_t& largeur) {
-	std::vector<float> histoCum(pixels.size());
+	std::vector<float> histoCum(largeur * hauteur);
 	float minV = std::numeric_limits<float>::max(), maxV = 0.f;
 	//Lambda function to code faster.
 	auto min = [](float a, float b) {
@@ -72,38 +72,55 @@ void PostProcess::TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3>& pixels, cons
 		else
 			return b;
 	};
-#pragma omp parallel for reduction(min: minV) reduction(max: maxV)
-	for (std::size_t i = 0; i < pixels.size(); ++i) {
-		auto& pixel(pixels.at(i));
-		pixel.r = pixel.x;
-		pixel.g = pixel.y;
-		pixel.b = pixel.z;
 
-		pixel = glm::hsvColor(pixel);
-		histoCum.at(i) = pixel.z;
-		minV = min(minV, pixel.z);
-		maxV = max(maxV, pixel.z);
+#pragma omp parallel for collapse(2) reduction(min: minV) reduction(max: maxV)
+	for (unsigned y = 0; y < hauteur; ++y) {
+		for (unsigned x = 0; x < largeur; ++x) {
+			auto& pixel(pixels.at(x + largeur * y));
+			pixel.r = pixel.x;
+			pixel.g = pixel.y;
+			pixel.b = pixel.z;
+
+			pixel = glm::hsvColor(pixel);
+			histoCum.at(x + largeur * y) = pixel.z;
+			minV = min(minV, pixel.z);
+			maxV = max(maxV, pixel.z);
+		}
 	}
 	float alpha = (1.f / (maxV - minV));
 	float beta = (-minV) * alpha;
 	//Normalisation de l'image
-#pragma omp parallel for
-	for (std::size_t i = 0; i < pixels.size(); ++i) {
-		pixels.at(i).z = alpha * pixels.at(i).z + beta;
-		histoCum.at(i) += histoCum.at(i - 1);//Normalement, histogramme cumulé
+#pragma omp parallel for collapse(2)
+	for (unsigned y = 0; y < hauteur; ++y) {
+		for (unsigned x = 0; x < largeur; ++x) {
+			auto& pixel = pixels.at(x + largeur * y);
+			pixel.z = alpha * pixel.z + beta;
+			histoCum.at(x + largeur * y) += histoCum.at((x + largeur * y) - 1);//Normalement, histogramme cumulé
+		}
 	}
 
 	float ratio = 1.0f / (hauteur * largeur);
 	//Égalisation de l'histogramme
-#pragma omp parallel for
-	for (std::size_t i = 0; i < pixels.size(); ++i) {
-		auto& pixel(pixels.at(i));
-		pixel.z = histoCum.at(i) * ratio;
+#pragma omp parallel for collapse(2)
+	for (unsigned y = 0; y < hauteur; ++y) {
+		for (unsigned x = 0; x < largeur; ++x) {
+			auto& pixel(pixels.at(x + largeur * y));
+			pixel.z = histoCum.at(x + largeur * y) * ratio;
 
-		//Nouvelles valeurs, théoriquement
-		pixel = glm::rgbColor(pixel);
-		pixel.x = pixel.r;
-		pixel.y = pixel.g;
-		pixel.z = pixel.b;
+			//Nouvelles valeurs, théoriquement
+			pixel = glm::rgbColor(pixel);
+			if (std::isgreater(pixel.r, 1.0f)) {
+				pixel.r /= 255.f;
+			}
+			if (std::isgreater(pixel.g, 1.0f)) {
+				pixel.g /= 255.f;
+			}
+			if (std::isgreater(pixel.g, 1.0f)) {
+				pixel.g /= 255.f;
+			}
+			pixel.x = pixel.r;
+			pixel.y = pixel.g;
+			pixel.z = pixel.b;
+		}
 	}
 }

@@ -83,7 +83,13 @@ int main(int argc, char* argv[]) {
 
 	std::time(&time);
 	ss << "out_" << std::put_time(std::localtime(&time), "%d_%m_%Y_%Hh%Mm%Ss") << ".png";
-	myImage.Save(ss.str());//*/
+	try {
+		myImage.Save(ss.str());
+	} catch (const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+		return EXIT_FAILURE;
+	}
+//*/
 	//myImage.Save("out.png");
 	return EXIT_SUCCESS;
 }
