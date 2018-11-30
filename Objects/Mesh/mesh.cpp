@@ -3,6 +3,7 @@
 bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) {
 	auto& listVertex(model.getListVertex());
 	auto& listNormals(model.getListNormals());
+	bool inter = false;
 	//if (this->box.calculIntersection(rayon, scene, I, complexite)) {
 	for (auto&& face : model.getListFaces()) {
 		float dist = 0.f;
@@ -11,7 +12,7 @@ bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 				pointA = facteur * listVertex.at(static_cast<unsigned long>(face.s1)) + this->center,
 				pointB = facteur * listVertex.at(static_cast<unsigned long>(face.s2)) + this->center,
 				pointC = facteur * listVertex.at(static_cast<unsigned long>(face.s3)) + this->center;
-		if (glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), pointA, pointB, pointC, baryPos, dist)) {
+		if ((inter = glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), pointA, pointB, pointC, baryPos, dist))) {
 			I.emplace_back(dist,
 						   listNormals.at(static_cast<unsigned long>(face.s2)) * baryPos.x +
 						   listNormals.at(static_cast<unsigned long>(face.s3)) * baryPos.y +
@@ -19,7 +20,7 @@ bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 						   this);
 		}
 	}
-	return true;
+	return inter;
 	/*} else
 		return false;//*/
 }

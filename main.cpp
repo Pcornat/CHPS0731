@@ -3,9 +3,9 @@
 #include "objet.h"
 #include "sphere.hpp"
 #include "plan.hpp"
-#include "phong.h"
-#include "Lights/plan_light.h"
-#include "Objects/Mesh/mesh.h"
+#include "phong.hpp"
+#include "plan_light.h"
+#include "mesh.h"
 #include "texture.h"
 #include "perlin.h"
 
@@ -23,10 +23,10 @@ int main(int argc, char* argv[]) {
 		return EXIT_FAILURE;
 	}
 	try {
-		mesh = Mesh(new /*Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f)*/ Texture(false),
+		mesh = Mesh(new Phong(false, glm::vec3(0.1f, 0.2f, 0.1f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f),
 					std::string(argv[1]),
-					glm::vec3(0.f, 0.f, 5.f), 10, 180.f, glm::vec3(0, 1, 0));
-	} catch (const std::exception& e) {
+					glm::vec3(0.f, -4.f, 8.f), 15, 180.f, glm::vec3(0, 1, 0));
+	} catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 		return EXIT_FAILURE;
 	}//*/
@@ -35,6 +35,9 @@ int main(int argc, char* argv[]) {
 				  glm::vec3(-2.5f, -0.2f, 5.0f), 1);
 	Sphere secSpher(new Phong(false, glm::vec3(0.2f, 0.0f, 0.0f), glm::vec3(0.0f, 0.5f, 0.392f), 128.0f, 0.5f),
 					glm::vec3(2.5f, -1.7f, 10.0f), 1);
+	/*Triangle triangle(new Phong(false, glm::vec3(0.2f, 0.2f, 0.0f), glm::vec3(0.4f, 0.3f, 0.3f), 128.0f, 0.25f),
+					  glm::vec3(1.7f, -2.0f, 100.0f),
+					  glm::vec3(-2.7f, -2.0f, 100.0f), glm::vec3(-0.7f, 3.0f, 100.0f));*/
 	Plan background(new Phong(false, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 1.0f),
 					glm::vec3(0.0f, 0.0f, 20.0f),
 					glm::vec3(0.0f, 0.0f, -1.0f));
@@ -48,27 +51,28 @@ int main(int argc, char* argv[]) {
 			   glm::vec3(-10.0f, 0.0f, 0.0f),
 			   glm::vec3(1.0f, 0.0f, 0.0f));
 	Plan floor(new Phong(false, glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.2f, 0.0f, 0.5f), 128.f, 0.f),
-			   glm::vec3(0.0f, -10.0f, 0.0f),
+			   glm::vec3(0.0f, -5.0f, 0.0f),
 			   glm::vec3(0.0f, 1.0f, 0.0f));
 	Plan closedBox(
-			new Phong(false, glm::vec3(0.3f, 0.2f, 0.2f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 0.0f),
+			new Phong(false, glm::vec3(0.3f, 0.2f, 0.2f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 0.25f),
 			glm::vec3(0.0f, 0.0f, -10.0f),
-			glm::vec3(0.0f, 0.0f, 0.0f));
-	Plan_light light(glm::vec3(0.0f, 9.0f, -5.0f), glm::vec3(1.0f, 1.0f, 1.0f),
-					 glm::vec3(-10.0f, 0.f, 0.f),
-					 glm::vec3(0.f, 0.0f, -10.0f),
-					 0.1000000000f, 2.f, 2.f);
+			glm::vec3(0.0f, 0.0f, 1.0f));
+	Plan_light light(glm::vec3(-7.0f, 8.0f, -5.0f), glm::vec3(1.0f, 1.0f, 1.0f),
+					 glm::vec3(1.0f, 0.f, 0.f),
+					 glm::vec3(0.f, 0.0f, 1.0f),
+					 0.2000000000f, 2.f, 2.f);
 	scene.addLight(&light);
 
 	scene.addObjet(&sphere);
 	scene.addObjet(&secSpher);
+	//scene.addObjet(&triangle);
 	scene.addObjet(&rooftop);
 	scene.addObjet(&left);
 	scene.addObjet(&floor);
 	scene.addObjet(&right);
 	scene.addObjet(&closedBox);
 	scene.addObjet(&background);
-	//scene.addObjet(&mesh);
+	scene.addObjet(&mesh);
 
 	try {
 		myCamera.Calculer_image(myImage, scene, 6);
@@ -80,11 +84,6 @@ int main(int argc, char* argv[]) {
 	/*std::time(&time);
 	ss << "out_" << std::put_time(std::localtime(&time), "%d_%m_%Y_%Hh%Mm%Ss") << ".png";
 	myImage.Save(ss.str());*/
-	try {
-		myImage.Save("out.png");
-	} catch (const std::exception& e) {
-		std::cerr << "Exception: " << e.what() << std::endl;
-		return EXIT_FAILURE;
-	}
+	myImage.Save("out.png");
 	return EXIT_SUCCESS;
 }
