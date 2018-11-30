@@ -48,14 +48,12 @@ glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, co
 		L = glm::normalize(point - light->getPosition()), R = glm::normalize(glm::reflect(-L, I.getNormal()));
 		//Rayon rayShadow(offset * I.getNormal() + point, -L);
 
-		amb = glm::clamp(amb + this->ka, min, max);
-		//diff += glm::max(glm::dot(I.getNormal(), -L), 0.0) * glm::perlin(0.1 * point) * light->getCouleur();
-		diff = glm::clamp(diff + glm::max(glm::dot(I.getNormal(), -L), 0.0f) * this->kd * light->getCouleur(),
-						  min, max);
+		amb += this->ka;
+		diff += glm::max(glm::dot(I.getNormal(), -L), 0.0f) * this->kd * light->getCouleur();
+		//diff = glm::clamp(diff + glm::max(glm::dot(I.getNormal(), -L), 0.0f) * this->kd * light->getCouleur(), min, max);
 
 
-		spec = glm::clamp(spec + light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0f), this->ks),
-						  min, max);
+		spec += light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0f), this->ks);
 		shad += light->computeShadow(point, I, s, rec);
 	}
 	if (this->reflection != 0.0f)

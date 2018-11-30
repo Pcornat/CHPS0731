@@ -19,7 +19,7 @@ void Image::Save(std::string name) {
 	std::vector<unsigned char> image;
 	image.resize(width * height * 4);
 	/* TODO : TONE MAPPING HERE */
-	//PostProcess::TONE_MAPPING_SIMPLE_IMAGE(Image::pixels);
+	PostProcess::TONE_MAPPING_SIMPLE_IMAGE(Image::pixels, this->hauteur, this->largeur);
 #pragma omp parallel for collapse(2)
 	for (unsigned y = 0; y < height; ++y)
 		for (unsigned x = 0; x < width; ++x) {

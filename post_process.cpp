@@ -3,6 +3,11 @@
 //
 
 #include "post_process.h"
+#include <unordered_map>
+
+#define GLM_ENABLE_EXPERIMENTAL
+
+#include <glm/gtx/color_space.hpp>
 
 void PostProcess::TONE_MAPPING_UCHIMURA_PHONG(glm::vec3& input) {
 	const float P = 1.0f,
@@ -51,14 +56,9 @@ void PostProcess::TONE_MAPPING_LOTTES_PHONG(glm::vec3& input) {
 
 }
 
-void PostProcess::TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3>& pixels) {
-	glm::vec3 seuilHaut, seuilBas;
-	float xMin = std::numeric_limits<float>::max(),
-			xMax = 0,
-			yMin = std::numeric_limits<float>::max(),
-			yMax = 0,
-			zMin = std::numeric_limits<float>::max(),
-			zMax = 0;
+void PostProcess::TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3>& pixels, const std::size_t& hauteur, const std::size_t& largeur) {
+	std::vector<float> histoCum(pixels.size());
+	float minV = std::numeric_limits<float>::max(), maxV = 0.f;
 	//Lambda function to code faster.
 	auto min = [](float a, float b) {
 		if (std::isless(a, b))
@@ -72,19 +72,38 @@ void PostProcess::TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3>& pixels) {
 		else
 			return b;
 	};
-#pragma omp parallel for reduction(min: xMin) reduction(min: yMin) reduction(min: zMin)\
-        reduction(max: xMax) reduction(max: yMax) reduction(max: zMax)
+#pragma omp parallel for reduction(min: minV) reduction(max: maxV)
 	for (std::size_t i = 0; i < pixels.size(); ++i) {
-		const auto& var = pixels.at(i);
+		auto& pixel(pixels.at(i));
+		pixel.r = pixel.x;
+		pixel.g = pixel.y;
+		pixel.b = pixel.z;
 
-		//So beautiful <3
-		xMin = min(var.x, xMin);
-		yMin = min(var.y, yMin);
-		zMin = min(var.z, zMin);
-
-		xMax = max(var.x, xMax);
-		yMax = max(var.y, yMax);
-		zMax = max(var.z, zMax);
+		pixel = glm::hsvColor(pixel);
+		histoCum.at(i) = pixel.z;
+		minV = min(minV, pixel.z);
+		maxV = max(maxV, pixel.z);
 	}
-	seuilBas = glm::vec3(xMin, yMin, zMin), seuilHaut = glm::vec3(xMax, yMax, zMax);
+	float alpha = (1.f / (maxV - minV));
+	float beta = (-minV) * alpha;
+	//Normalisation de l'image
+#pragma omp parallel for
+	for (std::size_t i = 0; i < pixels.size(); ++i) {
+		pixels.at(i).z = alpha * pixels.at(i).z + beta;
+		histoCum.at(i) += histoCum.at(i - 1);//Normalement, histogramme cumulé
+	}
+
+	float ratio = 1.0f / (hauteur * largeur);
+	//Égalisation de l'histogramme
+#pragma omp parallel for
+	for (std::size_t i = 0; i < pixels.size(); ++i) {
+		auto& pixel(pixels.at(i));
+		pixel.z = histoCum.at(i) * ratio;
+
+		//Nouvelles valeurs, théoriquement
+		pixel = glm::rgbColor(pixel);
+		pixel.x = pixel.r;
+		pixel.y = pixel.g;
+		pixel.z = pixel.b;
+	}
 }
