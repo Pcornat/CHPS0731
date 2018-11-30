@@ -1,8 +1,6 @@
 *.o
 compile.sh
 prog
-png/
-glm/
 .idea/
 cmake-build-*
 *.png
