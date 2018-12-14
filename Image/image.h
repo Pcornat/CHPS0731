@@ -14,7 +14,7 @@ protected:
 public:
 	Image(unsigned int, unsigned int);
 
-	Image(std::string name);
+	Image(std::string&& name);
 
 	virtual ~Image() = default;
 
@@ -22,9 +22,9 @@ public:
 
 	size_t getLargeur() const;
 
-	void Save(std::string);
+	void save(const std::string& name);
 
-	void setPixel(int, int, glm::vec3);
+	void setPixel(int, int, const glm::vec3&);
 };
 
 #endif

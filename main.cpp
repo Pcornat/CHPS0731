@@ -79,8 +79,8 @@ int main(int argc, char* argv[]) {
 	std::time(&time);
 	ss << "out_" << std::put_time(std::localtime(&time), "%d_%m_%Y_%Hh%Mm%Ss") << ".png";
 	try {
-		myImage.Save(ss.str());//*/
-		//myImage.Save("out.png");
+		myImage.save(ss.str());//*/
+		//myImage.save("out.png");
 	} catch (const std::exception& e) {
 		std::cerr << e.what() << std::endl;
 		return EXIT_FAILURE;

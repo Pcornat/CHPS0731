@@ -1006,7 +1006,7 @@ return value: error code (0 means ok)
 unsigned lodepng_load_file(unsigned char** out, size_t* outsize, const char* filename);
 
 /*
-Save a file from buffer to disk. Warning, if it exists, this function overwrites
+save a file from buffer to disk. Warning, if it exists, this function overwrites
 the file without warning!
 buffer: the buffer to write
 buffersize: size of the buffer to write
@@ -1068,7 +1068,7 @@ return value: error code (0 means ok)
 	unsigned load_file(std::vector<unsigned char>& buffer, const std::string& filename);
 
 /*
-Save the binary data in an std::vector to a file on disk. The file is overwritten
+save the binary data in an std::vector to a file on disk. The file is overwritten
 without warning.
 */
 	unsigned save_file(const std::vector<unsigned char>& buffer, const std::string& filename);

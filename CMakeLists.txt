@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 include_directories(.)
 include_directories(../include)
-include_directories(Materials Objects Image Camera Lights png Objects/Mesh)
+include_directories(Materials Objects Image Camera Lights png Objects/Mesh Transformer)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -49,7 +49,10 @@ set(MATERIALS_SRC
 
 set(IMAGE_SRC
 		Image/image.h
-		Image/image.cpp)
+		Image/image.cpp Image/image_cv.cpp Image/image_cv.h)
+
+set(TRANSFORMER_SRC
+		Transformer/gl_mto_cv.cpp Transformer/gl_mto_cv.h)
 
 set(CAMERA_SRC
 		Camera/scene.h
@@ -77,7 +80,8 @@ add_executable(RayTrace
 		${IMAGE_SRC}
 		${OBJECTS_SRC}
 		${MATERIALS_SRC}
-		${LIGHTS_SRC})
+		${LIGHTS_SRC}
+		${TRANSFORMER_SRC})
 
 target_compile_options(RayTrace ${COMPILE_FLAGS})
 target_link_libraries(RayTrace ${LINKER_FLAGS})

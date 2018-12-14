@@ -13,7 +13,7 @@ void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsi
 Image::Image(const unsigned int h, const unsigned int l) : pixels(l * h), hauteur(h), largeur(l) {}
 
 
-void Image::Save(std::string name) {
+void Image::save(const std::string& name) {
 	std::cout << "Saving:" << name << "..." << std::endl;
 	std::size_t width = Image::largeur, height = Image::hauteur;
 	std::vector<unsigned char> image;
@@ -37,7 +37,7 @@ void Image::Save(std::string name) {
 }
 
 
-Image::Image(std::string name) {
+Image::Image(std::string&& name) {
 
 	std::vector<unsigned char> image; //the raw pixels
 	unsigned width, height;
@@ -66,6 +66,6 @@ size_t Image::getLargeur() const {
 	return largeur;
 }
 
-void Image::setPixel(int x, int y, glm::vec3 c) {
+void Image::setPixel(int x, int y, const glm::vec3& c) {
 	Image::pixels.at(x + Image::largeur * y) = c;
 }
