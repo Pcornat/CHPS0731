@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 
+project(RayTracer)
+
+find_package(OpenCV REQUIRED)
+
 include_directories(.)
 include_directories(../include)
 include_directories(Materials Objects Image Camera Lights png Objects/Mesh Transformer)
@@ -15,6 +19,7 @@ set(COMPILE_FLAGS
 		PRIVATE -O3)
 
 set(LINKER_FLAGS
+		-Wl,--as-needed
 		-lstdc++
 		-lm
 		-fopenmp)
@@ -49,7 +54,11 @@ set(MATERIALS_SRC
 
 set(IMAGE_SRC
 		Image/image_glm.h
-		Image/image_glm.cpp Image/image_cv.cpp Image/image_cv.h Image/base_image.h Image/base_image.cpp)
+		Image/image_glm.cpp
+		Image/image_cv.cpp
+		Image/image_cv.h
+		Image/base_image.h
+		Image/base_image.cpp)
 
 set(TRANSFORMER_SRC
 		)
@@ -84,4 +93,4 @@ add_executable(RayTrace
 		${TRANSFORMER_SRC})
 
 target_compile_options(RayTrace ${COMPILE_FLAGS})
-target_link_libraries(RayTrace ${LINKER_FLAGS})
+target_link_libraries(RayTrace ${LINKER_FLAGS} ${OpenCV_LIBS})
