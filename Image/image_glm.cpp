@@ -1,5 +1,5 @@
 #include <post_process.h>
-#include "image.h"
+#include "image_glm.h"
 #include "png/lodepng.h"
 
 void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsigned width, unsigned height) {
@@ -10,20 +10,20 @@ void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsi
 	if (error) std::cerr << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 }
 
-Image::Image(const unsigned int h, const unsigned int l) : pixels(l * h), hauteur(h), largeur(l) {}
+ImageGLM::ImageGLM(uint32_t h, uint32_t l) : BaseImage(h, l), pixels(l * h) {}
 
 
-void Image::save(const std::string& name) {
+bool ImageGLM::save(const std::string& name) {
 	std::cout << "Saving:" << name << "..." << std::endl;
-	std::size_t width = Image::largeur, height = Image::hauteur;
+	std::size_t width = ImageGLM::largeur, height = ImageGLM::hauteur;
 	std::vector<unsigned char> image;
 	image.resize(width * height * 4);
 	/* TODO : TONE MAPPING HERE */
-	//PostProcess::TONE_MAPPING_SIMPLE_IMAGE(Image::pixels);
+	//PostProcess::TONE_MAPPING_SIMPLE_IMAGE(ImageGLM::pixels);
 #pragma omp parallel for collapse(2)
 	for (unsigned y = 0; y < height; ++y)
 		for (unsigned x = 0; x < width; ++x) {
-			glm::vec3 tmp = Image::pixels.at(x + Image::largeur * y);
+			glm::vec3 tmp = ImageGLM::pixels.at(x + ImageGLM::largeur * y);
 			tmp.x = glm::max(glm::min(1.0f, tmp.x), 0.0f);
 			tmp.y = glm::max(glm::min(1.0f, tmp.y), 0.0f);
 			tmp.z = glm::max(glm::min(1.0f, tmp.z), 0.0f);
@@ -34,10 +34,11 @@ void Image::save(const std::string& name) {
 		}
 	encodeOneStep(name.c_str(), image, static_cast<unsigned int>(width), static_cast<unsigned int>(height));
 	std::cout << "Done!" << std::endl;
+	return true;
 }
 
 
-Image::Image(std::string&& name) {
+ImageGLM::ImageGLM(std::string&& name) {
 
 	std::vector<unsigned char> image; //the raw pixels
 	unsigned width, height;
@@ -46,26 +47,18 @@ Image::Image(std::string&& name) {
 
 	//if there's an error, display it
 	if (error) std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
-	Image::hauteur = height;
-	Image::largeur = width;
-	Image::pixels.resize(this->hauteur * this->largeur);
+	ImageGLM::hauteur = height;
+	ImageGLM::largeur = width;
+	ImageGLM::pixels.resize(this->hauteur * this->largeur);
 #pragma omp parallel for collapse(2)
 	for (unsigned y = 0; y < height; y++)
 		for (unsigned x = 0; x < width; x++) {
-			Image::pixels[x + Image::largeur * y] = glm::vec3(image[4 * width * y + 4 * x + 0] / 255.0f,
+			ImageGLM::pixels[x + ImageGLM::largeur * y] = glm::vec3(image[4 * width * y + 4 * x + 0] / 255.0f,
 															  image[4 * width * y + 4 * x + 1] / 255.0f,
 															  image[4 * width * y + 4 * x + 2] / 255.0f);
 		}
 }
 
-size_t Image::getHauteur() const {
-	return hauteur;
-}
-
-size_t Image::getLargeur() const {
-	return largeur;
-}
-
-void Image::setPixel(int x, int y, const glm::vec3& c) {
-	Image::pixels.at(x + Image::largeur * y) = c;
+void ImageGLM::setPixel(uint32_t x, uint32_t y, const glm::vec3& pixel) {
+	ImageGLM::pixels.at(x + ImageGLM::largeur * y) = pixel;
 }

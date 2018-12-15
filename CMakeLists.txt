@@ -48,11 +48,11 @@ set(MATERIALS_SRC
 		Materials/texture.cpp)
 
 set(IMAGE_SRC
-		Image/image.h
-		Image/image.cpp Image/image_cv.cpp Image/image_cv.h)
+		Image/image_glm.h
+		Image/image_glm.cpp Image/image_cv.cpp Image/image_cv.h Image/base_image.h Image/base_image.cpp)
 
 set(TRANSFORMER_SRC
-		Transformer/gl_mto_cv.cpp Transformer/gl_mto_cv.h)
+		)
 
 set(CAMERA_SRC
 		Camera/scene.h

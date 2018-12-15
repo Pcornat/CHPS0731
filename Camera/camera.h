@@ -2,10 +2,11 @@
 #define __Raytracer__camera__
 
 #include <glm/glm.hpp>
+#include <Image/base_image.h>
 #include "scene.h"
 #include "rayon.h"
 
-class Image;
+class ImageGLM;
 
 class Camera {
 protected:
@@ -66,7 +67,7 @@ public:
 
 	void setHaut(const glm::vec3& h);
 
-	void Calculer_image(Image&, Scene& sc, int) const;
+	void Calculer_image(BaseImage* const im, Scene& sc, int complexite) const;
 };
 
 #endif

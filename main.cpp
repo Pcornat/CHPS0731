@@ -1,5 +1,5 @@
 #include <Materials/phong.h>
-#include <image.h>
+//#include <image.h>
 #include <camera.h>
 #include <objet.h>
 #include <sphere.hpp>
@@ -7,13 +7,14 @@
 #include <plan_light.h>
 #include <mesh.h>
 #include <iomanip>
+#include <image_cv.h>
 
 int main(int argc, char* argv[]) {
 	const unsigned int h = 1080;
 	const unsigned int l = 1920;
 	Camera myCamera;
 	Scene scene;
-	Image myImage(h, l);
+	ImageCV myImage(h, l);
 	std::stringstream ss;
 	std::time_t time;//*/
 	Mesh mesh;
@@ -70,7 +71,7 @@ int main(int argc, char* argv[]) {
 	scene.addObjet(&mesh);
 
 	try {
-		myCamera.Calculer_image(myImage, scene, 6);
+		myCamera.Calculer_image(&myImage, scene, 6);
 	} catch (const std::exception& e) {
 		std::cerr << "Exception: " << e.what() << std::endl;
 		return EXIT_FAILURE;
