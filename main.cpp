@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
 			new Phong(false, glm::vec3(0.3f, 0.2f, 0.2f), glm::vec3(0.3f, 0.3f, 0.3f), 128.0f, 0.25f),
 			glm::vec3(0.0f, 0.0f, -10.0f),
 			glm::vec3(0.0f, 0.0f, 1.0f));
-	Plan_light light(glm::vec3(-7.0f, 8.0f, -5.0f), glm::vec3(1.0f, 1.0f, 1.0f),
+	Plan_light light(glm::vec3(-7.0f, 9.0f, -5.0f), glm::vec3(1.0f, 1.0f, 1.0f),
 					 glm::vec3(1.0f, 0.f, 0.f),
 					 glm::vec3(0.f, 0.0f, 1.0f),
 					 0.2000000000f, 2.f, 2.f);
@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	std::time(&time);
-	ss << "out_" << std::put_time(std::localtime(&time), "%d_%m_%Y_%Hh%Mm%Ss") << ".png";
+	ss << "out_" << std::put_time(std::localtime(&time), "%Y_%m_%d_%Hh%Mm%Ss") << ".png";
 	try {
 		myImage.save(ss.str());//*/
 		//myImage.save("out.png");
