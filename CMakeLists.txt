@@ -10,18 +10,27 @@ include_directories(Materials Objects Image Camera Lights png Objects/Mesh Trans
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(COMPILE_FLAGS
-		PRIVATE -pipe
-		PRIVATE -march=native
-		PRIVATE -Wall
-		PRIVATE -Wextra
-		PRIVATE -fopenmp)
+if (${CMAKE_CXX_COMPILER} STREQUAL "icpc")
+	set(COMPILE_FLAGS
+			PRIVATE -pipe
+			PRIVATE -Wall
+			PRIVATE -openmp)
 
-set(LINKER_FLAGS
-		-Wl,--as-needed
-		-lstdc++
-		-lm
-		-fopenmp)
+elseif (${CMAKE_CXX_COMPILER} STREQUAL "/usr/bin/g++" OR ${CMAKE_CXX_COMPILER} STREQUAL "g++")
+	set(COMPILE_FLAGS
+			PRIVATE -pipe
+			PRIVATE -march=native
+			PRIVATE -Wall
+			PRIVATE -Wextra
+			PRIVATE -fopenmp
+			PRIVATE -O3)
+
+	set(LINKER_FLAGS
+			-Wl,--as-needed
+			-lstdc++
+			-lm
+			-fopenmp)
+endif ()
 
 set(OBJECTS_SRC
 		Objects/sphere.hpp
