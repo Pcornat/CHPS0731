@@ -15,7 +15,7 @@ protected:
 	cv::Mat pixels;
 
 	///It is the type of the matrix : byte with three channel : RGB (255 value, a real picture)
-	static const int32_t type = CV_8UC4;
+	static const int32_t type = CV_32FC4;
 
 	///It is not initialized by default.
 	bool initialized = false;

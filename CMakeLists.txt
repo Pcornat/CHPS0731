@@ -15,8 +15,7 @@ set(COMPILE_FLAGS
 		PRIVATE -march=native
 		PRIVATE -Wall
 		PRIVATE -Wextra
-		PRIVATE -fopenmp
-		PRIVATE -O3)
+		PRIVATE -fopenmp)
 
 set(LINKER_FLAGS
 		-Wl,--as-needed
