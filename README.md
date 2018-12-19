@@ -3,7 +3,7 @@
 
 What it can do :
 - Charging a mesh in .obj format
-- Soft Shadows (adaptive version) but see [bug](#bugs) section
+- Soft Shadows (adaptive version) but see [bug](#bugs-) section
 - Reflections
 - No refractions (for now ?)
 - Parallel (OpenMP, no GPU)
