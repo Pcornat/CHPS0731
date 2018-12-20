@@ -1,8 +1,9 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 
 project(RayTracer)
 
 find_package(OpenCV REQUIRED)
+find_package(OpenMP REQUIRED)
 
 include_directories(.)
 include_directories(../../include)
@@ -12,24 +13,31 @@ set(CMAKE_CXX_STANDARD 17)
 
 if (${CMAKE_CXX_COMPILER} STREQUAL "icpc")
 	set(COMPILE_FLAGS
-			PRIVATE -pipe
 			PRIVATE -Wall
-			PRIVATE -openmp)
+			PRIVATE -Wextra-tokens)
+
+	set(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE}
+			PRIVATE -Ofast)
+
+	set(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG}
+			PRIVATE -g3)
+
+	set(LINKER_FLAGS
+			-Wl,--as-needed
+			-lstdc++
+			-lm)
 
 elseif (${CMAKE_CXX_COMPILER} STREQUAL "/usr/bin/g++" OR ${CMAKE_CXX_COMPILER} STREQUAL "g++")
 	set(COMPILE_FLAGS
 			PRIVATE -pipe
 			PRIVATE -march=native
 			PRIVATE -Wall
-			PRIVATE -Wextra
-			PRIVATE -fopenmp
-			PRIVATE -O3)
+			PRIVATE -Wextra)
 
 	set(LINKER_FLAGS
 			-Wl,--as-needed
 			-lstdc++
-			-lm
-			-fopenmp)
+			-lm)
 endif ()
 
 set(OBJECTS_SRC
@@ -100,5 +108,14 @@ add_executable(RayTrace
 		${LIGHTS_SRC}
 		${TRANSFORMER_SRC})
 
+if (${OpenMP_FOUND})
+	set(COMPILE_FLAGS ${COMPILE_FLAGS} PRIVATE ${OpenMP_CXX_FLAGS})
+	set(LINKER_FLAGS ${LINKER_FLAGS} ${OpenMP_CXX_LIBRARIES})
+endif ()
+
+if (${OpenCV_FOUND})
+	set(LINKER_FLAGS ${LINKER_FLAGS} ${OpenCV_LIBS})
+endif ()
+
 target_compile_options(RayTrace ${COMPILE_FLAGS})
-target_link_libraries(RayTrace ${LINKER_FLAGS} ${OpenCV_LIBS})
+target_link_libraries(RayTrace ${LINKER_FLAGS})
