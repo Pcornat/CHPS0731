@@ -1,5 +1,4 @@
-#include <Materials/phong.h>
-//#include <image.h>
+#include <phong.h>
 #include <camera.h>
 #include <objet.h>
 #include <sphere.hpp>
@@ -14,7 +13,7 @@ int main(int argc, char* argv[]) {
 	const unsigned int l = 1920;
 	Camera myCamera;
 	Scene scene;
-	ImageCV myImage(h, l);
+	ImageCV myImage;
 	std::stringstream ss;
 	std::time_t time;//*/
 	Mesh mesh;
@@ -22,6 +21,7 @@ int main(int argc, char* argv[]) {
 		std::cerr << "Nombre d'arguments insuffisant, nom d'un fichier .obj attendu." << std::endl;
 		return EXIT_FAILURE;
 	}
+	myImage.setSize(h, l);
 	try {
 		mesh = Mesh(new Phong(false, glm::vec3(0.2f, 0.3f, 0.2f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f),
 					std::string(argv[1]),
@@ -68,7 +68,7 @@ int main(int argc, char* argv[]) {
 	scene.addObjet(&right);
 	scene.addObjet(&closedBox);
 	scene.addObjet(&background);
-	scene.addObjet(&mesh);
+	//scene.addObjet(&mesh);
 
 	try {
 		myCamera.Calculer_image(&myImage, scene, 6);
@@ -80,8 +80,7 @@ int main(int argc, char* argv[]) {
 	std::time(&time);
 	ss << "out_" << std::put_time(std::localtime(&time), "%Y_%m_%d_%Hh%Mm%Ss") << ".png";
 	try {
-		myImage.save(ss.str());//*/
-		//myImage.save("out.png");
+		myImage.save(ss.str());
 	} catch (const std::exception& e) {
 		std::cerr << e.what() << std::endl;
 		return EXIT_FAILURE;
