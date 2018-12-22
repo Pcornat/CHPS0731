@@ -22,17 +22,6 @@ void ImageCV::setSize(uint32_t hauteur, uint32_t largeur) {
 bool ImageCV::save(const std::string& name) {
 	if (!this->initialized)
 		throw std::runtime_error("Exception : not initialized. Make sure to use the not default constructor or use the setSize method.\n");
-	cv::Mat hsv;
-	std::vector<cv::Mat> channels;
-
-	cv::cvtColor(this->pixels, hsv, cv::ColorConversionCodes::COLOR_BGR2HSV_FULL);
-
-	cv::split(hsv, channels);
-	cv::equalizeHist(channels.at(2), channels.at(2));
-	cv::merge(channels, hsv);
-
-	cv::cvtColor(hsv, this->pixels, cv::ColorConversionCodes::COLOR_HSV2BGR_FULL);
-
 	return cv::imwrite(name, this->pixels);
 }
 

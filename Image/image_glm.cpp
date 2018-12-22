@@ -1,4 +1,4 @@
-#include <post_process.h>
+#include <Effects/post_process.h>
 #include "image_glm.h"
 #include "png/lodepng.h"
 

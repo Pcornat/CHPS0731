@@ -7,7 +7,7 @@ find_package(OpenMP REQUIRED)
 
 include_directories(.)
 include_directories(../../include)
-include_directories(Materials Objects Image Camera Lights png Objects/Mesh Transformer)
+include_directories(Materials Objects Image Camera Effects Lights png Objects/Mesh Transformer)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -87,6 +87,13 @@ set(CAMERA_SRC
 		Camera/camera.h
 		Camera/camera.cpp)
 
+set(EFFECTS_SRC
+		Effects/post_process.h
+		Effects/post_process.cpp
+		Effects/effect.h
+		Effects/histogram_equaliser_cv.cpp
+		Effects/histogram_equaliser_cv.h)
+
 set(LIGHTS_SRC
 		Lights/light.h
 		Lights/light.cpp
@@ -96,8 +103,6 @@ set(LIGHTS_SRC
 add_executable(RayTrace
 		png/lodepng.h
 		png/lodepng.cpp
-		post_process.h
-		post_process.cpp
 		intersection.cpp
 		intersection.h
 		main.cpp
@@ -106,7 +111,8 @@ add_executable(RayTrace
 		${OBJECTS_SRC}
 		${MATERIALS_SRC}
 		${LIGHTS_SRC}
-		${TRANSFORMER_SRC})
+		${TRANSFORMER_SRC}
+		${EFFECTS_SRC})
 
 if (${OpenMP_FOUND})
 	set(COMPILE_FLAGS ${COMPILE_FLAGS} PRIVATE ${OpenMP_CXX_FLAGS})
