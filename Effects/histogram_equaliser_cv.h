@@ -7,16 +7,17 @@
 
 
 #include "effect.h"
+#include <opencv2/core/mat.hpp>
 
 class HistogramEqualiserCV : virtual public Effect {
 public:
 
 	/**
-	 * WARNING : to use only with one argument
-	 * @param args Type of argument : cv::Mat
-	 * @return In this case, always true (exception will be raised if any mistakes appears).
+	 * WARNING : to use only with one argument. User an initilizer list with boost::any
+	 * @param args The list of arguments.
+	 * @return Always true or exception
 	 */
-	bool effect(void* args) override;
+	bool effect(const std::vector<void*>& args) override;
 };
 
 

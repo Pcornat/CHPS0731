@@ -5,6 +5,7 @@
 #ifndef RAYTRACER_EFFECT_H
 #define RAYTRACER_EFFECT_H
 
+#include <vector>
 
 class Effect {
 public:
@@ -13,7 +14,7 @@ public:
 
 	virtual ~Effect() = default;
 
-	virtual bool effect(void* args) = 0;
+	virtual bool effect(const std::vector<void*>& args) = 0;
 };
 
 

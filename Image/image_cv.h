@@ -33,6 +33,10 @@ public:
 	 */
 	explicit ImageCV(uint32_t hauteur, uint32_t largeur);
 
+	explicit ImageCV(const std::vector<Effect*>& effects, uint32_t hauteur, uint32_t largeur);
+
+	explicit ImageCV(const std::initializer_list<Effect*>& effects, uint32_t hauteur, uint32_t largeur);
+
 	~ImageCV() override = default;
 
 	/**
