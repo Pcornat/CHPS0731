@@ -7,6 +7,7 @@
 #include <mesh.h>
 #include <iomanip>
 #include <image_cv.h>
+#include <Effects/histogram_equaliser_cv.h>
 
 int main(int argc, char* argv[]) {
 	const unsigned int h = 1080;
@@ -14,6 +15,7 @@ int main(int argc, char* argv[]) {
 	Camera myCamera;
 	Scene scene;
 	ImageCV myImage;
+	HistogramEqualiserCV effect;
 	std::stringstream ss;
 	std::time_t time;//*/
 	Mesh mesh;
@@ -69,6 +71,8 @@ int main(int argc, char* argv[]) {
 	scene.addObjet(&closedBox);
 	scene.addObjet(&background);
 	//scene.addObjet(&mesh);
+
+	//myImage.addEffect(&effect);
 
 	try {
 		myCamera.Calculer_image(&myImage, scene, 6);

@@ -12,7 +12,7 @@ uint32_t BaseImage::getLargeur() const {
 	return this->largeur;
 }
 
-BaseImage::BaseImage(uint32_t hauteur, uint32_t largeur) : effects({}), hauteur(hauteur), largeur(largeur) {}
+BaseImage::BaseImage(uint32_t hauteur, uint32_t largeur) : effects(), hauteur(hauteur), largeur(largeur) {}
 
 BaseImage::BaseImage(const std::vector<Effect*>& effects, uint32_t hauteur, uint32_t largeur) : effects(effects), hauteur(hauteur),
 																								largeur(largeur) {}
