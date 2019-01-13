@@ -7,7 +7,7 @@
 #include <glm/glm.hpp>
 #include "OBJLoader.h"
 
-class GeometricModel {
+class GeometricModel : public std::enable_shared_from_this<GeometricModel> {
 	friend OBJLoader;
 private:
 	struct Face {

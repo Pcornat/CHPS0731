@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 project(RayTracer)
 
@@ -81,7 +81,7 @@ set(LIGHTS_SRC
 		Lights/light.h
 		Lights/light.cpp
 		Lights/plan_light.h
-		Lights/plan_light.cpp)
+		Lights/plan_light.cpp Tree/k_dtree.cpp Tree/k_dtree.h)
 
 set(CONFIGURATION_SRC
 		Configuration/configuration.cpp

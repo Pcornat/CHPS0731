@@ -1,11 +1,11 @@
 #include "mesh.h"
 
 bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) {
-	auto& listVertex(model.getListVertex());
-	auto& listNormals(model.getListNormals());
+	auto& listVertex(model->getListVertex());
+	auto& listNormals(model->getListNormals());
 	bool inter = false;
 	//if (this->box.calculIntersection(rayon, scene, I, complexite)) {
-	for (auto&& face : model.getListFaces()) {
+	for (auto&& face : model->getListFaces()) {
 		float dist = 0.f;
 		glm::vec2 baryPos;
 		glm::vec3 facteur(this->factor),
@@ -24,16 +24,20 @@ bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 }
 
 Mesh::Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor, float angle, const glm::vec3& axis)
-		: Objet(material), model(name, angle, axis), center(center),
-		  factor(factor) {
+		: Objet(material), model(new GeometricModel(name, angle, axis)), center(center), factor(factor) {
 	this->boundingBox();
 }
 
 Mesh::Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor, float angle, glm::vec3&& axis)
-		: Objet(material), model(name, angle, axis), center(center),
-		  factor(factor) {
+		: Objet(material), model(new GeometricModel(name, angle, axis)), center(center), factor(factor) {
 	this->boundingBox();
 }
+
+Mesh::Mesh(Material* material, glm::vec3&& center, uint32_t factor, float angle, glm::vec3&& axis)
+		: Objet(material), model(nullptr), center(center), factor(factor) {}
+
+Mesh::Mesh(Material* material, const glm::vec3& center, uint32_t factor, float angle, const glm::vec3& axis)
+		: Objet(material), model(nullptr), center(center), factor(factor) {}
 
 Mesh& Mesh::operator=(Mesh&& mesh) noexcept {
 	if (this != &mesh) {
@@ -50,8 +54,8 @@ Mesh& Mesh::operator=(Mesh&& mesh) noexcept {
 void Mesh::boundingBox() {
 	float xMin = std::numeric_limits<float>::max(), yMin = std::numeric_limits<float>::max(), zMin = std::numeric_limits<float>::max(),
 			xMax = 0, yMax = 0, zMax = 0;
-	auto& listVertex(this->model.getListVertex());
-	auto& listFace(model.getListFaces());
+	auto& listVertex(this->model->getListVertex());
+	auto& listFace(model->getListFaces());
 	//Lambda function to code faster.
 	auto min = [](float a, float b) {
 		if (std::isless(a, b))
@@ -121,6 +125,28 @@ Mesh::~Mesh() {
 	delete this->material;
 }
 
+const glm::vec3& Mesh::getCenter() const {
+	return center;
+}
+
+void Mesh::setCenter(const glm::vec3& center) {
+	Mesh::center = center;
+}
+
+unsigned int Mesh::getFactor() const {
+	return factor;
+}
+
+void Mesh::setFactor(unsigned int factor) {
+	Mesh::factor = factor;
+}
+
+void Mesh::setModel(const Mesh& model) {
+	if (this != &model) {
+		Mesh::model = model.model->shared_from_this();
+		this->boundingBox();
+	}
+}
 void Mesh::fromJson(const FromJson::json& objet) const {
 
 }

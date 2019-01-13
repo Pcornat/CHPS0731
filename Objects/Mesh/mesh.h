@@ -14,7 +14,7 @@
 class Mesh : public Objet {
 private:
 	///Model for the mesh.
-	GeometricModel model;
+	std::shared_ptr<GeometricModel> model = nullptr;
 
 	///Bounding box. Better for the tree of accelerating structure in the future, than a sphere.
 	BoundingBox box;
@@ -49,6 +49,30 @@ public:
 	 */
 	explicit Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor, float angle, glm::vec3&& axis);
 
+	/**
+	 * R-value version
+	 * Construct a mesh object without a model : you have to use the setModel method or you will have an exception.
+	 * This constructor enables to have more than one object with the same 3D model : no copy of the model in the memory.
+	 * @param material
+	 * @param center
+	 * @param factor
+	 * @param angle
+	 * @param axis
+	 */
+	explicit Mesh(Material* material, glm::vec3&& center, uint32_t factor, float angle, glm::vec3&& axis);
+
+	/**
+	 * L-value version
+	 * Construct a mesh object without a model : you have to use the setModel method or you will have an exception.
+	 * This constructor enables to have more than one object with the same 3D model : no copy of the model in the memory.
+	 * @param material
+	 * @param center
+	 * @param factor
+	 * @param angle
+	 * @param axis
+	 */
+	explicit Mesh(Material* material, const glm::vec3& center, uint32_t factor, float angle, const glm::vec3& axis);
+
 	~Mesh() override;
 
 	/**
@@ -60,6 +84,21 @@ public:
 	 * @return
 	 */
 	bool calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& vector1, int i) override;
+
+
+	/**
+	 * Set the 3D model to use.
+	 * @param model
+	 */
+	void setModel(const Mesh& model);
+
+	const glm::vec3& getCenter() const;
+
+	void setCenter(const glm::vec3& center);
+
+	unsigned int getFactor() const;
+
+	void setFactor(unsigned int factor);
 
 	void fromJson(const FromJson::json& objet) const override;
 
