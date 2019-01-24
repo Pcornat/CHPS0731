@@ -67,7 +67,7 @@ public:
 
 	void setHaut(const glm::vec3& h);
 
-	void Calculer_image(BaseImage* const im, Scene& sc, int complexite) const;
+	void renderPicture(BaseImage* const im, Scene& sc, int complexite) const;
 };
 
 #endif

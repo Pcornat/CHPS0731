@@ -20,7 +20,7 @@ private:
 public:
 	Sphere() = default;
 
-	~Sphere() override;
+	~Sphere() override = default;
 
 	explicit Sphere(Material* material, const glm::vec3& center, int radius);
 

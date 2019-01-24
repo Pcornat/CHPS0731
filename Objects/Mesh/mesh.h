@@ -14,16 +14,16 @@
 class Mesh : public Objet {
 private:
 	///Model for the mesh.
-	std::shared_ptr<GeometricModel> model = nullptr;
+	std::shared_ptr<GeometricModel> model{nullptr};
 
-	///Bounding box. Better for the tree of accelerating structure in the future, than a sphere.
+	///Bounding box. Better than a sphere. I don't know if it's useful with a kd-tree.
 	BoundingBox box;
 
 	///Center of the model, where it will be.
-	glm::vec3 center{};
+	glm::vec3 center{0.f, 0.f, 0.f};
 
 	///Factor to make the model bigger.
-	unsigned int factor = 1;
+	uint32_t factor{1};
 
 	///It creates the bounding box of the model.
 	void boundingBox();
@@ -37,8 +37,15 @@ public:
 	 * @param name
 	 * @param center
 	 * @param factor
+	 * @param angle
+	 * @param axis
 	 */
-	explicit Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor, float angle, const glm::vec3& axis);
+	explicit Mesh(Material* material,
+				  const std::string& name,
+				  const glm::vec3& center,
+				  uint32_t factor,
+				  float angle = 180.f,
+				  const glm::vec3& axis = glm::vec3(0.f, 1.f, 0.f));
 
 	/**
 	 * Construct a mesh with r-value parameters.
@@ -46,8 +53,15 @@ public:
 	 * @param name
 	 * @param center
 	 * @param factor
+	 * @param angle
+	 * @param axis
 	 */
-	explicit Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor, float angle, glm::vec3&& axis);
+	explicit Mesh(Material* material,
+				  std::string&& name,
+				  glm::vec3&& center,
+				  uint32_t factor,
+				  float angle = 180.f,
+				  glm::vec3&& axis = glm::vec3(0.f, 1.f, 0.f));
 
 	/**
 	 * R-value version
@@ -59,7 +73,7 @@ public:
 	 * @param angle
 	 * @param axis
 	 */
-	explicit Mesh(Material* material, glm::vec3&& center, uint32_t factor, float angle, glm::vec3&& axis);
+	explicit Mesh(Material* material, glm::vec3&& center, uint32_t factor, float angle = 180.f, glm::vec3&& axis = glm::vec3(0.f, 1.f, 0.f));
 
 	/**
 	 * L-value version
@@ -71,9 +85,13 @@ public:
 	 * @param angle
 	 * @param axis
 	 */
-	explicit Mesh(Material* material, const glm::vec3& center, uint32_t factor, float angle, const glm::vec3& axis);
+	explicit Mesh(Material* material,
+				  const glm::vec3& center,
+				  uint32_t factor,
+				  float angle = 180.f,
+				  const glm::vec3& axis = glm::vec3(0.f, 1.f, 0.f));
 
-	~Mesh() override;
+	~Mesh() override = default;
 
 	/**
 	 * Compute intersection between the model and the ray.
@@ -87,7 +105,7 @@ public:
 
 
 	/**
-	 * Set the 3D model to use.
+	 * Sets the 3D model to use.
 	 * @param model
 	 */
 	void setModel(const Mesh& model);
@@ -96,9 +114,16 @@ public:
 
 	void setCenter(const glm::vec3& center);
 
-	unsigned int getFactor() const;
+	uint32_t getFactor() const;
 
-	void setFactor(unsigned int factor);
+	void setFactor(uint32_t factor);
+
+	/**
+	 * Copy assignment operator
+	 * @param mesh
+	 * @return
+	 */
+	Mesh& operator=(const Mesh& mesh);
 
 	/**
 	 * Moving assignment operator

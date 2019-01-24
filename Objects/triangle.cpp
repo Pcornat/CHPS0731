@@ -32,10 +32,6 @@ bool Triangle::calculIntersection(const Rayon& rayon, const Scene& sc, std::vect
 Triangle::Triangle(Material* material, const glm::vec3& pointA, const glm::vec3& pointB, const glm::vec3& pointC)
 		: Objet(material), pointA(pointA), pointB(pointB), pointC(pointC) {}
 
-Triangle::~Triangle() {
-	delete this->material;
-}
-
 Triangle::Triangle(Material* material, glm::vec3&& pointA, glm::vec3&& pointB, glm::vec3&& pointC) : Objet(material),
 																									 pointA(pointA),
 																									 pointB(pointB),

@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 	//myImage.addEffect(&effect);
 
 	try {
-		myCamera.Calculer_image(&myImage, scene, 6);
+		myCamera.renderPicture(&myImage, scene, 6);
 	} catch (const std::exception& e) {
 		std::cerr << "Exception: " << e.what() << std::endl;
 		return EXIT_FAILURE;

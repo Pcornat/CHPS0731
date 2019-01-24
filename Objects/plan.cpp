@@ -32,7 +32,3 @@ Plan::Plan(Material* material, const glm::vec3& orig, const glm::vec3& normal) :
 																				 normal(glm::normalize(normal)) {}
 
 Plan::Plan(Material* material, glm::vec3&& orig, glm::vec3&& normal) : Objet(material), orig(orig), normal(glm::normalize(normal)) {}
-
-Plan::~Plan() {
-	delete material;
-}

@@ -20,7 +20,7 @@ private:
 public:
 	Triangle() = default;
 
-	~Triangle() override;
+	~Triangle() override = default;
 
 	explicit Triangle(Material* material);
 

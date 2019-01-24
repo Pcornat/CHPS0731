@@ -21,7 +21,7 @@ private:
 public:
 	Plan() = default;
 
-	~Plan() override;
+	~Plan() override = default;
 
 	explicit Plan(Material* material, const glm::vec3& orig, const glm::vec3& normal);
 

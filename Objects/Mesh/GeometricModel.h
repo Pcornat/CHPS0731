@@ -45,6 +45,8 @@ public:
 
 	const std::vector<glm::vec4>& getListTangents() const;
 
+	const std::string& getName() const;
+
 	GeometricModel& operator=(const GeometricModel& model);
 
 	/**

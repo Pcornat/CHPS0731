@@ -46,10 +46,6 @@ bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector
 	return true;
 }
 
-Sphere::~Sphere() {
-	delete material;
-}
-
 Sphere::Sphere(Material* material, glm::vec3&& center, int radius) : Objet(material), center(center), radius(radius) {}
 
 Sphere::Sphere(Material* material, const glm::vec3& center, int radius) : Objet(material), center(center),

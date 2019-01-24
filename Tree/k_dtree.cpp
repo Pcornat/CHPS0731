@@ -8,14 +8,18 @@ KDtree::~KDtree() {
 
 }
 
-KDtree::KDtree(const std::vector<glm::vec3>& vertex, uint32_t depth) : constructed(true) {
+KDtree::KDtree(GeometricModel* const model, uint32_t depth) : model(model), constructed(true) {
 
 }
 
-void KDtree::build(const std::vector<glm::vec3>& vertex, uint32_t depth) {
+void KDtree::build() {
 	if (constructed)
 		return;
 
 
 	constructed = true;
+}
+
+const std::string& KDtree::treeFrom() const {
+	return model->getName();
 }

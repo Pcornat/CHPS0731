@@ -85,7 +85,7 @@ float Plan_light::computeShadow(const glm::vec3& point, const Intersection& I, c
 		for (std::size_t i = 0; i < numberHeight; ++i) {
 			for (std::size_t j = 0; j < numberWidth; ++j) {
 				lightDir = glm::normalize(point - light);
-				rayShadow.vectDirection(-lightDir);
+				rayShadow.setVectDirection(-lightDir);
 				if (rayShadow.shadowRay(sc, glm::distance(point, light), complexite - 1))
 					++nbOk;
 				light.x += this->sampleStep;

@@ -34,6 +34,10 @@ const std::vector<glm::vec4>& GeometricModel::getListTangents() const {
 	return listTangents;
 }
 
+const std::string& GeometricModel::getName() const {
+	return name;
+}
+
 GeometricModel& GeometricModel::operator=(const GeometricModel& model) {
 	if (this != &model) {
 		this->nb_vertex = model.nb_vertex;

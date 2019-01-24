@@ -2,6 +2,7 @@
 #define MATERIAL_HPP_
 
 #include <glm/glm.hpp>
+#include <memory>
 #include "intersection.h"
 
 class Scene;
@@ -12,7 +13,7 @@ class Rayon;
  * \class Material
  * Material class, derived only for the different material possible (Phong only at the moment).
  */
-class Material {
+class Material : public std::enable_shared_from_this<Material> {
 
 protected:
 	///Refraction or not Refraction ? That is the question :D

@@ -5,6 +5,7 @@
 #include "material.h"
 #include <iostream>
 #include <vector>
+#include <memory>
 #include <glm/glm.hpp>
 
 #define GLM_ENABLE_EXPERIMENTAL
@@ -21,7 +22,7 @@ class Rayon;
  */
 class Objet {
 protected:
-	Material* material = nullptr;
+	std::shared_ptr<Material> material{nullptr};
 
 public:
 
@@ -41,11 +42,11 @@ public:
 	 */
 	virtual bool calculIntersection(const Rayon&, const Scene&, std::vector<Intersection>&, int) = 0;
 
-	Material* getMaterial() const { return material; }
+	Material* getMaterial() const { return material.get(); }
 
 	void setMaterial(Material* const material) {
-		if (this->material != material)
-			this->material = material;
+		if (this->material.get() != material)
+			this->material.reset(material);
 	}
 };
 
