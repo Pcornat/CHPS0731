@@ -20,7 +20,7 @@ Triangle::Triangle(Material* material) : Objet(material) {
 bool Triangle::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector<Intersection>& I, int rec) {
 	float dist = 0.f;
 	glm::vec2 baryCentre;
-	if (!glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), this->pointA, this->pointB, this->pointC, baryCentre, dist)) {
+	if (!glm::intersectRayTriangle(rayon.getOrigine(), rayon.vectDirection(), this->pointA, this->pointB, this->pointC, baryCentre, dist)) {
 		return false;
 	}
 	glm::vec3 baryCoordo(baryCentre.x, baryCentre.y, 1 - baryCentre.x - baryCentre.y);

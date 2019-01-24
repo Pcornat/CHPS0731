@@ -18,7 +18,7 @@ bool BoundingBox::calculIntersection(const Rayon& rayon, const Scene& scene, std
 	for (auto&& plan : box) {
 		if (plan.calculIntersection(rayon, scene, I, complexite)) {
 			auto& intersect = I.back();
-			glm::vec3 point = rayon.Orig() + rayon.Vect() * intersect.getDist();
+			glm::vec3 point = rayon.getOrigine() + rayon.vectDirection() * intersect.getDist();
 			I.pop_back();
 			bool condX = (std::islessequal(point.x, this->maxPoint.x)) && (std::isgreaterequal(point.x, this->minPoint.x)),
 					condY = (std::islessequal(point.y, this->maxPoint.y)) && (std::isgreaterequal(point.y, this->minPoint.y)),

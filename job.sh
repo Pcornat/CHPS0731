@@ -16,4 +16,4 @@
 
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
-time ./prog Bunny.obj
+./prog Bunny.obj

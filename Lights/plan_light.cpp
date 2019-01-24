@@ -75,17 +75,17 @@ float Plan_light::computeShadow(const glm::vec3& point, const Intersection& I, c
 	pointB = rightDirMat * glm::vec4(this->position.x, this->position.y, this->position.z, 1);
 	pointC = glm::translate(this->depthDir * this->height) * glm::vec4(this->position.x, this->position.y, this->position.z, 1);
 	pointD = rightDirMat * glm::vec4(pointC.x, pointC.y, pointC.z, 1);
-	rayShadow.Orig(offset * normal + point);
-	if (Rayon(rayShadow.Orig(), glm::normalize(this->position - rayShadow.Orig())).shadowRay(sc, distance, complexite - 1)
-		&& Rayon(rayShadow.Orig(), glm::normalize(pointB - rayShadow.Orig())).shadowRay(sc, distance, complexite - 1)
-		&& Rayon(rayShadow.Orig(), glm::normalize(pointC - rayShadow.Orig())).shadowRay(sc, distance, complexite - 1)
-		&& Rayon(rayShadow.Orig(), glm::normalize(pointD - rayShadow.Orig())).shadowRay(sc, distance, complexite - 1)) {
+	rayShadow.setOrigine(offset * normal + point);
+	if (Rayon(rayShadow.getOrigine(), glm::normalize(this->position - rayShadow.getOrigine())).shadowRay(sc, distance, complexite - 1)
+		&& Rayon(rayShadow.getOrigine(), glm::normalize(pointB - rayShadow.getOrigine())).shadowRay(sc, distance, complexite - 1)
+		&& Rayon(rayShadow.getOrigine(), glm::normalize(pointC - rayShadow.getOrigine())).shadowRay(sc, distance, complexite - 1)
+		&& Rayon(rayShadow.getOrigine(), glm::normalize(pointD - rayShadow.getOrigine())).shadowRay(sc, distance, complexite - 1)) {
 		return 0;
 	} else {
 		for (std::size_t i = 0; i < numberHeight; ++i) {
 			for (std::size_t j = 0; j < numberWidth; ++j) {
 				lightDir = glm::normalize(point - light);
-				rayShadow.Vect(-lightDir);
+				rayShadow.vectDirection(-lightDir);
 				if (rayShadow.shadowRay(sc, glm::distance(point, light), complexite - 1))
 					++nbOk;
 				light.x += this->sampleStep;
