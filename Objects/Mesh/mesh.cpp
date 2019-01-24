@@ -12,7 +12,8 @@ bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 				pointA = facteur * listVertex.at(static_cast<unsigned long>(face.s1)) + this->center,
 				pointB = facteur * listVertex.at(static_cast<unsigned long>(face.s2)) + this->center,
 				pointC = facteur * listVertex.at(static_cast<unsigned long>(face.s3)) + this->center;
-		if ((inter = glm::intersectRayTriangle(rayon.Orig(), rayon.Vect(), pointA, pointB, pointC, baryPos, dist)) && std::isgreater(dist, 0.f)) {
+		if ((inter = glm::intersectRayTriangle(rayon.getOrigine(), rayon.vectDirection(), pointA, pointB, pointC, baryPos, dist)) &&
+			std::isgreater(dist, 0.f)) {
 			I.emplace_back(dist,
 						   listNormals.at(static_cast<unsigned long>(face.s2)) * baryPos.x +
 						   listNormals.at(static_cast<unsigned long>(face.s3)) * baryPos.y +
