@@ -7,7 +7,7 @@
 #include <mesh.h>
 #include <iomanip>
 #include <image_cv.h>
-#include <Effects/histogram_equaliser_cv.h>
+#include <histogram_equaliser_cv.h>
 
 int main(int argc, char* argv[]) {
 	const unsigned int h = 1080;

@@ -11,23 +11,24 @@ include_directories(Materials Objects Image Camera Effects Lights png Objects/Me
 
 set(CMAKE_CXX_STANDARD 17)
 
-if (${CMAKE_CXX_COMPILER} STREQUAL "icpc")
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Intel")
 	set(COMPILE_FLAGS
 			PRIVATE -Wall
 			PRIVATE -Wextra-tokens)
 
-	set(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE}
-			PRIVATE -Ofast)
+	set(CMAKE_CXX_FLAGS_RELEASE
+			-Ofast
+			-DNDEBUG)
 
-	set(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG}
-			PRIVATE -g3)
+	set(CMAKE_CXX_FLAGS_DEBUG
+			-g3)
 
 	set(LINKER_FLAGS
 			-Wl,--as-needed
-			-lstdc++
+			-shared-intel
 			-lm)
 
-elseif (${CMAKE_CXX_COMPILER} STREQUAL "/usr/bin/g++" OR ${CMAKE_CXX_COMPILER} STREQUAL "g++")
+elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
 	set(COMPILE_FLAGS
 			PRIVATE -pipe
 			PRIVATE -march=native
@@ -79,6 +80,9 @@ set(IMAGE_SRC
 set(TRANSFORMER_SRC
 		)
 
+set(TREE_SRC
+		Tree/k_dtree.cpp Tree/k_dtree.h Tree/k_dnode.cpp Tree/k_dnode.h)
+
 set(CAMERA_SRC
 		Camera/scene.h
 		Camera/scene.cpp
@@ -112,16 +116,8 @@ add_executable(RayTrace
 		${MATERIALS_SRC}
 		${LIGHTS_SRC}
 		${TRANSFORMER_SRC}
+		${TREE_SRC}
 		${EFFECTS_SRC})
 
-if (${OpenMP_FOUND})
-	set(COMPILE_FLAGS ${COMPILE_FLAGS} PRIVATE ${OpenMP_CXX_FLAGS})
-	set(LINKER_FLAGS ${LINKER_FLAGS} ${OpenMP_CXX_LIBRARIES})
-endif ()
-
-if (${OpenCV_FOUND})
-	set(LINKER_FLAGS ${LINKER_FLAGS} ${OpenCV_LIBS})
-endif ()
-
-target_compile_options(RayTrace ${COMPILE_FLAGS})
-target_link_libraries(RayTrace ${LINKER_FLAGS})
+target_compile_options(RayTrace ${COMPILE_FLAGS} ${OpenMP_CXX_FLAGS})
+target_link_libraries(RayTrace ${LINKER_FLAGS} ${OpenMP_CXX_LIBRARIES} ${OpenCV_LIBS})
