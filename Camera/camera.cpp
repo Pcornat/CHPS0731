@@ -32,7 +32,7 @@ void Camera::renderPicture(BaseImage* const im, Scene& sc, int complexite) const
 
 	// Pour chaque pixel de l'image a calculer
 	auto chrono = std::chrono::high_resolution_clock::now();//Lancement du chrono de calcul
-#pragma omp parallel for collapse(2) schedule(dynamic)
+#pragma omp parallel for collapse(2) //schedule(dynamic)
 	for (std::uint32_t y = 0; y < im->getHauteur(); y++) {
 		for (std::uint32_t x = 0; x < im->getLargeur(); x++) {
 			//TODO : anti-aliasing
