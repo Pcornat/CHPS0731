@@ -1,28 +1,28 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 
 project(RayTracer)
 
 find_package(OpenCV REQUIRED)
+find_package(OpenMP REQUIRED)
 
 include_directories(.)
 include_directories(../../include)
-include_directories(Materials Objects Image Camera Lights png Objects/Mesh Transformer)
+include_directories(Materials Objects Image Camera Lights png Objects/Mesh Transformer Configuration Interfaces)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(COMPILE_FLAGS
 		PRIVATE -pipe
 		PRIVATE -march=native
 		PRIVATE -Wall
 		PRIVATE -Wextra
-		PRIVATE -fopenmp
 		PRIVATE -O3)
 
 set(LINKER_FLAGS
 		-Wl,--as-needed
 		-lstdc++
-		-lm
-		-fopenmp)
+		-lm)
 
 set(OBJECTS_SRC
 		Objects/sphere.hpp
@@ -77,6 +77,16 @@ set(LIGHTS_SRC
 		Lights/plan_light.h
 		Lights/plan_light.cpp)
 
+set(CONFIGURATION_SRC
+		Configuration/configuration.cpp Configuration/configuration.h Configuration/json.hpp)
+
+set(INTERFACE_SRC
+		)
+
+set(TEST_SRC
+		Tests/catch_trick.cpp Tests/tests_config.cpp
+		Configuration/configuration.cpp Configuration/configuration.h Configuration/json.hpp)
+
 add_executable(RayTrace
 		png/lodepng.h
 		png/lodepng.cpp
@@ -86,11 +96,17 @@ add_executable(RayTrace
 		intersection.h
 		main.cpp
 		${CAMERA_SRC}
+		${CONFIGURATION_SRC}
+		${INTERFACE_SRC}
 		${IMAGE_SRC}
 		${OBJECTS_SRC}
 		${MATERIALS_SRC}
 		${LIGHTS_SRC}
 		${TRANSFORMER_SRC})
 
-target_compile_options(RayTrace ${COMPILE_FLAGS})
-target_link_libraries(RayTrace ${LINKER_FLAGS} ${OpenCV_LIBS})
+target_compile_options(RayTrace ${COMPILE_FLAGS} ${OpenMP_CXX_FLAGS})
+target_link_libraries(RayTrace ${LINKER_FLAGS} ${OpenCV_LIBS} ${OpenMP_CXX_LIBRARIES})
+
+add_executable(TestRayTrace ${TEST_SRC})
+target_compile_options(TestRayTrace ${COMPILE_FLAGS})
+target_link_libraries(TestRayTrace ${LINKER_FLAGS})
