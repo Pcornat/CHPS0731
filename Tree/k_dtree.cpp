@@ -23,3 +23,16 @@ void KDtree::build() {
 const std::string& KDtree::treeFrom() const {
 	return model->getName();
 }
+
+bool KDtree::operator==(const KDtree& kDtree) {
+	if (this != &kDtree)
+		return false;
+
+	if (this->treeFrom() != kDtree.treeFrom())
+		return false;
+
+	if (this->epsilon != kDtree.epsilon)
+		return false;
+//TODO : to continue.
+	return true;
+}

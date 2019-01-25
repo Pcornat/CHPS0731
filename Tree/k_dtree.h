@@ -10,9 +10,16 @@
 #include <glm/vec3.hpp>
 #include <vector>
 #include <Objects/Mesh/GeometricModel.h>
+#include "kd_tree_iterator.h"
 
+/**
+ * @todo écrire un itérateur. Write an iterator.
+ * @class KDtree
+ */
 class KDtree {
 private:
+	friend KDTreeIterator;
+
 	class KDnode;
 
 	///This is the tree
@@ -36,6 +43,7 @@ public:
 
 	const std::string& treeFrom() const;
 
+	bool operator==(const KDtree& kDtree);
 };
 
 #endif //RAYTRACER_K_DTREE_H

@@ -35,7 +35,7 @@ void Camera::renderPicture(BaseImage* const im, Scene& sc, int complexite) const
 #pragma omp parallel for collapse(2) //schedule(dynamic)
 	for (std::uint32_t y = 0; y < im->getHauteur(); y++) {
 		for (std::uint32_t x = 0; x < im->getLargeur(); x++) {
-			//TODO : anti-aliasing
+			//TODO : anti-aliasing (adaptatif si possible)
 			// On calcule la position dans l'espace de ce point
 			Rayon ray; // Rayon a lancer
 			glm::vec3 res;
@@ -52,8 +52,7 @@ void Camera::renderPicture(BaseImage* const im, Scene& sc, int complexite) const
 			res = ray.lancer(sc, complexite);
 			im->setPixel(x, y, glm::abs(res));
 		}
-		//std::cout << "Ligne " << y << std::endl;
 	}
 	double diff = std::chrono::duration<double>(std::chrono::high_resolution_clock::now() - chrono).count();
-	std::cout << "Calcul en : " << std::round(diff / 60.0) << "m" << static_cast<unsigned int>(std::round(diff)) % 60 << "s" << std::endl;
+	std::cout << "Calcul en : " << std::round(diff / 60.0) << "m" << static_cast<uint32_t>(std::round(diff)) % 60 << "s" << std::endl;
 }

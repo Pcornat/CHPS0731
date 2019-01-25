@@ -8,10 +8,12 @@
 
 #include <bounding_box.h>
 #include "k_dtree.h"
+#include "kd_tree_iterator.h"
 
 class KDnode {
 private:
-	friend class KDtree;
+	friend KDtree;
+	friend KDTreeIterator;
 
 	///Vector containing all the points of the triangles.
 	std::vector<glm::vec3*> points;

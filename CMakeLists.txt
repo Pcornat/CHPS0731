@@ -81,7 +81,7 @@ set(TRANSFORMER_SRC
 		)
 
 set(TREE_SRC
-		Tree/k_dtree.cpp Tree/k_dtree.h Tree/k_dnode.cpp Tree/k_dnode.h)
+		Tree/k_dtree.cpp Tree/k_dtree.h Tree/k_dnode.cpp Tree/k_dnode.h Tree/kd_tree_iterator.cpp Tree/kd_tree_iterator.h)
 
 set(CAMERA_SRC
 		Camera/scene.h
