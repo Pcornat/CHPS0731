@@ -12,16 +12,22 @@ include_directories(Materials Objects Image Camera Lights png Objects/Mesh Trans
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(COMPILE_FLAGS
-		PRIVATE -pipe
-		PRIVATE -march=native
-		PRIVATE -Wall
-		PRIVATE -Wextra
-		PRIVATE -O3)
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Intel")
+	set(COMPILE_FLAGS
+			PRIVATE -Wall
+			PRIVATE -Wextra-tokens)
+elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+	set(COMPILE_FLAGS
+			PRIVATE -pipe
+			PRIVATE -march=native
+			PRIVATE -Wall
+			PRIVATE -Wextra)
+endif ()
 
 set(LINKER_FLAGS
 		-Wl,--as-needed
 		-lstdc++
+		-lstdc++fs
 		-lm)
 
 set(OBJECTS_SRC
@@ -78,14 +84,20 @@ set(LIGHTS_SRC
 		Lights/plan_light.cpp)
 
 set(CONFIGURATION_SRC
-		Configuration/configuration.cpp Configuration/configuration.h Configuration/json.hpp)
+		Configuration/configuration.cpp
+		Configuration/configuration.h
+		Configuration/json.hpp)
 
 set(INTERFACE_SRC
+		Interfaces/to_json.cpp Interfaces/to_json.h)
+
+set(DESIGN_PATTERNS_SRC
 		)
 
 set(TEST_SRC
-		Tests/catch_trick.cpp Tests/tests_config.cpp
-		Configuration/configuration.cpp Configuration/configuration.h Configuration/json.hpp)
+		Tests/catch_trick.cpp
+		Tests/tests_config.cpp
+		${CONFIGURATION_SRC})
 
 add_executable(RayTrace
 		png/lodepng.h
@@ -104,9 +116,11 @@ add_executable(RayTrace
 		${LIGHTS_SRC}
 		${TRANSFORMER_SRC})
 
+message("OpenMP link : ${OpenMP_CXX_LIBRARIES}")
+
 target_compile_options(RayTrace ${COMPILE_FLAGS} ${OpenMP_CXX_FLAGS})
 target_link_libraries(RayTrace ${LINKER_FLAGS} ${OpenCV_LIBS} ${OpenMP_CXX_LIBRARIES})
 
-add_executable(TestRayTrace ${TEST_SRC})
+add_executable(TestRayTrace ${TEST_SRC} ${OBJECTS_SRC} ${INTERFACE_SRC})
 target_compile_options(TestRayTrace ${COMPILE_FLAGS})
 target_link_libraries(TestRayTrace ${LINKER_FLAGS})

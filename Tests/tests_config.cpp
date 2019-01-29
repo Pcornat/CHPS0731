@@ -7,10 +7,11 @@
 #include <fstream>
 
 
-TEST_CASE("Configuration : check file extension", "[configuration][file extension]") {
-	REQUIRE_THROWS(Configuration("coucou.son"));
-	REQUIRE_THROWS(Configuration("coucou"));
-	REQUIRE_NOTHROW(Configuration("coucou.json"));
+TEST_CASE("Configuration : check constructor", "[configuration][constructor]") {
+	REQUIRE_THROWS_WITH(Configuration("coucou.son"), "No file extension found or wrong extension.");
+	REQUIRE_THROWS_WITH(Configuration("coucou"), "No file extension found or wrong extension.");
+	REQUIRE_THROWS_WITH(Configuration("coucou.json"), "File does not exist.");
+	REQUIRE_NOTHROW(Configuration("test.json"));
 }
 
 TEST_CASE("Configuration : writing with ofstream and operator<<", "[configuration][operator<<]") {
