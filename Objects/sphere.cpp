@@ -2,8 +2,6 @@
 // Created by Florent on 10/09/2018.
 //
 #include "sphere.hpp"
-#include "rayon.h"
-#include "phong.h"
 
 
 /**
@@ -53,3 +51,11 @@ Sphere::Sphere(Material* material, glm::vec3&& center, int radius) : Objet(mater
 
 Sphere::Sphere(Material* material, const glm::vec3& center, int radius) : Objet(material), center(center),
 																		  radius(radius) {}
+
+ToJson::json Sphere::toJson() const {
+	ToJson::json obj = Objet::toJson();
+	obj[typeid(Objet).name()] = {
+
+	};
+	return obj;
+}

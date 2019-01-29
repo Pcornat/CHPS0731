@@ -27,6 +27,9 @@ public:
 	explicit Sphere(Material* material, glm::vec3&& center, int radius);
 
 	bool calculIntersection(const Rayon& rayon, const Scene&, std::vector<Intersection>& I, int) override;
+
+	json toJson() const override;
+
 };
 
 

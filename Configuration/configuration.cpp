@@ -3,30 +3,66 @@
 //
 
 #include "configuration.h"
+#include <iomanip>
+#include <fstream>
+#include <filesystem>
+#include <mutex>
+
+bool Configuration::alreadyCreated = false;
+
+void Configuration::init() {
+	if (alreadyCreated)
+		throw std::logic_error("It is a singleton class, only one instance of it can exist.");
+
+#pragma omp critical
+	Configuration::alreadyCreated = true;
+}
+
+Configuration::Configuration() {
+	this->init();
+}
+
+Configuration::~Configuration() noexcept {
+	std::mutex mut;
+	mut.lock();
+	Configuration::alreadyCreated = false;
+	mut.unlock();
+}
 
 Configuration::Configuration(const std::string& fileName) : fileName(fileName) {
+	this->init();
+
 	size_t pos = this->fileName.find(".json");
+
 	if (pos == std::string::npos)
-		throw std::invalid_argument("No file extension found.");
+		throw std::invalid_argument("No file extension found or wrong extension");
+
+	if (!std::filesystem::exists(this->fileName))
+		throw std::invalid_argument("File does not exist.");
 
 
-	std::string test(this->fileName.substr(pos, this->fileName.size() - 1));
-	if (test != ".json")
-		throw std::invalid_argument("Not a .json file.");
 }
 
 Configuration::Configuration(std::string&& fileName) : fileName(fileName) {
+	this->init();
+
 	size_t pos = this->fileName.find(".json");
+
 	if (pos == std::string::npos)
-		throw std::invalid_argument("No file extension found.");
+		throw std::invalid_argument("No file extension found or wrong extension.");
+
+	if (!std::filesystem::exists(this->fileName))
+		throw std::invalid_argument("File does not exist.");
 
 
-	std::string test(this->fileName.substr(pos, this->fileName.size() - 1));
-	if (test != ".json")
-		throw std::invalid_argument("Not a .json file.");
 }
 
 std::ostream& operator<<(std::ostream& os, const Configuration& configuration) {
-	os << configuration.file.dump(4, '\t') << std::endl;
+	os << std::setw(4) << configuration.file << std::endl;
 	return os;
+}
+
+Configuration& operator>>(const Objet& obj, Configuration& conf) {
+	obj.toJson() >> conf.file;
+	return *this;
 }

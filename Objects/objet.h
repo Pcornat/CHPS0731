@@ -3,10 +3,17 @@
 
 #include "intersection.h"
 #include "material.h"
+#include "sphere.hpp"
+#include "plan.hpp"
+#include "triangle.h"
 #include <iostream>
 #include <vector>
 #include <glm/glm.hpp>
+#include <Interfaces/to_json.h>
+#include <typeinfo>
+
 #define GLM_ENABLE_EXPERIMENTAL
+
 #include <glm/gtx/intersect.hpp>
 #include <glm/gtc/noise.hpp>
 
@@ -17,7 +24,7 @@ class Rayon;
  * \class Objet
  * This class exists to do polymorphism inside the code.
  */
-class Objet {
+class Objet : public virtual ToJson {
 protected:
 	Material* material = nullptr;
 
@@ -45,6 +52,39 @@ public:
 		if (this->material != material)
 			this->material = material;
 	}
+
+	json toJson() override {
+		ToJson::json objet =
+				{
+						{
+								typeid(*this).name(),
+								{
+										{
+												typeid(Sphere).name(),
+												{
+
+												}
+										},
+										{
+												typeid(Plan).name(),
+												{
+
+												}
+										},
+										{
+												typeid(Triangle).name(),
+												{
+
+												}
+										}//, todo : le mesh
+								}
+						}
+				};
+
+
+		return objet;
+	}
+
 };
 
 

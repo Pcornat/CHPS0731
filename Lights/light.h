@@ -10,15 +10,13 @@
 /**
  * @class Light
  * Light is the base class of any type of light.
- * As for now, it is considered as a point light
- * @todo change this class in a base class for polymorphism.
  */
-class Light {
+class Light : public virtual ToJson {
 protected:
 	///It is the center of the light.
 	glm::vec3 position;
 	///Its colour, white almost each time.
-	glm::vec3 couleur;
+	glm::vec3 couleur{1.f, 1.f, 1.f};
 
 public:
 	Light() = default;
@@ -38,6 +36,8 @@ public:
 	const glm::vec3& getCouleur() const;
 
 	virtual float computeShadow(const glm::vec3& point, const Intersection& I, const Scene& sc, int complexite) = 0;
+
+	json toJson() const override;
 
 };
 
