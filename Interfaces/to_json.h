@@ -14,7 +14,7 @@ class ToJson {
 public:
 	using json = nlohmann::basic_json<std::map, std::vector, std::string, bool, int64_t, uint64_t, float>;
 
-	virtual json toJson() const = 0;
+	virtual ToJson::json toJson() const = 0;
 };
 
 

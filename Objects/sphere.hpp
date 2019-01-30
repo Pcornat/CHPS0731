@@ -28,7 +28,7 @@ public:
 
 	bool calculIntersection(const Rayon& rayon, const Scene&, std::vector<Intersection>& I, int) override;
 
-	json toJson() const override;
+	ToJson::json toJson() const override;
 
 };
 

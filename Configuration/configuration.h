@@ -11,7 +11,7 @@
 #include <map>
 #include <vector>
 #include <Objects/objet.h>
-#include "json.hpp"
+#include <to_json.h>
 
 /**
  * @class Configuration
@@ -19,14 +19,13 @@
  */
 class Configuration {
 private:
-	using json = nlohmann::basic_json<std::map, std::vector, std::string, bool, int64_t, uint64_t, float>;
+	using json = ToJson::json;
 
 	std::string fileName = "config.json";
 
 	json file;
 
 	static bool alreadyCreated;
-	//Après bah jsp lel on verra.
 
 	void init();
 

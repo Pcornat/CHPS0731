@@ -23,7 +23,7 @@ Light::Light(const glm::vec3& position, const glm::vec3& couleur) : position(pos
 
 Light::Light(glm::vec3&& position, glm::vec3&& couleur) : position(position), couleur(couleur) {}
 
-nlohmann::basic_json<std::map, std::vector, std::string, bool, int64_t, uint64_t, float> Light::toJson() const {
+ToJson::json Light::toJson() const {
 	ToJson::json obj =
 			{
 					typeid(*this).name(),

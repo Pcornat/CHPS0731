@@ -53,7 +53,7 @@ public:
 			this->material = material;
 	}
 
-	json toJson() override {
+	ToJson::json toJson() override {
 		ToJson::json objet =
 				{
 						{

@@ -37,7 +37,7 @@ public:
 
 	virtual float computeShadow(const glm::vec3& point, const Intersection& I, const Scene& sc, int complexite) = 0;
 
-	json toJson() const override;
+	ToJson::json toJson() const override;
 
 };
 
