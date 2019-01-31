@@ -61,6 +61,8 @@ public:
 	 */
 	bool calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& vector1, int i) override;
 
+	void fromJson(const FromJson::json& objet) const override;
+
 	/**
 	 * Moving assignment operator
 	 * @param mesh

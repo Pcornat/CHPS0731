@@ -4,12 +4,6 @@
 #include "sphere.hpp"
 
 
-/**
- * It computes an intersection between a ray and the sphere.
- * @param rayon the ray to launch
- * @param I a pointer to a std::vector of intersection.
- * @return it computes correctly or not.
- */
 bool Sphere::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector<Intersection>& I, int rec) {
 	//Équation : a = 1, b = 2* (D.(O - C)), c =|O - C|² - R²
 	/*glm::vec3 OCVec = rayon.Orig() - this->center;
@@ -52,10 +46,6 @@ Sphere::Sphere(Material* material, glm::vec3&& center, int radius) : Objet(mater
 Sphere::Sphere(Material* material, const glm::vec3& center, int radius) : Objet(material), center(center),
 																		  radius(radius) {}
 
-ToJson::json Sphere::toJson() const {
-	ToJson::json obj = Objet::toJson();
-	obj[typeid(Objet).name()] = {
+void Sphere::fromJson(const FromJson::json& objet) const {
 
-	};
-	return obj;
 }

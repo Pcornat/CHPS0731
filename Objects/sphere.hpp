@@ -5,7 +5,7 @@
 #ifndef TP0_SPHERE_HPP
 #define TP0_SPHERE_HPP
 
-
+#include <rayon.h>
 #include "objet.h"
 
 /**
@@ -22,13 +22,31 @@ public:
 
 	~Sphere() override;
 
+	/**
+	 *
+	 * @param material
+	 * @param center
+	 * @param radius
+	 */
 	explicit Sphere(Material* material, const glm::vec3& center, int radius);
 
+	/**
+	 *
+	 * @param material
+	 * @param center
+	 * @param radius
+	 */
 	explicit Sphere(Material* material, glm::vec3&& center, int radius);
 
+	/**
+ 	 * It computes an intersection between a ray and the sphere.
+ 	 * @param rayon the ray to launch
+	 * @param I a pointer to a std::vector of intersection.
+	 * @return it computes correctly or not.
+	 */
 	bool calculIntersection(const Rayon& rayon, const Scene&, std::vector<Intersection>& I, int) override;
 
-	ToJson::json toJson() const override;
+	void fromJson(const FromJson::json& objet) const override;
 
 };
 

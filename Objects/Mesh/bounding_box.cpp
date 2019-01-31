@@ -29,3 +29,7 @@ bool BoundingBox::calculIntersection(const Rayon& rayon, const Scene& scene, std
 	}
 	return false;
 }
+
+void BoundingBox::fromJson(const FromJson::json& objet) const {
+
+}

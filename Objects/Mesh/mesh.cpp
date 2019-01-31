@@ -21,8 +21,6 @@ bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 		}
 	}
 	return inter;
-	/*} else
-		return false;//*/
 }
 
 Mesh::Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor, float angle, const glm::vec3& axis)
@@ -121,4 +119,8 @@ void Mesh::boundingBox() {
 
 Mesh::~Mesh() {
 	delete this->material;
+}
+
+void Mesh::fromJson(const FromJson::json& objet) const {
+
 }

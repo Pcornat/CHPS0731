@@ -1,17 +1,16 @@
+#include <iomanip>
 #include <Materials/phong.h>
-//#include <image.h>
 #include <camera.h>
 #include <objet.h>
 #include <sphere.hpp>
 #include <plan.hpp>
 #include <plan_light.h>
 #include <mesh.h>
-#include <iomanip>
 #include <image_cv.h>
 
 int main(int argc, char* argv[]) {
-	const unsigned int h = 1080;
-	const unsigned int l = 1920;
+	const uint32_t h = 1080;
+	const uint32_t l = 1920;
 	Camera myCamera;
 	Scene scene;
 	ImageCV myImage(h, l);

@@ -1,0 +1,30 @@
+{
+	"Objet": {
+		"Sphere": [
+			{
+				"Phong": {
+				},
+				"center": [
+				],
+				"radius": 1
+			},
+			{
+				"Phong": {
+				},
+				"center": [
+				],
+				"radius": 1
+			}
+		],
+		"Plan": [
+			{},
+			{},
+			{},
+			{},
+			{},
+			{}
+		]
+	},
+	"Light": {
+	}
+}

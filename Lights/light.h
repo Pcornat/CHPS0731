@@ -2,6 +2,7 @@
 #define __Raytracer__Light__
 
 #include "rayon.h"
+#include <from_json.h>
 
 #define GLM_ENABLE_EXPERIMENTAL
 
@@ -11,7 +12,7 @@
  * @class Light
  * Light is the base class of any type of light.
  */
-class Light : public virtual ToJson {
+class Light : public virtual FromJson {
 protected:
 	///It is the center of the light.
 	glm::vec3 position;
@@ -35,9 +36,15 @@ public:
 
 	const glm::vec3& getCouleur() const;
 
+	/**
+	 *
+	 * @param point
+	 * @param I
+	 * @param sc
+	 * @param complexite
+	 * @return
+	 */
 	virtual float computeShadow(const glm::vec3& point, const Intersection& I, const Scene& sc, int complexite) = 0;
-
-	ToJson::json toJson() const override;
 
 };
 

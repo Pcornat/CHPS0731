@@ -96,3 +96,7 @@ float Plan_light::computeShadow(const glm::vec3& point, const Intersection& I, c
 	}
 	return 1 - (nbOk / nbTotal);
 }
+
+void Plan_light::fromJson(const FromJson::json& objet) const {
+
+}

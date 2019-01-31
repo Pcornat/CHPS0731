@@ -89,7 +89,7 @@ set(CONFIGURATION_SRC
 		Configuration/json.hpp)
 
 set(INTERFACE_SRC
-		Interfaces/to_json.cpp Interfaces/to_json.h)
+		Interfaces/from_json.cpp Interfaces/from_json.h)
 
 set(DESIGN_PATTERNS_SRC
 		)

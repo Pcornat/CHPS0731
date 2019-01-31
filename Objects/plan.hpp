@@ -28,6 +28,8 @@ public:
 	explicit Plan(Material* material, glm::vec3&& orig, glm::vec3&& normal);
 
 	bool calculIntersection(const Rayon&, const Scene&, std::vector<Intersection>&, int) override;
+
+	void fromJson(const FromJson::json& objet) const override;
 };
 
 

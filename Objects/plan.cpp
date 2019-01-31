@@ -36,3 +36,7 @@ Plan::Plan(Material* material, glm::vec3&& orig, glm::vec3&& normal) : Objet(mat
 Plan::~Plan() {
 	delete material;
 }
+
+void Plan::fromJson(const FromJson::json& objet) const {
+
+}

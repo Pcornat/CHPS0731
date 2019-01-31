@@ -63,6 +63,8 @@ public:
 	 * @return
 	 */
 	float computeShadow(const glm::vec3& point, const Intersection& I, const Scene& sc, int complexite) override;
+
+	void fromJson(const FromJson::json& objet) const override;
 };
 
 

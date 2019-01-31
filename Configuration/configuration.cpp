@@ -11,11 +11,12 @@
 bool Configuration::alreadyCreated = false;
 
 void Configuration::init() {
-	if (alreadyCreated)
-		throw std::logic_error("It is a singleton class, only one instance of it can exist.");
-
 #pragma omp critical
-	Configuration::alreadyCreated = true;
+	{
+		if (alreadyCreated)
+			throw std::logic_error("It is a singleton class, only one instance of it can exist.");
+		Configuration::alreadyCreated = true;
+	}
 }
 
 Configuration::Configuration() {
@@ -23,10 +24,8 @@ Configuration::Configuration() {
 }
 
 Configuration::~Configuration() noexcept {
-	std::mutex mut;
-	mut.lock();
+#pragma omp critical
 	Configuration::alreadyCreated = false;
-	mut.unlock();
 }
 
 Configuration::Configuration(const std::string& fileName) : fileName(fileName) {
@@ -60,9 +59,4 @@ Configuration::Configuration(std::string&& fileName) : fileName(fileName) {
 std::ostream& operator<<(std::ostream& os, const Configuration& configuration) {
 	os << std::setw(4) << configuration.file << std::endl;
 	return os;
-}
-
-Configuration& operator>>(const Objet& obj, Configuration& conf) {
-	obj.toJson() >> conf.file;
-	return *this;
 }

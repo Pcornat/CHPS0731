@@ -39,7 +39,7 @@ public:
 	 */
 	bool calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) override;
 
-
+	void fromJson(const FromJson::json& objet) const override;
 };
 
 
