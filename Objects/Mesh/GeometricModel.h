@@ -31,7 +31,7 @@ public:
 
 	explicit GeometricModel(std::string&& name, float angle, glm::vec3&& axis);
 
-	~GeometricModel() = default;
+	virtual ~GeometricModel() = default;
 
 	const std::vector<glm::vec3>& getListVertex() const;
 
