@@ -229,6 +229,26 @@
 				}
 			],
 			"Mesh": {
+				"GeometricModel": 1,
+				"Mesh": [
+					{
+						"Material": "Phong",
+						"Phong": {
+						},
+						"center": [
+							0.0,
+							-3.8,
+							8.0
+						],
+						"factor": 15,
+						"angle": 180.0,
+						"axis": [
+							0,
+							1,
+							0
+						]
+					}
+				]
 			}
 		},
 		"Light": {
