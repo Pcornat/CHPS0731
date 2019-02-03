@@ -2,27 +2,223 @@
 	"Objet": {
 		"Sphere": [
 			{
+				"Material": "Phong",
 				"Phong": {
+					"refraction": false,
+					"ka": [
+						0.2,
+						0.3,
+						0.2
+					],
+					"kd": [
+						0.6,
+						0.0,
+						0.0
+					],
+					"ks": 128.0,
+					"reflection": 1.0
 				},
 				"center": [
+					-2.5,
+					-4.0,
+					10.0
 				],
 				"radius": 1
 			},
 			{
+				"Material": "Phong",
 				"Phong": {
+					"refraction": false,
+					"ka": [
+						0.2,
+						0.0,
+						0.0
+					],
+					"kd": [
+						0.0,
+						0.5,
+						0.392
+					],
+					"ks": 128.0,
+					"reflection": 0.5
 				},
 				"center": [
+					2.5,
+					-1.7,
+					5.0
 				],
 				"radius": 1
 			}
 		],
 		"Plan": [
-			{},
-			{},
-			{},
-			{},
-			{},
-			{}
+			{
+				"Material": "Phong",
+				"Phong": {
+					"refraction": false,
+					"ka": [
+						0.0,
+						0.0,
+						0.0
+					],
+					"kd": [
+						0.3,
+						0.3,
+						0.3
+					],
+					"ks": 128.0,
+					"reflection": 1.0
+				},
+				"orig": [
+					0.0,
+					0.0,
+					20.0
+				],
+				"normal": [
+					0.0,
+					0.0,
+					-1.0
+				]
+			},
+			{
+				"Material": "Phong",
+				"Phong": {
+					"refraction": false,
+					"ka": [
+						0.2,
+						0.2,
+						0.0
+					],
+					"kd": [
+						0.5,
+						0.0,
+						0.5
+					],
+					"ks": 128.0,
+					"reflection": 0.0
+				},
+				"orig": [
+					0.0,
+					10.0,
+					0.0
+				],
+				"normal": [
+					0.0,
+					-1.0,
+					0.0
+				]
+			},
+			{
+				"Material": "Phong",
+				"Phong": {
+					"refraction": false,
+					"ka": [
+						0.2,
+						0.0,
+						0.2
+					],
+					"kd": [
+						0.0,
+						0.6,
+						0.0
+					],
+					"ks": 128.0,
+					"reflection": 0.5
+				},
+				"orig": [
+					10.0,
+					0.0,
+					0.0
+				],
+				"normal": [
+					-1.0,
+					0.0,
+					0.0
+				]
+			},
+			{
+				"Material": "Phong",
+				"Phong": {
+					"refraction": false,
+					"ka": [
+						0.0,
+						0.2,
+						0.2
+					],
+					"kd": [
+						0.6,
+						0.0,
+						0.0
+					],
+					"ks": 128.0,
+					"reflection": 0.5
+				},
+				"orig": [
+					-10.0,
+					0.0,
+					0.0
+				],
+				"normal": [
+					1.0,
+					0.0,
+					0.0
+				]
+			},
+			{
+				"Material": "Phong",
+				"Phong": {
+					"refraction": false,
+					"ka": [
+						0.2,
+						0.2,
+						0.2
+					],
+					"kd": [
+						0.2,
+						0.0,
+						0.5
+					],
+					"ks": 128.0,
+					"reflection": 0.0
+				},
+				"orig": [
+					0.0,
+					-5.0,
+					0.0
+				],
+				"normal": [
+					0.0,
+					1.0,
+					0.0
+				]
+			},
+			{
+				"Material": "Phong",
+				"Phong": {
+					"refraction": false,
+					"ka": [
+						0.3,
+						0.2,
+						0.2
+					],
+					"kd": [
+						0.3,
+						0.3,
+						0.3
+					],
+					"ks": 128.0,
+					"reflection": 0.25
+				},
+				"orig": [
+					0.0,
+					0.0,
+					-10.0
+				],
+				"normal": [
+					0.0,
+					0.0,
+					1.0
+				]
+			}
 		]
 	},
 	"Light": {
