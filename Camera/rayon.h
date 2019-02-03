@@ -8,40 +8,40 @@
 class Rayon {
 protected:
 
-	glm::vec3 orig;
-	glm::vec3 vect;
+	glm::vec3 origine;
+	glm::vec3 direction;
 
 public:
 	Rayon() = default;
 
-	explicit Rayon(const glm::vec3& orig, const glm::vec3& vect);
+	explicit Rayon(const glm::vec3& origine, const glm::vec3& direction);
 
-	glm::vec3 Orig() const {
-		return orig;
+	const glm::vec3& getOrigine() const {
+		return origine;
 	}
 
-	glm::vec3 Vect() const {
-		return vect;
+	const glm::vec3& vectDirection() const {
+		return direction;
 	}
 
 
-	void Orig(const glm::vec3& o) {
-		orig = o;
+	void setOrigine(const glm::vec3& o) {
+		origine = o;
 	}
 
-	void Orig(glm::vec3&& o) {
-		Rayon::orig = o;
+	void setOrigine(glm::vec3&& o) {
+		Rayon::origine = o;
 	}
 
-	void Vect(const glm::vec3& v) {
-		vect = glm::normalize(v);
+	void setVectDirection(const glm::vec3& v) {
+		direction = glm::normalize(v);
 	}
 
-	void Vect(glm::vec3&& v) {
-		Rayon::vect = glm::normalize(v);
+	void setVectDirection(glm::vec3&& v) {
+		Rayon::direction = glm::normalize(v);
 	}
 
-	glm::vec3 Lancer(const Scene& sc, int complexite) const;
+	glm::vec3 lancer(const Scene& sc, int complexite) const;
 
 	bool shadowRay(const Scene& sc, float distLum, int complexite);
 };

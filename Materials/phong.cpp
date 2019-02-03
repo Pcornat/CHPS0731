@@ -54,14 +54,14 @@ glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, co
 						  min, max);
 
 
-		spec = glm::clamp(spec + light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.Vect(), R), 0.0f), this->ks),
+		spec = glm::clamp(spec + light->getCouleur() * glm::pow(glm::max(glm::dot(rayon.vectDirection(), R), 0.0f), this->ks),
 						  min, max);
 		shad += light->computeShadow(point, I, s, rec);
 	}
 	if (this->reflection != 0.0f)
 		if (std::isgreater(refl.x, 1e-4f) || std::isgreater(refl.y, 1e-4f) || std::isgreater(refl.z, 1e-4f)) {
-			Rayon reflect(offset * I.getNormal() + point, glm::normalize(glm::reflect(rayon.Vect(), I.getNormal())));
-			refl = reflect.Lancer(s, rec - 1);
+			Rayon reflect(offset * I.getNormal() + point, glm::normalize(glm::reflect(rayon.vectDirection(), I.getNormal())));
+			refl = reflect.lancer(s, rec - 1);
 		}
 	return (1.0f - this->reflection) * shad * (amb + diff + spec) + this->reflection * refl;
 }

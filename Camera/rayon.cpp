@@ -2,7 +2,7 @@
 #include "rayon.h"
 #include "objet.h"
 
-glm::vec3 Rayon::Lancer(const Scene& sc, int complexite) const {
+glm::vec3 Rayon::lancer(const Scene& sc, int complexite) const {
 	glm::vec3 res(0);//retourne noir de base
 	if (complexite == 0) return res;
 	std::vector<Intersection> I;
@@ -19,7 +19,7 @@ glm::vec3 Rayon::Lancer(const Scene& sc, int complexite) const {
 	return res;
 }
 
-Rayon::Rayon(const glm::vec3& orig, const glm::vec3& vect) : orig(orig), vect(vect) {}
+Rayon::Rayon(const glm::vec3& origine, const glm::vec3& direction) : orig(orig), vect(vect) {}
 
 bool Rayon::shadowRay(const Scene& sc, float distLum, int complexite) {
 	std::vector<Intersection> I;

@@ -46,10 +46,10 @@ void Camera::Calculer_image(BaseImage* const im, Scene& sc, int complexite) cons
 			pt.y = pt.y - (dy * 0.5f);
 
 			// On prépare le rayon qui part du foyer et qui passe par ce point
-			ray.Orig(pt);
-			ray.Vect(glm::normalize(pt - foyer)); //Vecteur directeur du rayon.
+			ray.setOrigine(pt);
+			ray.setVectDirection(glm::normalize(pt - foyer)); //Vecteur directeur du rayon.
 
-			res = ray.Lancer(sc, complexite);
+			res = ray.lancer(sc, complexite);
 			im->setPixel(static_cast<uint32_t>(x), static_cast<uint32_t>(y), glm::abs(res));
 		}
 		//std::cout << "Ligne " << y << std::endl;

@@ -6,7 +6,6 @@ find_package(OpenCV REQUIRED)
 find_package(OpenMP REQUIRED)
 
 include_directories(.)
-include_directories(../../include)
 include_directories(Materials Objects Image Camera Lights png Objects/Mesh Transformer Configuration Interfaces)
 
 set(CMAKE_CXX_STANDARD 17)
