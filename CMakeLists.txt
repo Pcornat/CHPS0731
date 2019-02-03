@@ -81,7 +81,7 @@ set(LIGHTS_SRC
 		Lights/light.h
 		Lights/light.cpp
 		Lights/plan_light.h
-		Lights/plan_light.cpp Tree/k_dtree.cpp Tree/k_dtree.h)
+		Lights/plan_light.cpp)
 
 set(CONFIGURATION_SRC
 		Configuration/configuration.cpp
@@ -116,7 +116,7 @@ add_executable(RayTrace
 		${LIGHTS_SRC}
 		${TRANSFORMER_SRC})
 
-message("OpenMP link : ${OpenMP_CXX_LIBRARIES}")
+message("-- OpenMP link : ${OpenMP_CXX_LIBRARIES}")
 
 target_compile_options(RayTrace ${COMPILE_FLAGS} ${OpenMP_CXX_FLAGS})
 target_link_libraries(RayTrace ${LINKER_FLAGS} ${OpenCV_LIBS} ${OpenMP_CXX_LIBRARIES})
