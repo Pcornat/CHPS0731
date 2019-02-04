@@ -15,12 +15,24 @@ int main(int argc, char* argv[]) {
 	Scene scene;
 	ImageCV myImage(h, l);
 	std::stringstream ss;
-	std::time_t time;//*/
+	std::time_t time;
 	Mesh stanfordBunny_1, bunny2(new Phong(false, glm::vec3(0.2f, 0.3f, 0.2f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f),
 								 glm::vec3(0.f, -3.8f, 8.f), 15, 180.f, glm::vec3(0, 1, 0));
-	if (argc != 2) {
+	if (argc < 2) {
 		std::cerr << "Nombre d'arguments insuffisant, nom d'un fichier .obj attendu." << std::endl;
 		return EXIT_FAILURE;
+	}
+	if (argc == 3) {
+		std::string check(argv[3]);
+		if (check.size() != 2)
+			return EXIT_FAILURE;
+
+		std::for_each(check.begin(), check.end(), ::toupper);
+		if (check == "ON") {
+			//TODO : see below (french)
+			//L'idée : faire un menu interactif pour la config (?)
+			//Ou autre chose.
+		}
 	}
 	try {
 		stanfordBunny_1 = Mesh(new Phong(false, glm::vec3(0.2f, 0.3f, 0.2f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f),
@@ -70,7 +82,8 @@ int main(int argc, char* argv[]) {
 	scene.addObjet(&right);
 	scene.addObjet(&closedBox);
 	scene.addObjet(&background);
-	scene.addObjet(&mesh);
+	scene.addObjet(&stanfordBunny_1);
+	scene.addObjet(&bunny2);
 
 	try {
 		myCamera.Calculer_image(&myImage, scene, 6);
@@ -82,8 +95,9 @@ int main(int argc, char* argv[]) {
 	std::time(&time);
 	ss << "out_" << std::put_time(std::localtime(&time), "%Y_%m_%d_%Hh%Mm%Ss") << ".png";
 	try {
-		myImage.save(ss.str());//*/
-		//myImage.save("out.png");
+
+		myImage.save(ss.str());
+
 	} catch (const std::exception& e) {
 		std::cerr << e.what() << std::endl;
 		return EXIT_FAILURE;

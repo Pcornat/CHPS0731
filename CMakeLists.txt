@@ -6,7 +6,7 @@ find_package(OpenCV REQUIRED)
 find_package(OpenMP REQUIRED)
 
 include_directories(.)
-include_directories(Materials Objects Image Camera Lights png Objects/Mesh Transformer Configuration Interfaces)
+include_directories(Materials Objects Image Camera Lights png Objects/Mesh Transformer Configuration Interfaces DesignPatterns)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -91,7 +91,15 @@ set(INTERFACE_SRC
 		Interfaces/from_json.cpp Interfaces/from_json.h)
 
 set(DESIGN_PATTERNS_SRC
-		)
+		"DesignPatterns/factory.h"
+		"DesignPatterns/ObjectsFactory/sphere_factory.cpp"
+		"DesignPatterns/ObjectsFactory/sphere_factory.h"
+		"DesignPatterns/ObjectsFactory/plans_factory.cpp"
+		"DesignPatterns/ObjectsFactory/plans_factory.h"
+		"DesignPatterns/ObjectsFactory/mesh_factory.cpp"
+		"DesignPatterns/ObjectsFactory/mesh_factory.h"
+		"DesignPatterns/LightsFactory/plan_light_factory.cpp"
+		"DesignPatterns/LightsFactory/plan_light_factory.h")
 
 set(TEST_SRC
 		Tests/catch_trick.cpp
@@ -113,7 +121,8 @@ add_executable(RayTrace
 		${OBJECTS_SRC}
 		${MATERIALS_SRC}
 		${LIGHTS_SRC}
-		${TRANSFORMER_SRC})
+		${TRANSFORMER_SRC}
+		${DESIGN_PATTERNS_SRC})
 
 message("-- OpenMP link : ${OpenMP_CXX_LIBRARIES}")
 
