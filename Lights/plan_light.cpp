@@ -3,10 +3,10 @@
 //
 
 #include "plan_light.h"
-#include <iostream>
+#include "intersection.h"
 #include <glm/gtx/transform.hpp>
 
-Plan_light::Plan_light(glm::vec3&& position, glm::vec3&& couleur, glm::vec3&& rightDir, glm::vec3&& depthDir, float sampleStep, float height,
+Plan_light::Plan_light(glm::vec3 &&position, glm::vec3 &&couleur, glm::vec3 &&rightDir, glm::vec3 &&depthDir, float sampleStep, float height,
 					   float width) :
 		Light(position, couleur),
 		rightDir(rightDir),
@@ -15,19 +15,19 @@ Plan_light::Plan_light(glm::vec3&& position, glm::vec3&& couleur, glm::vec3&& ri
 		height(height),
 		width(width) {}
 
-const glm::vec3& Plan_light::getRightDir() const {
+const glm::vec3 &Plan_light::getRightDir() const {
 	return rightDir;
 }
 
-void Plan_light::setRightDir(const glm::vec3& rightDir) {
+void Plan_light::setRightDir(const glm::vec3 &rightDir) {
 	Plan_light::rightDir = rightDir;
 }
 
-const glm::vec3& Plan_light::getDepthDir() const {
+const glm::vec3 &Plan_light::getDepthDir() const {
 	return depthDir;
 }
 
-void Plan_light::setDepthDir(const glm::vec3& depthDir) {
+void Plan_light::setDepthDir(const glm::vec3 &depthDir) {
 	Plan_light::depthDir = depthDir;
 }
 
@@ -55,7 +55,7 @@ void Plan_light::setWidth(float width) {
 	Plan_light::width = width;
 }
 
-float Plan_light::computeShadow(const glm::vec3& point, const Intersection& I, const Scene& sc, int complexite) {
+float Plan_light::computeShadow(const glm::vec3 &point, const Intersection &I, const Scene &sc, int complexite) {
 	/*
 	 * position-----B
 	 * 		 |	 	|
@@ -85,7 +85,7 @@ float Plan_light::computeShadow(const glm::vec3& point, const Intersection& I, c
 		for (std::size_t i = 0; i < numberHeight; ++i) {
 			for (std::size_t j = 0; j < numberWidth; ++j) {
 				lightDir = glm::normalize(point - light);
-				rayShadow.vectDirection(-lightDir);
+				rayShadow.setVectDirection(-lightDir);
 				if (rayShadow.shadowRay(sc, glm::distance(point, light), complexite - 1))
 					++nbOk;
 				light.x += this->sampleStep;
@@ -97,6 +97,6 @@ float Plan_light::computeShadow(const glm::vec3& point, const Intersection& I, c
 	return 1 - (nbOk / nbTotal);
 }
 
-void Plan_light::fromJson(const FromJson::json& objet) const {
+void Plan_light::fromJson(const FromJson::json &objet) const {
 
 }

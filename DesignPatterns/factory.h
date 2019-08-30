@@ -7,13 +7,18 @@
 
 
 #include <Objects/objet.h>
-#include <boost/any.hpp>
+#include <from_json.h>
 
 class Factory {
 public:
 	Factory() = default;
 
-	virtual Objet* createObject(const std::vector<boost::any>& args) = 0;//Proto : std::vector<boost::any> ? Quelque chose du genre.
+	/**
+	 * Pure virtual member used to create an object from its JSON representation.
+	 * @param object
+	 * @return
+	 */
+	virtual Objet *createObject(const FromJson::json &object) = 0;//Construction à partir du json correspondant à l'objet.
 
 	virtual ~Factory() = default;
 };

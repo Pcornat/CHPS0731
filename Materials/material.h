@@ -2,11 +2,9 @@
 #define MATERIAL_HPP_
 
 #include <glm/glm.hpp>
-#include "intersection.h"
-
-class Scene;
-
-class Rayon;
+#include <scene.h>
+#include <rayon.h>
+#include <intersection.h>
 
 /**
  * \class Material

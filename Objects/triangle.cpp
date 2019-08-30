@@ -3,9 +3,11 @@
 //
 
 #include "triangle.h"
+#include "intersection.h"
+#include "material.h"
 
 
-Triangle::Triangle(Material* material) : Objet(material) {
+Triangle::Triangle(Material *material) : Objet(material) {
 
 }
 
@@ -17,7 +19,7 @@ Triangle::Triangle(Material* material) : Objet(material) {
  * @param rec The reflection depth.
  * @return True : intersection, false : no intersection.
  */
-bool Triangle::calculIntersection(const Rayon& rayon, const Scene& sc, std::vector<Intersection>& I, int rec) {
+bool Triangle::calculIntersection(const Rayon &rayon, const Scene &sc, std::vector<Intersection> &I, int rec) {
 	float dist = 0.f;
 	glm::vec2 baryCentre;
 	if (!glm::intersectRayTriangle(rayon.getOrigine(), rayon.vectDirection(), this->pointA, this->pointB, this->pointC, baryCentre, dist)) {
@@ -29,14 +31,14 @@ bool Triangle::calculIntersection(const Rayon& rayon, const Scene& sc, std::vect
 	return true;
 }
 
-Triangle::Triangle(Material* material, const glm::vec3& pointA, const glm::vec3& pointB, const glm::vec3& pointC)
+Triangle::Triangle(Material *material, const glm::vec3 &pointA, const glm::vec3 &pointB, const glm::vec3 &pointC)
 		: Objet(material), pointA(pointA), pointB(pointB), pointC(pointC) {}
 
 Triangle::~Triangle() {
 	delete this->material;
 }
 
-Triangle::Triangle(Material* material, glm::vec3&& pointA, glm::vec3&& pointB, glm::vec3&& pointC) : Objet(material),
+Triangle::Triangle(Material *material, glm::vec3 &&pointA, glm::vec3 &&pointB, glm::vec3 &&pointC) : Objet(material),
 																									 pointA(pointA),
 																									 pointB(pointB),
 																									 pointC(pointC) {}

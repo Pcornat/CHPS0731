@@ -2,48 +2,62 @@
 #define __Raytracer__ray__
 
 #include <glm/glm.hpp>
-#include "scene.h"
-#include "intersection.h"
+
+class Scene;
 
 class Rayon {
 protected:
 
 	glm::vec3 origine;
+
 	glm::vec3 direction;
 
 public:
 	Rayon() = default;
 
-	explicit Rayon(const glm::vec3& origine, const glm::vec3& direction);
+	explicit Rayon(const glm::vec3 &origine, const glm::vec3 &direction);
 
-	const glm::vec3& getOrigine() const {
+	[[nodiscard]] const glm::vec3 &getOrigine() const {
 		return origine;
 	}
 
-	const glm::vec3& vectDirection() const {
+	[[nodiscard]] const glm::vec3 &vectDirection() const {
 		return direction;
 	}
 
 
-	void setOrigine(const glm::vec3& o) {
+	void setOrigine(const glm::vec3 &o) {
 		origine = o;
 	}
 
-	void setOrigine(glm::vec3&& o) {
+	void setOrigine(glm::vec3 &&o) {
 		Rayon::origine = o;
 	}
 
-	void setVectDirection(const glm::vec3& v) {
+	void setVectDirection(const glm::vec3 &v) {
 		direction = glm::normalize(v);
 	}
 
-	void setVectDirection(glm::vec3&& v) {
+	void setVectDirection(glm::vec3 &&v) {
 		Rayon::direction = glm::normalize(v);
 	}
 
-	glm::vec3 lancer(const Scene& sc, int complexite) const;
+	/**
+	 *
+	 * @param sc The scene to display
+	 * @param complexite depth of recursivity for reflection.
+	 * @return
+	 */
+	[[nodiscard]] glm::vec3 lancer(const Scene &sc, int complexite) const;
 
-	bool shadowRay(const Scene& sc, float distLum, int complexite);
+	/**
+	 * @todo Take in account the light : no real plane light is on screen. There's a big problem.
+	 * @param sc The scene to display
+	 * @param distLum The distance from the point to the light.
+	 * @param complexite depth of recursivity for reflection.
+	 * @return
+	 */
+	bool shadowRay(const Scene &sc, float distLum, int complexite);
 };
 
 #endif

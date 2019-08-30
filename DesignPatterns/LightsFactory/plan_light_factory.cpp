@@ -4,6 +4,6 @@
 
 #include "plan_light_factory.h"
 
-Objet* PlanLightFactory::createObject(const std::vector<boost::any>& args) {
+Objet *PlanLightFactory::createObject(const FromJson::json &object) {
 	return nullptr;
 }

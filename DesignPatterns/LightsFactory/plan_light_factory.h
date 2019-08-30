@@ -10,7 +10,11 @@
 
 class PlanLightFactory : public virtual Factory {
 public:
-	Objet* createObject(const std::vector<boost::any>& args) override;
+	PlanLightFactory() = default;
+
+	~PlanLightFactory() override = default;
+
+	Objet *createObject(const FromJson::json &object) override;
 };
 
 

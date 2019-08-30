@@ -4,9 +4,12 @@
 #include "rayon.h"
 #include <from_json.h>
 
+
 #define GLM_ENABLE_EXPERIMENTAL
 
 #include <glm/glm.hpp>
+
+class Intersection;
 
 /**
  * @class Light

@@ -3,7 +3,12 @@
 //
 
 #include "sphere_factory.h"
+#include <Materials/phong.h>
+#include <typeinfo>
 
-Objet* SphereFactory::createObject(const std::vector<boost::any>& args) {
+Objet *SphereFactory::createObject(const FromJson::json &object) {
+	if (object.at("Material") == "Phong") {
+
+	}
 	return nullptr;
 }

@@ -2,13 +2,13 @@
 #include "image_glm.h"
 #include <chrono>
 
-void Camera::setHaut(const glm::vec3& h) {
+void Camera::setHaut(const glm::vec3 &h) {
 	Camera::haut = h - (Camera::dir * (Camera::dir * h));
 	if (glm::length(Camera::haut) != 0.0f)
 		Camera::haut = glm::normalize(Camera::haut);
 }
 
-void Camera::Calculer_image(BaseImage* const im, Scene& sc, int complexite) const {
+void Camera::Calculer_image(BaseImage *const im, Scene &sc, int complexite) const {
 	glm::vec3 foyer; // Foyer optique de la camera
 	glm::vec3 droite; // Vecteur partant sur la droite dans le plan de l'ecran
 	float dx, dy; // dimension des macro-pixels
@@ -32,9 +32,9 @@ void Camera::Calculer_image(BaseImage* const im, Scene& sc, int complexite) cons
 
 	// Pour chaque pixel de l'image a calculer
 	auto chrono = std::chrono::high_resolution_clock::now();//Lancement du chrono de calcul
-#pragma omp parallel for collapse(2)
-	for (std::size_t y = 0; y < im->getHauteur(); y++) {
-		for (std::size_t x = 0; x < im->getLargeur(); x++) {
+	#pragma omp parallel for collapse(2) default(shared)
+	for (std::size_t y = 0; y < im->getHauteur(); ++y)
+		for (std::size_t x = 0; x < im->getLargeur(); ++x) {
 			//TODO : anti-aliasing
 			// On calcule la position dans l'espace de ce point
 			Rayon ray; // Rayon a lancer
@@ -52,8 +52,7 @@ void Camera::Calculer_image(BaseImage* const im, Scene& sc, int complexite) cons
 			res = ray.lancer(sc, complexite);
 			im->setPixel(static_cast<uint32_t>(x), static_cast<uint32_t>(y), glm::abs(res));
 		}
-		//std::cout << "Ligne " << y << std::endl;
-	}
-	double diff = std::chrono::duration<double>(std::chrono::high_resolution_clock::now() - chrono).count();
+
+	double diff = std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(std::chrono::high_resolution_clock::now() - chrono).count();
 	std::cout << "Calcul en : " << std::round(diff / 60.0) << "m" << static_cast<unsigned int>(std::round(diff)) % 60 << "s" << std::endl;
 }

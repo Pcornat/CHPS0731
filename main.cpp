@@ -8,7 +8,7 @@
 #include <mesh.h>
 #include <image_cv.h>
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 	const uint32_t h = 1080;
 	const uint32_t l = 1920;
 	Camera myCamera;
@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
 		stanfordBunny_1 = Mesh(new Phong(false, glm::vec3(0.2f, 0.3f, 0.2f), glm::vec3(0.6f, 0.f, 0.3f), 128.0f, 0.0f),
 							   std::string(argv[1]),
 							   glm::vec3(0.f, -3.8f, 8.f), 15, 180.f, glm::vec3(0, 1, 0));
-	} catch (std::exception& e) {
+	} catch (const std::exception &e) {
 		std::cerr << e.what() << std::endl;
 		return EXIT_FAILURE;
 	}//*/
@@ -87,7 +87,7 @@ int main(int argc, char* argv[]) {
 
 	try {
 		myCamera.Calculer_image(&myImage, scene, 6);
-	} catch (const std::exception& e) {
+	} catch (const std::exception &e) {
 		std::cerr << "Exception: " << e.what() << std::endl;
 		return EXIT_FAILURE;
 	}
@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
 
 		myImage.save(ss.str());
 
-	} catch (const std::exception& e) {
+	} catch (const std::exception &e) {
 		std::cerr << e.what() << std::endl;
 		return EXIT_FAILURE;
 	}

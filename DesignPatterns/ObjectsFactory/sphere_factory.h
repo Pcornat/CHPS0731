@@ -10,7 +10,7 @@
 
 class SphereFactory : public virtual Factory {
 public:
-	Objet* createObject(const std::vector<boost::any>& args) override;
+	Objet *createObject(const FromJson::json &object) override;
 };
 
 

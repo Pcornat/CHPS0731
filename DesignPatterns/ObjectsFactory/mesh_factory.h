@@ -10,7 +10,11 @@
 
 class MeshFactory : public virtual Factory {
 public:
-	Objet* createObject(const std::vector<boost::any>& args) override;
+	MeshFactory() = default;
+
+	~MeshFactory() override = default;
+
+	Objet *createObject(const FromJson::json &object) override;
 };
 
 

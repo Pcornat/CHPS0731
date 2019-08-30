@@ -4,6 +4,7 @@
 
 #include "plan.hpp"
 #include "phong.h"
+#include <intersection.h>
 
 /**
  * @param rayon

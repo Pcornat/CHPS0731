@@ -4,6 +4,6 @@
 
 #include "mesh_factory.h"
 
-Objet* MeshFactory::createObject(const std::vector<boost::any>& args) {
+Objet *MeshFactory::createObject(const FromJson::json &object) {
 	return nullptr;
 }

@@ -7,6 +7,7 @@
 
 
 #include <map>
+#include <unordered_map>
 #include <vector>
 #include <Configuration/json.hpp>
 
@@ -17,7 +18,7 @@
  */
 class FromJson {
 public:
-	///Personnal type : the only difference is the real type : float instead of double
+	///Personnal type : std::unordered_map instead of std::map, float instead of double
 	using json = nlohmann::basic_json<std::map, std::vector, std::string, bool, int64_t, uint64_t, float>;
 
 	/**

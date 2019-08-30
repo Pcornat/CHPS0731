@@ -1,4 +1,5 @@
 #include "mesh.h"
+#include <intersection.h>
 
 bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) {
 	auto& listVertex(model->getListVertex());

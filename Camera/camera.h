@@ -44,7 +44,7 @@ public:
 		return haut;
 	}
 
-	void Centre(const glm::vec3& c) {
+	void Centre(const glm::vec3 &c) {
 		centre = c;
 	}
 
@@ -60,14 +60,14 @@ public:
 		dist = d;
 	}
 
-	void Dir(const glm::vec3& d) {
+	void Dir(const glm::vec3 &d) {
 		dir = d;
 		dir = glm::normalize(dir);
 	}
 
-	void setHaut(const glm::vec3& h);
+	void setHaut(const glm::vec3 &h);
 
-	void Calculer_image(BaseImage* const im, Scene& sc, int complexite) const;
+	void Calculer_image(BaseImage *const im, Scene &sc, int complexite) const;
 };
 
 #endif

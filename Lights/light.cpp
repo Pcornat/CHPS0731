@@ -1,7 +1,5 @@
 #include "light.h"
-#include "plan_light.h"
-#include <Interfaces/from_json.h>
-#include <typeinfo>
+#include <intersection.h>
 
 void Light::setPosition(glm::vec3 p) {
 	position = p;

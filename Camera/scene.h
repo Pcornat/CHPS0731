@@ -5,25 +5,32 @@
 
 class Objet;
 
-class Light;
+#include <objet.h>
+#include <light.h>
 
 class Scene {
 protected:
-public:
-	std::vector<Objet*> Objets;
-	std::vector<Light*> Lights;
+	std::vector<Objet *> Objets;
 
+	std::vector<Light *> Lights;
+
+public:
 	Scene() = default;
 
-	~Scene() = default;
+	virtual ~Scene() noexcept;
 
-	void addObjet(Objet* o);
+	void addObjet(Objet *o);
 
-	void addLight(Light* l);
+	void addLight(Light *l);
 
-	void size_to_fit_light();
+	[[gnu::always_inline, nodiscard]] inline const std::vector<Objet *> &getObjets() const {
+		return Scene::Objets;
+	}
 
-	void size_to_fit_object();
+	[[gnu::always_inline, nodiscard]] inline const std::vector<Light *> &getLights() const {
+		return Scene::Lights;
+	}
+
 };
 
 #endif

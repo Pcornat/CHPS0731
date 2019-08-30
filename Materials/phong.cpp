@@ -10,7 +10,7 @@
  * @param kd Diffusion coef
  * @param ks Specular coef
  */
-Phong::Phong(bool refraction, const glm::vec3& ka, const glm::vec3& kd, float ks, float reflection) : Material(refraction),
+Phong::Phong(bool refraction, const glm::vec3 &ka, const glm::vec3 &kd, float ks, float reflection) : Material(refraction),
 																									  ka(ka), kd(kd), ks(ks),
 																									  reflection(reflection) {}
 
@@ -20,7 +20,7 @@ Phong::Phong(bool refraction, const glm::vec3& ka, const glm::vec3& kd, float ks
  * @param kd Diffusion coef
  * @param ks Specular coef
  */
-Phong::Phong(bool refraction, glm::vec3&& ka, glm::vec3&& kd, float ks, float reflection) : Material(refraction),
+Phong::Phong(bool refraction, glm::vec3 &&ka, glm::vec3 &&kd, float ks, float reflection) : Material(refraction),
 																							ka(ka), kd(kd), ks(ks),
 																							reflection(reflection) {}
 
@@ -35,11 +35,11 @@ Phong::Phong(bool refraction, glm::vec3&& ka, glm::vec3&& kd, float ks, float re
  * @param rec The reflection depth
  * @return The object's colour (the normal vector to make it simple)
  */
-glm::vec3 Phong::computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& rayon, int rec) {
+glm::vec3 Phong::computeColour(const Intersection &I, const glm::vec3 &point, const Scene &s, const Rayon &rayon, int rec) {
 	float offset = 1e-4f;
 	glm::vec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, refl(1, 1, 1), min(0, 0, 0), max(1, 1, 1);
 	float shad = 0.0f;
-	for (auto light : s.Lights) {
+	for (auto light : s.getLights()) {
 		/*
 		 * Diffus = max(N.L, 0) * Kd * Lc
 		 * Speculaire= Lc * max(V.R, 0)^Ks

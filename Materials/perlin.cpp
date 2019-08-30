@@ -9,7 +9,7 @@ glm::vec3 Perlin::computeColour(const Intersection& I, const glm::vec3& point, c
 	float offset = 1e-4f;
 	glm::vec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, refl(1, 1, 1), min(0, 0, 0), max(1, 1, 1);
 	float shad = 0.0f;
-	for (auto light : s.Lights) {
+	for (auto light : s.getLights()) {
 		/*
 		 * Diffus = max(N.L, 0) * Kd * Lc
 		 * Speculaire= Lc * max(V.R, 0)^Ks

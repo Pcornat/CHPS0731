@@ -4,6 +4,6 @@
 
 #include "plans_factory.h"
 
-Objet* PlansFactory::createObject(const std::vector<boost::any>& args) {
+Objet *PlansFactory::createObject(const FromJson::json &object) {
 	return nullptr;
 }
