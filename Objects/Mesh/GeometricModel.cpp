@@ -1,40 +1,39 @@
-#include <memory>
 #include "GeometricModel.h"
 
-GeometricModel::GeometricModel(std::string&& name, float angle, glm::vec3&& axis) : nb_vertex(0), nb_faces(0), loader(new OBJLoader()), name(name) {
+GeometricModel::GeometricModel(std::string &&name, float angle, glm::vec3 &&axis) : nb_vertex(0), nb_faces(0), loader(new OBJLoader()), name(name) {
 	this->loader->loadModel(this->name, *this, angle, axis);
 }
 
-GeometricModel::GeometricModel(const std::string& name, float angle, const glm::vec3& axis)
+GeometricModel::GeometricModel(const std::string &name, float angle, const glm::vec3 &axis)
 		: nb_vertex(0), nb_faces(0), loader(new OBJLoader()), name(name) {
 	this->loader->loadModel(this->name, *this, angle, axis);
 }
 
-const std::vector<glm::vec3>& GeometricModel::getListVertex() const {
+const std::vector<glm::vec3> &GeometricModel::getListVertex() const {
 	return listVertex;
 }
 
-const std::vector<GeometricModel::Face>& GeometricModel::getListFaces() const {
+const std::vector<GeometricModel::Face> &GeometricModel::getListFaces() const {
 	return listFaces;
 }
 
-const std::vector<GeometricModel::Face>& GeometricModel::getListCoordFaces() const {
+const std::vector<GeometricModel::Face> &GeometricModel::getListCoordFaces() const {
 	return listCoordFaces;
 }
 
-const std::vector<glm::vec3>& GeometricModel::getListNormals() const {
+const std::vector<glm::vec3> &GeometricModel::getListNormals() const {
 	return listNormals;
 }
 
-const std::vector<glm::vec3>& GeometricModel::getListCoords() const {
+const std::vector<glm::vec3> &GeometricModel::getListCoords() const {
 	return listCoords;
 }
 
-const std::vector<glm::vec4>& GeometricModel::getListTangents() const {
+const std::vector<glm::vec4> &GeometricModel::getListTangents() const {
 	return listTangents;
 }
 
-GeometricModel& GeometricModel::operator=(const GeometricModel& model) {
+GeometricModel &GeometricModel::operator=(const GeometricModel &model) {
 	if (this != &model) {
 		this->nb_vertex = model.nb_vertex;
 		this->nb_faces = model.nb_faces;
@@ -50,7 +49,7 @@ GeometricModel& GeometricModel::operator=(const GeometricModel& model) {
 	return *this;
 }
 
-GeometricModel& GeometricModel::operator=(GeometricModel&& model) noexcept {
+GeometricModel &GeometricModel::operator=(GeometricModel &&model) noexcept {
 	if (this != &model) {
 		this->nb_vertex = model.nb_vertex;
 		this->nb_faces = model.nb_faces;

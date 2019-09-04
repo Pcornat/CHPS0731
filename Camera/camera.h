@@ -1,12 +1,17 @@
 #ifndef __Raytracer__camera__
 #define __Raytracer__camera__
 
-#include <glm/glm.hpp>
-#include <Image/base_image.h>
-#include "scene.h"
-#include "rayon.h"
+#define GLM_FORCE_XYZW_ONLY
+#define GLM_FORCE_INLINE
 
-class ImageGLM;
+#include <glm/vec3.hpp>
+#include <glm/geometric.hpp>
+
+class BaseImage;
+
+class Rayon;
+
+class Scene;
 
 class Camera {
 protected:
@@ -20,27 +25,27 @@ protected:
 public:
 	Camera() : centre(glm::vec3(0, 0, -3)), largeur(2), hauteur(2 * 9.0f / 16.0f), dist(1.0f), dir(glm::vec3(0, 0, 1)), haut(glm::vec3(0, 1, 0)) {}
 
-	glm::vec3 Centre() const {
+	[[nodiscard]] glm::vec3 Centre() const {
 		return centre;
 	}
 
-	float Largeur() const {
+	[[nodiscard]] float Largeur() const {
 		return largeur;
 	}
 
-	float Hauteur() const {
+	[[nodiscard]] float Hauteur() const {
 		return hauteur;
 	}
 
-	float Dist() const {
+	[[nodiscard]] float Dist() const {
 		return dist;
 	}
 
-	glm::vec3 Dir() const {
+	[[nodiscard]] glm::vec3 Dir() const {
 		return dir;
 	}
 
-	glm::vec3 Haut() const {
+	[[nodiscard]] glm::vec3 Haut() const {
 		return haut;
 	}
 

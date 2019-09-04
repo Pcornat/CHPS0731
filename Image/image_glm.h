@@ -14,13 +14,13 @@ protected:
 public:
 	ImageGLM(uint32_t height, uint32_t largeur);
 
-	ImageGLM(std::string&& name);
+	ImageGLM(std::string &&name);
 
 	~ImageGLM() override = default;
 
-	bool save(const std::string& name) override;
+	bool save(const std::string &name) override;
 
-	void setPixel(uint32_t x, uint32_t y, const glm::vec3& pixel) override;
+	void setPixel(uint32_t x, uint32_t y, const glm::vec3 &pixel) override;
 };
 
 #endif

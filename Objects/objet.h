@@ -1,17 +1,10 @@
 #ifndef OBJECT_HPP_
 #define OBJECT_HPP_
 
-#include <iostream>
 #include <vector>
-#include <typeinfo>
-#include <glm/glm.hpp>
-#include <Interfaces/from_json.h>
+#include <memory>
 
-
-#define GLM_ENABLE_EXPERIMENTAL
-
-#include <glm/gtx/intersect.hpp>
-#include <glm/gtc/noise.hpp>
+#include <DeSerializer/deserializer.h>
 
 class Scene;
 
@@ -25,13 +18,15 @@ class Intersection;
  * \class Objet
  * This class exists to do polymorphism inside the code.
  */
-class Objet : public virtual FromJson {
+class Objet {
 protected:
-	Material *material = nullptr;
+	std::shared_ptr<Material> material = nullptr;
 
 public:
 
 	Objet() = default;
+
+	explicit Objet(const Deserializer::json &json);
 
 	virtual ~Objet() = default;
 
@@ -39,7 +34,7 @@ public:
 	 * It replaces the colour of the object, a material is better.
 	 * @param material The material pointer to have.
 	 */
-	explicit Objet(Material *material) : material(material) {}
+	explicit Objet(Material *material);
 
 	/**
 	 * An objet cannot compute its intersection, it is a pure virtual member.
@@ -47,12 +42,13 @@ public:
 	 */
 	virtual bool calculIntersection(const Rayon &, const Scene &, std::vector<Intersection> &, int) = 0;
 
-	[[nodiscard]] Material *getMaterial() const { return material; }
+	[[nodiscard]] const std::shared_ptr<Material> &get_material() const;
 
-	void setMaterial(Material *const material) {
-		if (this->material != material)
-			this->material = material;
-	}
+	void set_material(Material *material);
+
+	Objet &operator=(const Objet &objet);
+
+	Objet &operator=(Objet &&objet) noexcept;
 };
 
 

@@ -4,6 +4,9 @@
 
 #include "plan_light.h"
 #include "intersection.h"
+
+#define GLM_ENABLE_EXPERIMENTAL
+
 #include <glm/gtx/transform.hpp>
 
 Plan_light::Plan_light(glm::vec3 &&position, glm::vec3 &&couleur, glm::vec3 &&rightDir, glm::vec3 &&depthDir, float sampleStep, float height,
@@ -55,7 +58,7 @@ void Plan_light::setWidth(float width) {
 	Plan_light::width = width;
 }
 
-float Plan_light::computeShadow(const glm::vec3 &point, const Intersection &I, const Scene &sc, int complexite) {
+float Plan_light::computeShadow(const glm::vec3 &point, const Intersection &I, const Scene &sc, int complexite) const {
 	/*
 	 * position-----B
 	 * 		 |	 	|
@@ -95,8 +98,4 @@ float Plan_light::computeShadow(const glm::vec3 &point, const Intersection &I, c
 		}
 	}
 	return 1 - (nbOk / nbTotal);
-}
-
-void Plan_light::fromJson(const FromJson::json &objet) const {
-
 }

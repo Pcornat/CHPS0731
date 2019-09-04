@@ -12,11 +12,13 @@ class Texture : public Material {
 public:
 	Texture() = default;
 
+	explicit Texture(const Deserializer::json &json);
+
 	explicit Texture(bool refraction);
 
 	~Texture() override = default;
 
-	glm::vec3 computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& r, int rec) override;
+	glm::vec3 computeColour(const Intersection &I, const glm::vec3 &point, const Scene &s, const Rayon &r, int rec) override;
 };
 
 

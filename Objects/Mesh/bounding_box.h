@@ -6,9 +6,9 @@
 #define PROJECT_BOUNDING_BOX_H
 
 
-#include <array>
 #include "objet.h"
 #include "plan.hpp"
+#include <array>
 
 /**
  * @class BoundingBox
@@ -37,9 +37,7 @@ public:
 	 * @param complexite
 	 * @return
 	 */
-	bool calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) override;
-
-	void fromJson(const FromJson::json& objet) const override;
+	bool calculIntersection(const Rayon &rayon, const Scene &scene, std::vector<Intersection> &I, int complexite) override;
 };
 
 

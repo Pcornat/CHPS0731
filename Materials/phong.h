@@ -7,7 +7,6 @@
 
 
 #include "material.h"
-#include "Lights/light.h"
 
 /**
  * \class Phong
@@ -32,13 +31,46 @@ protected:
 public:
 	Phong() = default;
 
+	/**
+	 * \brief Deserialize from json file.
+	 * \param json
+	 */
+	explicit Phong(const Deserializer::json &json);
+
 	~Phong() override = default;
 
-	explicit Phong(bool refraction, const glm::vec3& ka, const glm::vec3& kd, float ks, float reflection);
+	/**
+	 * Construct a phong material.
+	 * \param refraction Refraction or not ? (spoiler alert : not implemented)
+	 * \param ka Ambient coeff
+	 * \param kd Diffusion coeff
+	 * \param ks Specular coeff
+	 * \param reflection Reflection coeff
+	 */
+	explicit Phong(bool refraction, const glm::vec3 &ka, const glm::vec3 &kd, float ks, float reflection);
 
-	explicit Phong(bool refraction, glm::vec3&& ka, glm::vec3&& kd, float ks, float reflection);
+	/**
+	 * Construct a phong material with r-value.
+	 * \param refraction Refraction or not ? (spoiler alert : not implemented)
+	 * \param ka Ambient coef
+	 * \param kd Diffusion coef
+	 * \param ks Specular coef
+	 * \param reflection Reflection coeff
+	 */
+	explicit Phong(bool refraction, glm::vec3 &&ka, glm::vec3 &&kd, float ks, float reflection);
 
-	glm::vec3 computeColour(const Intersection& I, const glm::vec3& point, const Scene& s, const Rayon& rayon, int rec) override;
+	/**
+	 * Computes colour from the phong model. It also takes care of the reflection.
+	 * Now, it computes the shadow, soft-shadows to be precise.
+	 * \todo : tone mapping for the colours (it should be in [0; 1] interval and not in [0; infinity])
+	 * \param I Inntersection from the ray and the object.
+	 * \param point The point of the intersection
+	 * \param s The scene where rays are launched
+	 * \param rayon The ray that touched the object
+	 * \param rec The reflection depth
+	 * \return The object's colour (the normal vector to make it simple)
+	 */
+	glm::vec3 computeColour(const Intersection &I, const glm::vec3 &point, const Scene &s, const Rayon &rayon, int rec) override;
 };
 
 

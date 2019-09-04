@@ -6,6 +6,10 @@
 #define PROJECT_BASE_IMAGE_H
 
 #include <string>
+
+#define GLM_FORCE_INLINE
+#define GLM_FORCE_XYZW_ONLY
+
 #include <glm/vec3.hpp>
 
 class BaseImage {
@@ -23,9 +27,9 @@ public:
 
 	virtual ~BaseImage() = default;
 
-	virtual void setPixel(std::uint32_t x, std::uint32_t y, const glm::vec3& pixel) = 0;
+	virtual void setPixel(std::uint32_t x, std::uint32_t y, const glm::vec3 &pixel) = 0;
 
-	virtual bool save(const std::string& name) = 0;
+	virtual bool save(const std::string &name) = 0;
 
 	/**
 	 *

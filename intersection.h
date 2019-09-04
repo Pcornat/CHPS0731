@@ -1,9 +1,10 @@
 #ifndef INTERSECTION_HPP
 #define INTERSECTION_HPP
 
-#include <glm/glm.hpp>
-#include <objet.h>
+#include <cmath>
+#include <glm/vec3.hpp>
 
+class Objet;
 
 class Intersection {
 private:

@@ -4,7 +4,7 @@
 
 #include "post_process.h"
 
-void PostProcess::TONE_MAPPING_UCHIMURA_PHONG(glm::vec3& input) {
+void PostProcess::TONE_MAPPING_UCHIMURA_PHONG(glm::vec3 &input) {
 	const float P = 1.0f,
 			a = 1.7f,
 			invA = 1 / a,
@@ -31,7 +31,7 @@ void PostProcess::TONE_MAPPING_UCHIMURA_PHONG(glm::vec3& input) {
 	const float toneMapping = T * w0 + L * w1 + S * w2;
 }
 
-void PostProcess::TONE_MAPPING_LOTTES_PHONG(glm::vec3& input) {
+void PostProcess::TONE_MAPPING_LOTTES_PHONG(glm::vec3 &input) {
 	// Lottes 2016, "Advanced Techniques and Optimization of HDR Color Pipelines"
 	const float a = 1.6;
 	const float d = 0.977;
@@ -51,7 +51,7 @@ void PostProcess::TONE_MAPPING_LOTTES_PHONG(glm::vec3& input) {
 
 }
 
-void PostProcess::TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3>& pixels) {
+void PostProcess::TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3> &pixels) {
 	glm::vec3 seuilHaut, seuilBas;
 	float xMin = std::numeric_limits<float>::max(),
 			xMax = 0,
@@ -75,7 +75,7 @@ void PostProcess::TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3>& pixels) {
 #pragma omp parallel for reduction(min: xMin) reduction(min: yMin) reduction(min: zMin)\
         reduction(max: xMax) reduction(max: yMax) reduction(max: zMax)
 	for (std::size_t i = 0; i < pixels.size(); ++i) {
-		const auto& var = pixels.at(i);
+		const auto &var = pixels.at(i);
 
 		//So beautiful <3
 		xMin = min(var.x, xMin);

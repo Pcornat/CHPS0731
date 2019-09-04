@@ -9,7 +9,7 @@ endif ()
 find_package(OpenMP REQUIRED)
 
 include_directories(.)
-include_directories(Materials Objects Image Camera Lights png Objects/Mesh Transformer Configuration Interfaces DesignPatterns)
+include_directories(Materials Objects Image Camera Lights png Objects/Mesh Transformer Configuration Interfaces DeSerializer)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -50,8 +50,6 @@ set(OBJECTS_SRC
 	Objects/plan.cpp
 	Objects/objet.h
 	Objects/objet.cpp
-	Objects/triangle.h
-	Objects/triangle.cpp
 	Objects/Mesh/bounding_box.h
 	Objects/Mesh/bounding_box.cpp
 	Objects/Mesh/mesh.h
@@ -97,23 +95,11 @@ set(LIGHTS_SRC
 	Lights/plan_light.cpp)
 
 set(CONFIGURATION_SRC
-	Configuration/configuration.cpp
-	Configuration/configuration.h
 	Configuration/json.hpp)
 
-set(INTERFACE_SRC
-	Interfaces/from_json.cpp Interfaces/from_json.h)
-
 set(DESIGN_PATTERNS_SRC
-	"DesignPatterns/factory.h"
-	"DesignPatterns/ObjectsFactory/sphere_factory.cpp"
-	"DesignPatterns/ObjectsFactory/sphere_factory.h"
-	"DesignPatterns/ObjectsFactory/plans_factory.cpp"
-	"DesignPatterns/ObjectsFactory/plans_factory.h"
-	"DesignPatterns/ObjectsFactory/mesh_factory.cpp"
-	"DesignPatterns/ObjectsFactory/mesh_factory.h"
-	"DesignPatterns/LightsFactory/plan_light_factory.cpp"
-	"DesignPatterns/LightsFactory/plan_light_factory.h")
+	DeSerializer/deserializer.cpp
+	DeSerializer/deserializer.h)
 
 set(TEST_SRC
 	Tests/catch_trick.cpp
@@ -130,7 +116,6 @@ add_executable(RayTrace
 			   main.cpp
 			   ${CAMERA_SRC}
 			   ${CONFIGURATION_SRC}
-			   ${INTERFACE_SRC}
 			   ${IMAGE_SRC}
 			   ${OBJECTS_SRC}
 			   ${MATERIALS_SRC}
@@ -145,7 +130,7 @@ target_compile_options(RayTrace ${COMPILE_FLAGS} ${OpenMP_CXX_FLAGS})
 target_link_options(RayTrace ${LINKER_OPTIONS})
 target_link_libraries(RayTrace ${LINKER_FLAGS} ${OpenCV_LIBS} ${OpenMP_CXX_LIBRARIES})
 
-add_executable(TestRayTrace ${TEST_SRC} ${OBJECTS_SRC} ${INTERFACE_SRC})
-target_compile_options(TestRayTrace ${COMPILE_FLAGS})
-target_link_options(TestRayTrace ${LINKER_OPTIONS})
-target_link_libraries(TestRayTrace ${LINKER_FLAGS})
+#add_executable(TestRayTrace ${TEST_SRC} ${OBJECTS_SRC} ${INTERFACE_SRC})
+#target_compile_options(TestRayTrace ${COMPILE_FLAGS})
+#target_link_options(TestRayTrace ${LINKER_OPTIONS})
+#target_link_libraries(TestRayTrace ${LINKER_FLAGS})

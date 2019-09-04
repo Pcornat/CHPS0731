@@ -3,7 +3,8 @@
 //
 
 #include "bounding_box.h"
-#include "intersection.h"
+#include <intersection.h>
+#include <Camera/rayon.h>
 
 BoundingBox::BoundingBox(float xMin, float yMin, float zMin, float xMax, float yMax, float zMax) : minPoint(xMin, yMin, zMin),
 																								   maxPoint(xMax, yMax, zMax) {
@@ -15,10 +16,10 @@ BoundingBox::BoundingBox(float xMin, float yMin, float zMin, float xMax, float y
 	box[5] = Plan(nullptr, glm::vec3(0, yMax, 0), glm::vec3(0, 1, 0));
 }
 
-bool BoundingBox::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) {
-	for (auto&& plan : box) {
+bool BoundingBox::calculIntersection(const Rayon &rayon, const Scene &scene, std::vector<Intersection> &I, int complexite) {
+	for (auto &&plan : box) {
 		if (plan.calculIntersection(rayon, scene, I, complexite)) {
-			auto& intersect = I.back();
+			auto &intersect = I.back();
 			glm::vec3 point = rayon.getOrigine() + rayon.vectDirection() * intersect.getDist();
 			I.pop_back();
 			bool condX = (std::islessequal(point.x, this->maxPoint.x)) && (std::isgreaterequal(point.x, this->minPoint.x)),
@@ -29,8 +30,4 @@ bool BoundingBox::calculIntersection(const Rayon& rayon, const Scene& scene, std
 		}
 	}
 	return false;
-}
-
-void BoundingBox::fromJson(const FromJson::json& objet) const {
-
 }

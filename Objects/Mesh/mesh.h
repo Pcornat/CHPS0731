@@ -7,9 +7,10 @@
 
 
 #include "objet.h"
-#include "GeometricModel.h"
 #include "plan.hpp"
 #include "bounding_box.h"
+
+class GeometricModel;
 
 class Mesh : public Objet {
 private:
@@ -31,6 +32,8 @@ private:
 public:
 	Mesh() = default;
 
+	~Mesh() override = default;
+
 	/**
 	 * Construct a mesh with l-value.
 	 * @param material @see Material
@@ -38,7 +41,7 @@ public:
 	 * @param center
 	 * @param factor
 	 */
-	explicit Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor, float angle, const glm::vec3& axis);
+	explicit Mesh(Material *material, const std::string &name, const glm::vec3 &center, unsigned int factor, float angle, const glm::vec3 &axis);
 
 	/**
 	 * Construct a mesh with r-value parameters.
@@ -47,7 +50,7 @@ public:
 	 * @param center
 	 * @param factor
 	 */
-	explicit Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor, float angle, glm::vec3&& axis);
+	explicit Mesh(Material *material, std::string &&name, glm::vec3 &&center, unsigned int factor, float angle, glm::vec3 &&axis);
 
 	/**
 	 * R-value version
@@ -59,7 +62,7 @@ public:
 	 * @param angle
 	 * @param axis
 	 */
-	explicit Mesh(Material* material, glm::vec3&& center, uint32_t factor, float angle, glm::vec3&& axis);
+	explicit Mesh(Material *material, glm::vec3 &&center, uint32_t factor, float angle, glm::vec3 &&axis);
 
 	/**
 	 * L-value version
@@ -71,9 +74,7 @@ public:
 	 * @param angle
 	 * @param axis
 	 */
-	explicit Mesh(Material* material, const glm::vec3& center, uint32_t factor, float angle, const glm::vec3& axis);
-
-	~Mesh() override;
+	explicit Mesh(Material *material, const glm::vec3 &center, uint32_t factor, float angle, const glm::vec3 &axis);
 
 	/**
 	 * Compute intersection between the model and the ray.
@@ -83,31 +84,29 @@ public:
 	 * @param i
 	 * @return
 	 */
-	bool calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& vector1, int i) override;
+	bool calculIntersection(const Rayon &rayon, const Scene &scene, std::vector<Intersection> &vector1, int i) override;
 
 
 	/**
 	 * Set the 3D model to use.
 	 * @param model
 	 */
-	void setModel(const Mesh& model);
+	void setModel(const Mesh &model);
 
-	const glm::vec3& getCenter() const;
+	[[nodiscard]] const glm::vec3 &getCenter() const;
 
-	void setCenter(const glm::vec3& center);
+	void setCenter(const glm::vec3 &center);
 
-	unsigned int getFactor() const;
+	[[nodiscard]] unsigned int getFactor() const;
 
 	void setFactor(unsigned int factor);
-
-	void fromJson(const FromJson::json& objet) const override;
 
 	/**
 	 * Moving assignment operator
 	 * @param mesh
 	 * @return
 	 */
-	Mesh& operator=(Mesh&& mesh) noexcept;
+	Mesh &operator=(Mesh &&mesh) noexcept;
 };
 
 

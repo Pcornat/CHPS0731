@@ -7,7 +7,13 @@
 
 
 #include "objet.h"
-#include "rayon.h"
+
+#define GLM_FORCE_INLINE
+#define GLM_FORCE_XYZW_ONLY
+
+#include <glm/vec3.hpp>
+
+class Rayon;
 
 /**
  * \class Plan
@@ -21,15 +27,13 @@ private:
 public:
 	Plan() = default;
 
-	~Plan() override;
+	~Plan() override = default;
 
-	explicit Plan(Material* material, const glm::vec3& orig, const glm::vec3& normal);
+	explicit Plan(Material *material, const glm::vec3 &orig, const glm::vec3 &normal);
 
-	explicit Plan(Material* material, glm::vec3&& orig, glm::vec3&& normal);
+	explicit Plan(Material *material, glm::vec3 &&orig, glm::vec3 &&normal);
 
-	bool calculIntersection(const Rayon&, const Scene&, std::vector<Intersection>&, int) override;
-
-	void fromJson(const FromJson::json& objet) const override;
+	bool calculIntersection(const Rayon &, const Scene &, std::vector<Intersection> &, int) override;
 };
 
 

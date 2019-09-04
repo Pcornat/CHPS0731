@@ -5,8 +5,13 @@
 #ifndef TP0_SPHERE_HPP
 #define TP0_SPHERE_HPP
 
-#include <rayon.h>
 #include "objet.h"
+
+#define GLM_FORCE_INLINE
+#define GLM_FORCE_XYZW_ONLY
+
+#include <glm/vec3.hpp>
+//#include <rayon.h>
 
 /**
  * \class Sphere
@@ -20,7 +25,9 @@ private:
 public:
 	Sphere() = default;
 
-	~Sphere() override;
+	explicit Sphere(const Deserializer::json &json);
+
+	~Sphere() override = default;
 
 	/**
 	 *
@@ -28,7 +35,7 @@ public:
 	 * @param center
 	 * @param radius
 	 */
-	explicit Sphere(Material* material, const glm::vec3& center, int radius);
+	explicit Sphere(Material *material, const glm::vec3 &center, int radius);
 
 	/**
 	 *
@@ -36,7 +43,7 @@ public:
 	 * @param center
 	 * @param radius
 	 */
-	explicit Sphere(Material* material, glm::vec3&& center, int radius);
+	explicit Sphere(Material *material, glm::vec3 &&center, int radius);
 
 	/**
  	 * It computes an intersection between a ray and the sphere.
@@ -44,9 +51,7 @@ public:
 	 * @param I a pointer to a std::vector of intersection.
 	 * @return it computes correctly or not.
 	 */
-	bool calculIntersection(const Rayon& rayon, const Scene&, std::vector<Intersection>& I, int) override;
-
-	void fromJson(const FromJson::json& objet) const override;
+	bool calculIntersection(const Rayon &rayon, const Scene &, std::vector<Intersection> &I, int) override;
 
 };
 

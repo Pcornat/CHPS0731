@@ -1,5 +1,8 @@
 #include "scene.h"
 
+#include <objet.h>
+#include <light.h>
+
 void Scene::addObjet(Objet *o) {
 	Objets.push_back(o);
 }

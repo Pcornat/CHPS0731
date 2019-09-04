@@ -10,11 +10,11 @@
 
 class PostProcess {
 public:
-	static void TONE_MAPPING_UCHIMURA_PHONG(glm::vec3& input);
+	static void TONE_MAPPING_UCHIMURA_PHONG(glm::vec3 &input);
 
-	static void TONE_MAPPING_LOTTES_PHONG(glm::vec3& input);
+	static void TONE_MAPPING_LOTTES_PHONG(glm::vec3 &input);
 
-	static void TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3>& pixels);
+	static void TONE_MAPPING_SIMPLE_IMAGE(std::vector<glm::vec3> &pixels);
 
 };
 

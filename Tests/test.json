@@ -7,7 +7,7 @@
 		}
 	},
 	"Scene": {
-		"Objet": {
+		"Objets": {
 			"Sphere": [
 				{
 					"Material": "Phong",

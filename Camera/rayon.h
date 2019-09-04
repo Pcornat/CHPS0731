@@ -1,16 +1,20 @@
 #ifndef __Raytracer__ray__
 #define __Raytracer__ray__
 
-#include <glm/glm.hpp>
+#define GLM_FORCE_INLINE
+#define GLM_FORCE_XYZW_ONLY
+
+#include <glm/vec3.hpp>
+#include <glm/geometric.hpp>
 
 class Scene;
 
 class Rayon {
 protected:
 
-	glm::vec3 origine;
+	glm::vec3 origine{ 0 };
 
-	glm::vec3 direction;
+	glm::vec3 direction{ 0 };
 
 public:
 	Rayon() = default;

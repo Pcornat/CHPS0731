@@ -5,8 +5,7 @@
 
 class Objet;
 
-#include <objet.h>
-#include <light.h>
+class Light;
 
 class Scene {
 protected:

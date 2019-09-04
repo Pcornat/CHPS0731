@@ -1,0 +1,40 @@
+{
+	"BaseImage": {
+		"type": "ImageCV",
+		"ImageCV": {
+			"hauteur": 1080,
+			"largeur": 1920
+		}
+	},
+	"Scene": {
+		"Objects": [
+			{
+				"type": "Sphere",
+				"Material": "Phong",
+				"center": [
+					-2.5,
+					-4.0,
+					10.0
+				],
+				"radius": 1,
+				"Phong": {
+					"refraction": false,
+					"ka": [
+						0.2,
+						0.3,
+						0.2
+					],
+					"kd": [
+						0.6,
+						0.0,
+						0.0
+					],
+					"ks": 128.0,
+					"reflection": 1.0
+				}
+			}
+		],
+		"Lights": [
+		]
+	}
+}

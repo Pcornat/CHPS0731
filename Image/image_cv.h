@@ -7,7 +7,6 @@
 
 #include "base_image.h"
 #include <opencv2/core/mat.hpp>
-#include <glm/vec3.hpp>
 
 class ImageCV : public BaseImage {
 protected:
@@ -16,9 +15,6 @@ protected:
 
 	///It is the type of the matrix : byte with three channel : RGB (255 value, a real picture)
 	static const int32_t type = CV_8UC4;
-
-	///It is not initialized by default.
-	bool initialized = false;
 
 public:
 	/**
@@ -47,7 +43,7 @@ public:
 	 * @param name the name of the picture
 	 * @return true : saved, else not saved and error.
 	 */
-	bool save(const std::string& name) override;
+	bool save(const std::string &name) override;
 
 	/**
 	 * It sets the pixel correctly.
@@ -55,7 +51,7 @@ public:
 	 * @param y
 	 * @param pixel
 	 */
-	void setPixel(uint32_t x, uint32_t y, const glm::vec3& pixel) override;
+	void setPixel(uint32_t x, uint32_t y, const glm::vec3 &pixel) override;
 };
 
 

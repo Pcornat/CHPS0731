@@ -3,38 +3,21 @@
 //
 
 #include "phong.h"
+#include <glm/common.hpp>
+#include <glm/geometric.hpp>
 
-/**
- * Construct a phong material.
- * @param ka Ambient coef
- * @param kd Diffusion coef
- * @param ks Specular coef
- */
+#include <intersection.h>
+#include <Camera/rayon.h>
+#include <Lights/light.h>
+
 Phong::Phong(bool refraction, const glm::vec3 &ka, const glm::vec3 &kd, float ks, float reflection) : Material(refraction),
 																									  ka(ka), kd(kd), ks(ks),
 																									  reflection(reflection) {}
 
-/**
- * Construct a phong material with r-value.
- * @param ka Ambient coef
- * @param kd Diffusion coef
- * @param ks Specular coef
- */
 Phong::Phong(bool refraction, glm::vec3 &&ka, glm::vec3 &&kd, float ks, float reflection) : Material(refraction),
 																							ka(ka), kd(kd), ks(ks),
 																							reflection(reflection) {}
 
-/**
- * Computes colour from the phong model. It also takes care of the reflection.
- * Now, it computes the shadow, soft-shadows to be precise.
- * @todo : tone mapping for the colours (it should be in [0; 1] interval and not in [0; infinity])
- * @param I Inntersection from the ray and the object.
- * @param point The point of the intersection
- * @param s The scene where rays are launched
- * @param rayon The ray that touched the object
- * @param rec The reflection depth
- * @return The object's colour (the normal vector to make it simple)
- */
 glm::vec3 Phong::computeColour(const Intersection &I, const glm::vec3 &point, const Scene &s, const Rayon &rayon, int rec) {
 	float offset = 1e-4f;
 	glm::vec3 amb(0, 0, 0), diff(0, 0, 0), spec(0, 0, 0), R, L, refl(1, 1, 1), min(0, 0, 0), max(1, 1, 1);
@@ -64,4 +47,23 @@ glm::vec3 Phong::computeColour(const Intersection &I, const glm::vec3 &point, co
 			refl = reflect.lancer(s, rec - 1);
 		}
 	return (1.0f - this->reflection) * shad * (amb + diff + spec) + this->reflection * refl;
+}
+
+Phong::Phong(const Deserializer::json &json) : Material(json) {
+	{
+		const auto &refKa = json.at("ka");
+		this->ka.x = refKa[0];
+		this->ka.y = refKa[1];
+		this->ka.z = refKa[2];
+	}
+
+	{
+		const auto &refKd = json.at("kd");
+		this->kd.x = refKd[0];
+		this->kd.y = refKd[1];
+		this->kd.z = refKd[2];
+	}
+
+	this->ks = json.at("ks");
+	this->reflection = json.at("reflection");
 }

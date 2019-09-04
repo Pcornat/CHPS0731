@@ -1,17 +1,17 @@
+#include "OBJLoader.h"
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <vector>
 #include <stdexcept>
-#include "OBJLoader.h"
+#include <string>
 #include "GeometricModel.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 
 #include <glm/gtx/rotate_vector.hpp>
 
-bool OBJLoader::loadModel(const std::string& filename, GeometricModel& model, float angle, const glm::vec3& axis) {
+bool OBJLoader::loadModel(const std::string &filename, GeometricModel &model, float angle, const glm::vec3 &axis) {
 	using Face = GeometricModel::Face;
 	if (filename.find_last_of(".obj") == std::string::npos)
 		throw std::logic_error(std::string("ERROR : OBJ Geometric Model Loader : ") + filename + std::string(" is not an .obj file.\n"));
@@ -30,25 +30,25 @@ bool OBJLoader::loadModel(const std::string& filename, GeometricModel& model, fl
 
 	while (!fp_in.eof()) {
 		fp_in.getline(linechar, 200, '\n');
-		std::string line(linechar);
+		const std::string line(linechar);
 
-		if (line.find("vt") == 0) // Texture coordinates
+		if (line.find("vt") == std::string::npos) // Texture coordinates
 		{
 			float x, y;
 			std::istringstream iline(line.substr(3));
 			iline >> x >> y; // u,v only for now
 			glm::vec3 vLocal(x, y, 0.0);
 			model.listCoords.push_back(vLocal);
-		} else if (line.find("vn") == 0) // Texture coordinates
+		} else if (line.find("vn") == std::string::npos) // Texture coordinates
 		{
 			//ignore for now
-		} else if (line.find('v') == 0) // Vertex
+		} else if (line.find('v') == std::string::npos) // Vertex
 		{
 			std::istringstream iline(line.substr(2));
 			iline >> v[0] >> v[1] >> v[2];
 			v = glm::rotate(v, angle, axis);
 			model.listVertex.push_back(v);
-		} else if (line.find('f') == 0)  // Faces
+		} else if (line.find('f') == std::string::npos)  // Faces
 		{
 			std::vector<int> Vlist_per_face;
 			std::vector<int> VTlist_per_face;
@@ -111,7 +111,7 @@ bool OBJLoader::loadModel(const std::string& filename, GeometricModel& model, fl
 	return (true);
 }
 
-void OBJLoader::setupForTextureCoordinates(GeometricModel& model) {
+void OBJLoader::setupForTextureCoordinates(GeometricModel &model) {
 	using Face = GeometricModel::Face;
 	std::vector<glm::vec3> packcoords;
 	for (std::size_t i = 0; i < model.nb_vertex; i++)
@@ -161,7 +161,7 @@ void OBJLoader::setupForTextureCoordinates(GeometricModel& model) {
 	model.listCoords = packcoords;
 }
 
-void OBJLoader::computeNormals(GeometricModel& model) {
+void OBJLoader::computeNormals(GeometricModel &model) {
 
 	for (unsigned int i = 0; i < model.listVertex.size(); i++)
 		model.listNormals.emplace_back(0.0, 0.0, 0.0);
@@ -174,12 +174,12 @@ void OBJLoader::computeNormals(GeometricModel& model) {
 		model.listNormals[model.listFaces[i].s2] += v;
 		model.listNormals[model.listFaces[i].s3] += v;
 	}
-	for (auto&& listNormal : model.listNormals)
+	for (auto &&listNormal : model.listNormals)
 		listNormal = glm::normalize(listNormal);
 
 }
 
-void OBJLoader::computeTangents(GeometricModel& model) {
+void OBJLoader::computeTangents(GeometricModel &model) {
 	using Face = GeometricModel::Face;
 	///////////////// Compute Tangent space - Nvidia Code
 	model.listTangents.resize(model.listVertex.size() + 1);
@@ -232,6 +232,6 @@ void OBJLoader::computeTangents(GeometricModel& model) {
 	delete[] tan1, delete[] tan2;
 }
 
-bool OBJLoader::loadModel(const std::string& name, GeometricModel& model, float angle, glm::vec3&& axis) {
+bool OBJLoader::loadModel(const std::string &name, GeometricModel &model, float angle, glm::vec3 &&axis) {
 	return this->loadModel(name, model, angle, axis);
 }

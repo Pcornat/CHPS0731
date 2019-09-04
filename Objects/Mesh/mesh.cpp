@@ -1,12 +1,24 @@
 #include "mesh.h"
 #include <intersection.h>
+#include <Camera/rayon.h>
+#include <Materials/material.h>
+#include <Objects/Mesh/GeometricModel.h>
 
-bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vector<Intersection>& I, int complexite) {
-	auto& listVertex(model->getListVertex());
-	auto& listNormals(model->getListNormals());
+#include <glm/vec2.hpp>
+
+#define GLM_ENABLE_EXPERIMENTAL
+
+#include <glm/gtx/intersect.hpp>
+
+bool Mesh::calculIntersection(const Rayon &rayon,
+							  [[maybe_unused]] const Scene &scene,
+							  std::vector<Intersection> &I,
+							  [[maybe_unused]] const int complexite) {
+	auto &listVertex(model->getListVertex());
+	auto &listNormals(model->getListNormals());
 	bool inter = false;
 	//if (this->box.calculIntersection(rayon, scene, I, complexite)) {
-	for (auto&& face : model->getListFaces()) {
+	for (auto &&face : model->getListFaces()) {
 		float dist = 0.f;
 		glm::vec2 baryPos;
 		glm::vec3 facteur(this->factor),
@@ -25,29 +37,29 @@ bool Mesh::calculIntersection(const Rayon& rayon, const Scene& scene, std::vecto
 	return inter;
 }
 
-Mesh::Mesh(Material* material, const std::string& name, const glm::vec3& center, unsigned int factor, float angle, const glm::vec3& axis)
+Mesh::Mesh(Material *material, const std::string &name, const glm::vec3 &center, unsigned int factor, float angle, const glm::vec3 &axis)
 		: Objet(material), model(new GeometricModel(name, angle, axis)), center(center), factor(factor) {
 	this->boundingBox();
 }
 
-Mesh::Mesh(Material* material, std::string&& name, glm::vec3&& center, unsigned int factor, float angle, glm::vec3&& axis)
+Mesh::Mesh(Material *material, std::string &&name, glm::vec3 &&center, unsigned int factor, float angle, glm::vec3 &&axis)
 		: Objet(material), model(new GeometricModel(name, angle, axis)), center(center), factor(factor) {
 	this->boundingBox();
 }
 
-Mesh::Mesh(Material* material, glm::vec3&& center, uint32_t factor, float angle, glm::vec3&& axis)
+Mesh::Mesh(Material *material, glm::vec3 &&center, uint32_t factor, float angle, glm::vec3 &&axis)
 		: Objet(material), model(nullptr), center(center), factor(factor) {}
 
-Mesh::Mesh(Material* material, const glm::vec3& center, uint32_t factor, float angle, const glm::vec3& axis)
+Mesh::Mesh(Material *material, const glm::vec3 &center, uint32_t factor, float angle, const glm::vec3 &axis)
 		: Objet(material), model(nullptr), center(center), factor(factor) {}
 
-Mesh& Mesh::operator=(Mesh&& mesh) noexcept {
+Mesh &Mesh::operator=(Mesh &&mesh) noexcept {
 	if (this != &mesh) {
 		this->model = std::move(mesh.model);
 		this->box = mesh.box;
 		this->center = mesh.center;
 		this->factor = mesh.factor;
-		this->material = mesh.material;
+		this->material = std::move(mesh.material);
 		mesh.material = nullptr;
 	}
 	return *this;
@@ -56,8 +68,8 @@ Mesh& Mesh::operator=(Mesh&& mesh) noexcept {
 void Mesh::boundingBox() {
 	float xMin = std::numeric_limits<float>::max(), yMin = std::numeric_limits<float>::max(), zMin = std::numeric_limits<float>::max(),
 			xMax = 0, yMax = 0, zMax = 0;
-	auto& listVertex(this->model->getListVertex());
-	auto& listFace(model->getListFaces());
+	auto &listVertex(this->model->getListVertex());
+	auto &listFace(model->getListFaces());
 	//Lambda function to code faster.
 	auto min = [](float a, float b) {
 		if (std::isless(a, b))
@@ -72,9 +84,9 @@ void Mesh::boundingBox() {
 			return b;
 	};
 
-#pragma omp parallel for reduction(min: xMin) reduction(min: yMin) reduction(min: zMin) reduction(max: xMax) reduction(max: yMax) reduction(max: zMax)
+#pragma omp parallel for default(shared) reduction(min: xMin) reduction(min: yMin) reduction(min: zMin) reduction(max: xMax) reduction(max: yMax) reduction(max: zMax)
 	for (std::size_t i = 0; i < listFace.size(); ++i) {
-		const auto& vertexS1(listVertex.at(static_cast<unsigned long>(listFace.at(i).s1))),
+		const auto &vertexS1(listVertex.at(static_cast<unsigned long>(listFace.at(i).s1))),
 				vertexS2(listVertex.at(static_cast<unsigned long>(listFace.at(i).s2))),
 				vertexS3(listVertex.at(static_cast<unsigned long>(listFace.at(i).s3)));
 
@@ -84,6 +96,10 @@ void Mesh::boundingBox() {
 		xMin = min(xMin, vertexS1.x);
 		xMin = min(xMin, vertexS2.x);
 		xMin = min(xMin, vertexS3.x);
+
+//		xMin = std::isless(xMin, vertexS1.x) ? xMin : vertexS1.x;
+//		xMin = min(xMin, vertexS2.x);
+//		xMin = min(xMin, vertexS3.x);
 
 		/*
 		 * Trouver le yMin
@@ -123,15 +139,11 @@ void Mesh::boundingBox() {
 	this->box = BoundingBox(xMin, yMin, zMin, xMax, yMax, zMax);
 }
 
-Mesh::~Mesh() {
-	delete this->material;
-}
-
-const glm::vec3& Mesh::getCenter() const {
+const glm::vec3 &Mesh::getCenter() const {
 	return center;
 }
 
-void Mesh::setCenter(const glm::vec3& center) {
+void Mesh::setCenter(const glm::vec3 &center) {
 	Mesh::center = center;
 }
 
@@ -143,12 +155,9 @@ void Mesh::setFactor(unsigned int factor) {
 	Mesh::factor = factor;
 }
 
-void Mesh::setModel(const Mesh& model) {
+void Mesh::setModel(const Mesh &model) {
 	if (this != &model) {
 		Mesh::model = model.model->shared_from_this();
 		this->boundingBox();
 	}
-}
-void Mesh::fromJson(const FromJson::json& objet) const {
-
 }

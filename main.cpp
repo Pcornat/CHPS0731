@@ -1,12 +1,13 @@
+#include <iostream>
 #include <iomanip>
 #include <Materials/phong.h>
-#include <camera.h>
-#include <objet.h>
-#include <sphere.hpp>
-#include <plan.hpp>
-#include <plan_light.h>
-#include <mesh.h>
-#include <image_cv.h>
+#include <Camera/camera.h>
+#include <Objects/objet.h>
+#include <Objects/sphere.hpp>
+#include <Objects/plan.hpp>
+#include <Lights/plan_light.h>
+#include <Objects/Mesh/mesh.h>
+#include <Image/image_cv.h>
 
 int main(int argc, char *argv[]) {
 	const uint32_t h = 1080;

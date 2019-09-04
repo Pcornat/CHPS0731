@@ -1,5 +1,7 @@
 #include "camera.h"
-#include "image_glm.h"
+#include <Image/base_image.h>
+#include <Camera/rayon.h>
+#include <iostream>
 #include <chrono>
 
 void Camera::setHaut(const glm::vec3 &h) {

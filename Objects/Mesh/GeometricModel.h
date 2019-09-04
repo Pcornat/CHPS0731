@@ -4,8 +4,13 @@
 
 #include <vector>
 #include <memory>
-#include <glm/glm.hpp>
-#include "OBJLoader.h"
+
+#define GLM_FORCE_XYZW_ONLY
+#define GLM_FORCE_INLINE
+
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <Objects/Mesh/OBJLoader.h>
 
 class GeometricModel : public std::enable_shared_from_this<GeometricModel> {
 	friend OBJLoader;
@@ -27,32 +32,32 @@ private:
 public:
 	GeometricModel() = default;
 
-	explicit GeometricModel(const std::string& name, float angle, const glm::vec3& axis);
+	explicit GeometricModel(const std::string &name, float angle, const glm::vec3 &axis);
 
-	explicit GeometricModel(std::string&& name, float angle, glm::vec3&& axis);
+	explicit GeometricModel(std::string &&name, float angle, glm::vec3 &&axis);
 
 	virtual ~GeometricModel() = default;
 
-	const std::vector<glm::vec3>& getListVertex() const;
+	const std::vector<glm::vec3> &getListVertex() const;
 
-	const std::vector<Face>& getListFaces() const;
+	const std::vector<Face> &getListFaces() const;
 
-	const std::vector<Face>& getListCoordFaces() const;
+	const std::vector<Face> &getListCoordFaces() const;
 
-	const std::vector<glm::vec3>& getListNormals() const;
+	const std::vector<glm::vec3> &getListNormals() const;
 
-	const std::vector<glm::vec3>& getListCoords() const;
+	const std::vector<glm::vec3> &getListCoords() const;
 
-	const std::vector<glm::vec4>& getListTangents() const;
+	const std::vector<glm::vec4> &getListTangents() const;
 
-	GeometricModel& operator=(const GeometricModel& model);
+	GeometricModel &operator=(const GeometricModel &model);
 
 	/**
 	 * Moving assignment operator.
 	 * @param model Rvalue model to move.
 	 * @return the new GeometricModel.
 	 */
-	GeometricModel& operator=(GeometricModel&& model) noexcept;
+	GeometricModel &operator=(GeometricModel &&model) noexcept;
 };
 
 

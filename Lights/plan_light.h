@@ -30,16 +30,16 @@ public:
 	 * @param sampleStep
 	 * @param type
 	 */
-	explicit Plan_light(glm::vec3&& position, glm::vec3&& couleur, glm::vec3&& rightDir, glm::vec3&& depthDir, float sampleStep, float height,
+	explicit Plan_light(glm::vec3 &&position, glm::vec3 &&couleur, glm::vec3 &&rightDir, glm::vec3 &&depthDir, float sampleStep, float height,
 						float width);
 
-	const glm::vec3& getRightDir() const;
+	const glm::vec3 &getRightDir() const;
 
-	void setRightDir(const glm::vec3& rightDir);
+	void setRightDir(const glm::vec3 &rightDir);
 
-	const glm::vec3& getDepthDir() const;
+	const glm::vec3 &getDepthDir() const;
 
-	void setDepthDir(const glm::vec3& depthDir);
+	void setDepthDir(const glm::vec3 &depthDir);
 
 	float getSampleStep() const;
 
@@ -62,9 +62,7 @@ public:
 	 * @param complexite
 	 * @return
 	 */
-	float computeShadow(const glm::vec3& point, const Intersection& I, const Scene& sc, int complexite) override;
-
-	void fromJson(const FromJson::json& objet) const override;
+	[[nodiscard]] float computeShadow(const glm::vec3 &point, const Intersection &I, const Scene &sc, int complexite) const override;
 };
 
 
