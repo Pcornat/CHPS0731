@@ -5,6 +5,7 @@
 #define GLM_FORCE_XYZW_ONLY
 
 #include <glm/vec3.hpp>
+#include "DeSerializer/deserializer.h"
 
 class Intersection;
 
@@ -48,6 +49,7 @@ public:
 	 */
 	[[nodiscard]] virtual float computeShadow(const glm::vec3 &point, const Intersection &I, const Scene &sc, int complexite) const = 0;
 
+	friend void from_json(const json &j, Light &l);
 };
 
 #endif

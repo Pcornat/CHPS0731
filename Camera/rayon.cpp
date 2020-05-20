@@ -12,7 +12,7 @@ glm::vec3 Rayon::lancer(const Scene &sc, const int complexite) const {
 	if (complexite == 0) return res;
 	std::vector<Intersection> I;
 	I.reserve(complexite * (sc.getObjets().size() + sc.getLights().size()));
-	for (auto *objet : sc.getObjets()) {
+	for (const auto &objet : sc.getObjets()) {
 		objet->calculIntersection(*this, sc, I, complexite);
 	}
 	if (!I.empty()) {
@@ -29,7 +29,7 @@ Rayon::Rayon(const glm::vec3 &origine, const glm::vec3 &direction) : origine(ori
 
 bool Rayon::shadowRay(const Scene &sc, float distLum, const int complexite) {
 	std::vector<Intersection> I;
-	for (auto *objet : sc.getObjets()) {
+	for (const auto &objet : sc.getObjets()) {
 		objet->calculIntersection(*this, sc, I, complexite);
 	}
 	if (!I.empty()) {

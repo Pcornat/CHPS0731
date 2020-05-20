@@ -7,3 +7,4 @@ cmake-build-*
 makefile.bak
 doc/*
 .vscode/
+*.udb

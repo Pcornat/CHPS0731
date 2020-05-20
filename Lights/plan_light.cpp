@@ -99,3 +99,13 @@ float Plan_light::computeShadow(const glm::vec3 &point, const Intersection &I, c
 	}
 	return 1 - (nbOk / nbTotal);
 }
+
+void from_json(const json &j, Plan_light &pl) {
+	from_json(j, static_cast<Light &>(pl));
+	pl.rightDir = j.at("rightDir").get<glm::vec3>();
+	pl.depthDir = j.at("depthDir").get<glm::vec3>();
+
+	pl.sampleStep = j.at("sampleStep").get<float>();
+	pl.height = j.at("height").get<float>();
+	pl.width = j.at("width").get<float>();
+}

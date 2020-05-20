@@ -1,21 +1,37 @@
 #ifndef RAYTRACER_DESERIALIZER_H
 #define RAYTRACER_DESERIALIZER_H
 
-
 #include <unordered_set>
-#include <Camera/scene.h>
-#include <Configuration/json.hpp>
 
-class Deserializer {
-public:
-	using json = nlohmann::basic_json<std::map, std::vector, std::string, bool, int64_t, uint64_t, float>;
+#define GLM_FORCE_INLINE
+#define GLM_FORCE_XYZW_ONLY
 
-	static const std::string section;
+#include <glm/vec3.hpp>
 
-	static const std::unordered_set<std::string> types;
+#include "Configuration/json.hpp"
 
-	static void build_scene(Scene &scene, const std::string &fileName = std::string("config.json"));
-};
+class Scene;
+
+using json = nlohmann::basic_json<std::map, std::vector, std::string, bool, int64_t, uint64_t, float>;
+
+namespace nlohmann {
+	template<>
+	struct adl_serializer<glm::vec3> {
+		static void from_json(const json &j, glm::vec3 &vec) {
+			vec.x = j[0].get<float>();
+			vec.y = j[1].get<float>();
+			vec.z = j[2].get<float>();
+		}
+
+		static void to_json(json &j, const glm::vec3 &vec) {
+			j[0] = vec.x;
+			j[1] = vec.y;
+			j[2] = vec.z;
+		}
+	};
+}
+
+void from_json(const json &j, Scene &sc);
 
 
 #endif //RAYTRACER_DESERIALIZER_H

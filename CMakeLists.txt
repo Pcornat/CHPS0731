@@ -1,15 +1,18 @@
-cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 
 project(RayTracer)
 
-find_package(OpenCV REQUIRED)
-if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Intel")
-	set(OpenMP_DIR "/opt/intel/lib")
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+	set(OpenCV_DIR "$ENV{HOME}/Codes/softs/debug/lib64/cmake/opencv4/")
+	find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs)
+	include_directories(${OpenCV_INCLUDE_DIRS})
+else ()
+	find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs)
+	include_directories(${OpenCV_INCLUDE_DIRS})
 endif ()
 find_package(OpenMP REQUIRED)
 
 include_directories(.)
-include_directories(Materials Objects Image Camera Lights png Objects/Mesh Transformer Configuration Interfaces DeSerializer)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -17,25 +20,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(LINKER_OPTIONS
 	PRIVATE -Wl,--sort-common,--as-needed)
 
-if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Intel")
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
 	set(COMPILE_FLAGS
-		PRIVATE -Wall
+		-pipe
+		-march=skylake
+		-mtune=skylake
+		-Wall
 		-Wextra
-		-m64
-		-march=native)
-	set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0" CACHE STRING "Flags in Debug mode for Intel compiler" FORCE)
-	set(CMAKE_CXX_FLAGS_RELEASE "-DNDEBUG -Ofast" CACHE STRING "Flags in release mode for Intel compiler" FORCE)
-	set(LINKER_OPTIONS ${LINKER_OPTIONS} -cxx-glibc -shared-intel)
-	set(LINKER_FLAGS
-		stdc++fs
-		m)
+		-Wpessimizing-move
+		-Wredundant-move
+		-flto
+		-fuse-linker-plugin
+		-fuse-ld=gold)
+	set(LINKER_OPTIONS
+		-flto
+		-fuse-linker-plugin
+		-fuse-ld=gold
+		${LINKER_OPTIONS})
 
-elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-	set(COMPILE_FLAGS
-		PRIVATE -pipe
-		PRIVATE -march=native
-		PRIVATE -Wall
-		PRIVATE -Wextra)
 	set(LINKER_FLAGS
 		stdc++
 		stdc++fs
@@ -109,8 +111,6 @@ set(TEST_SRC
 add_executable(RayTrace
 			   png/lodepng.h
 			   png/lodepng.cpp
-			   post_process.h
-			   post_process.cpp
 			   intersection.cpp
 			   intersection.h
 			   main.cpp
@@ -123,14 +123,25 @@ add_executable(RayTrace
 			   ${TRANSFORMER_SRC}
 			   ${DESIGN_PATTERNS_SRC})
 
-message(STATUS "OpenMP link : ${OpenMP_CXX_LIBRARIES}")
-
 target_compile_definitions(RayTrace PRIVATE $<$<CONFIG:Debug>:_GLIBCXX_DEBUG>)
-target_compile_options(RayTrace ${COMPILE_FLAGS} ${OpenMP_CXX_FLAGS})
-target_link_options(RayTrace ${LINKER_OPTIONS})
-target_link_libraries(RayTrace ${LINKER_FLAGS} ${OpenCV_LIBS} ${OpenMP_CXX_LIBRARIES})
+target_compile_options(RayTrace PRIVATE ${COMPILE_FLAGS} ${OpenMP_CXX_FLAGS})
+target_link_options(RayTrace PRIVATE ${LINKER_OPTIONS})
+target_link_libraries(RayTrace ${LINKER_FLAGS} ${OpenCV_LIBS} OpenMP::OpenMP_CXX)
 
-#add_executable(TestRayTrace ${TEST_SRC} ${OBJECTS_SRC} ${INTERFACE_SRC})
-#target_compile_options(TestRayTrace ${COMPILE_FLAGS})
-#target_link_options(TestRayTrace ${LINKER_OPTIONS})
-#target_link_libraries(TestRayTrace ${LINKER_FLAGS})
+add_executable(TestRayTrace ${TEST_SRC}
+			   png/lodepng.h
+			   png/lodepng.cpp
+			   intersection.cpp
+			   intersection.h
+			   ${CAMERA_SRC}
+			   ${CONFIGURATION_SRC}
+			   ${IMAGE_SRC}
+			   ${OBJECTS_SRC}
+			   ${MATERIALS_SRC}
+			   ${LIGHTS_SRC}
+			   ${TRANSFORMER_SRC}
+			   ${DESIGN_PATTERNS_SRC})
+target_compile_definitions(TestRayTrace PRIVATE $<$<CONFIG:Debug>:_GLIBCXX_DEBUG>)
+target_compile_options(TestRayTrace PRIVATE ${COMPILE_FLAGS} ${OpenMP_CXX_FLAGS})
+target_link_options(TestRayTrace PRIVATE ${LINKER_OPTIONS})
+target_link_libraries(TestRayTrace ${LINKER_FLAGS} ${OpenCV_LIBS} OpenMP::OpenMP_CXX)

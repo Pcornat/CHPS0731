@@ -22,13 +22,13 @@ public:
 
 	~Intersection() = default;
 
-	const glm::vec3 &getNormal() const;
+	[[nodiscard]] const glm::vec3 &getNormal() const;
 
 	void setNormal(const glm::vec3 &normal);
 
-	float getDist() const;
+	[[nodiscard]] float getDist() const;
 
-	Objet *getObj() const;
+	[[nodiscard]] Objet *getObj() const;
 
 	void setObj(Objet *obj);
 

@@ -15,7 +15,7 @@ public:
 
 	Perlin() = default;
 
-	explicit Perlin(const Deserializer::json &json);
+	explicit Perlin(const json &json);
 
 	~Perlin() override = default;
 

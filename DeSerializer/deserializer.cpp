@@ -1,35 +1,31 @@
 #include "deserializer.h"
-#include <filesystem>
-#include <Objects/sphere.hpp>
+#include "Camera/scene.h"
+#include "Lights/plan_light.h"
+#include "Materials/phong.h"
+#include "Objects/sphere.hpp"
+#include "Objects/plan.hpp"
 
-const std::string Deserializer::section{ "Objects" };
+void from_json(const json &j, Scene &sc) {
+	const std::size_t sphereSize = j["Objets"]["Sphere"].size(),
+			plansSize = j["Objets"]["Plans"].size(),
+			meshSize = j["Objets"]["Mesh"].size(),
+			objects = sphereSize + plansSize + meshSize;
+	sc.objets.reserve(objects);
+	const std::size_t lights = j["Light"]["Plan_light"].size();
+	sc.lights.reserve(lights);
 
-const std::unordered_set<std::string> Deserializer::types{ "Sphere", "Plan", "Mesh", "PlanLight", "Phong", "Perlin", "Texture" };
+	for (size_t i = 0; i < sphereSize; ++i) {
+		sc.objets.emplace_back(new Sphere()); // best practice
+		j.at("Objets").at("Sphere")[i].get_to(static_cast<Sphere &>(*sc.objets.back()));
+	}
 
-void Deserializer::build_scene(Scene &scene, const std::string &fileName) {
-	const size_t pos = fileName.find(".json");
+	for (size_t i = 0; i < plansSize; ++i) {
+		sc.objets.emplace_back(new Plan()); // best practice
+		j.at("Objets").at("Plan")[i].get_to(static_cast<Plan &>(*sc.objets.back()));
+	}
 
-	if (pos == std::string::npos)
-		throw std::invalid_argument("No file extension found or wrong extension");
-
-	if (!std::filesystem::exists(fileName))
-		throw std::invalid_argument("File does not exist.");
-
-	const json fileJson(fileName);
-	{
-		const auto &objSect = fileJson.at(section);
-		for (const auto &obj : objSect) {
-			decltype(types)::const_iterator iterator;
-			if ((iterator = types.find(obj.at("type").get<std::string>())) != std::end(types)) {
-				if (*iterator == "Sphere") {
-					scene.addObjet(new Sphere(obj));
-				}
-			} else {
-				std::stringstream excptMsg("Exception at ");
-				excptMsg << __LINE__ << " in " << __FILE__ << '\n'
-						 << "No field named \"type\" is in the json file.\n";
-				throw std::logic_error(excptMsg.str());
-			}
-		}
+	for (size_t i = 0; i < lights; ++i) {
+		sc.lights.emplace_back(new Plan_light()); // best practice
+		j.at("Light").at("Plan_light")[i].get_to(static_cast<Plan_light &>(*sc.lights.back()));
 	}
 }

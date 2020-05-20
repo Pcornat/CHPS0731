@@ -26,8 +26,6 @@ public:
 
 	Objet() = default;
 
-	explicit Objet(const Deserializer::json &json);
-
 	virtual ~Objet() = default;
 
 	/**
@@ -49,6 +47,8 @@ public:
 	Objet &operator=(const Objet &objet);
 
 	Objet &operator=(Objet &&objet) noexcept;
+
+	friend void from_json(const json &j, Objet &obj);
 };
 
 

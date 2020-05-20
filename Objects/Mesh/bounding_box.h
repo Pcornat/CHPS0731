@@ -6,9 +6,9 @@
 #define PROJECT_BOUNDING_BOX_H
 
 
-#include "objet.h"
-#include "plan.hpp"
 #include <array>
+#include "Objects/objet.h"
+#include "Objects/plan.hpp"
 
 /**
  * @class BoundingBox

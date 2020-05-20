@@ -11,6 +11,6 @@ glm::vec3 Texture::computeColour(const Intersection &I, const glm::vec3 &point, 
 	return glm::vec3(1.0f, 0.f, 1.0f);
 }
 
-Texture::Texture(const Deserializer::json &json) : Material(json) {
+Texture::Texture(const json &json) : Material(json) {
 
 }

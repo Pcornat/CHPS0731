@@ -25,8 +25,6 @@ private:
 public:
 	Sphere() = default;
 
-	explicit Sphere(const Deserializer::json &json);
-
 	~Sphere() override = default;
 
 	/**
@@ -53,6 +51,7 @@ public:
 	 */
 	bool calculIntersection(const Rayon &rayon, const Scene &, std::vector<Intersection> &I, int) override;
 
+	friend void from_json(const json &j, Sphere &sph);
 };
 
 

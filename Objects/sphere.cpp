@@ -10,6 +10,7 @@
 #include <intersection.h>
 #include <Camera/rayon.h>
 #include <Materials/material.h>
+#include <Materials/phong.h>
 
 
 bool Sphere::calculIntersection(const Rayon &rayon, [[maybe_unused]] const Scene &sc, std::vector<Intersection> &I, [[maybe_unused]] int rec) {
@@ -28,13 +29,8 @@ Sphere::Sphere(Material *material, glm::vec3 &&center, int radius) : Objet(mater
 Sphere::Sphere(Material *material, const glm::vec3 &center, int radius) : Objet(material), center(center),
 																		  radius(radius) {}
 
-Sphere::Sphere(const Deserializer::json &json) : Objet(json) {
-	{
-		const auto &refCenter = json.at("center");
-
-		this->center.x = refCenter[0];
-		this->center.y = refCenter[1];
-		this->center.z = refCenter[2];
-	}
-	this->radius = json.at("radius");
+void from_json(const json &j, Sphere &sph) {
+	from_json(j, static_cast<Objet &>(sph));
+	sph.center = j.at("center").get<glm::vec3>();
+	sph.radius = j.at("radius").get<int>();
 }

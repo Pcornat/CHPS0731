@@ -8,6 +8,7 @@
 #include <intersection.h>
 #include <Lights/light.h>
 #include <Camera/rayon.h>
+#include "Camera/scene.h"
 
 glm::vec3 Perlin::computeColour(const Intersection &I, const glm::vec3 &point, const Scene &s, const Rayon &rayon, int rec) {
 	float offset = 1e-4f;
@@ -18,7 +19,7 @@ glm::vec3 Perlin::computeColour(const Intersection &I, const glm::vec3 &point, c
 			min(0, 0, 0),
 			max(1, 1, 1);
 	float shad = 0.0f;
-	for (const auto *__restrict light : s.getLights()) {
+	for (const auto &light : s.getLights()) {
 		/*
 		 * Diffus = max(N.L, 0) * Kd * Lc
 		 * Speculaire= Lc * max(V.R, 0)^Ks
@@ -49,6 +50,6 @@ Perlin::Perlin(bool refraction, const glm::vec3 &ka, const glm::vec3 &kd, float 
 Perlin::Perlin(bool refraction, glm::vec3 &&ka, glm::vec3 &&kd, float ks, float reflection, float coeff) :
 		Phong(refraction, ka, kd, ks, reflection), coeff(coeff) {}
 
-Perlin::Perlin(const Deserializer::json &json) : Phong(json) {
+Perlin::Perlin(const json &json) : Phong(json) {
 	this->coeff = json.at("coeff");
 }

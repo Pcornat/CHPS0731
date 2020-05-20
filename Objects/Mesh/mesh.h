@@ -6,8 +6,8 @@
 #define PROJECT_MESH_H
 
 
-#include "objet.h"
-#include "plan.hpp"
+#include "Objects/objet.h"
+#include "Objects/plan.hpp"
 #include "bounding_box.h"
 
 class GeometricModel;

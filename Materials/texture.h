@@ -12,7 +12,7 @@ class Texture : public Material {
 public:
 	Texture() = default;
 
-	explicit Texture(const Deserializer::json &json);
+	explicit Texture(const json &json);
 
 	explicit Texture(bool refraction);
 

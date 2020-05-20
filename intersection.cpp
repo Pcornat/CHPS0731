@@ -1,5 +1,5 @@
 #include "intersection.h"
-#include <objet.h>
+#include "Objects/objet.h"
 
 Intersection::Intersection(float dist, const glm::vec3 &normal, Objet *obj) : dist(dist), normal(normal), obj(obj) {}
 

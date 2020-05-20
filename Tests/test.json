@@ -1,4 +1,8 @@
 {
+	"Parameters": {
+		"sections": ["Objets", "Lights", "Material"],
+		"types": ["Sphere", "Plan", "Mesh", "GeometricModel", "PlanLight", "Phong", "Perlin", "Texture"]
+	},
 	"BaseImage": {
 		"type": "ImageCV",
 		"ImageCV": {

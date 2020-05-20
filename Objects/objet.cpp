@@ -1,23 +1,8 @@
 #include "objet.h"
-#include <Materials/material.h>
-#include <Materials/phong.h>
-#include <Materials/perlin.h>
-#include <Materials/texture.h>
-
-Objet::Objet(const Deserializer::json &json) {
-	decltype(Deserializer::types)::const_iterator iterator;
-
-	if ((iterator = Deserializer::types.find(json.at("Material").get<std::string>())) != std::end(Deserializer::types)) {
-		if (*iterator == "Phong")
-			this->material = std::make_shared<Phong>(json.at(*iterator));
-
-		else if (*iterator == "Perlin")
-			this->material = std::make_shared<Perlin>(json.at(*iterator));
-
-		else if (*iterator == "Texture")
-			this->material = std::make_shared<Texture>(json.at(*iterator));
-	}
-}
+#include "Materials/material.h"
+#include "Materials/phong.h"
+#include "Materials/perlin.h"
+#include "Materials/texture.h"
 
 const std::shared_ptr<Material> &Objet::get_material() const {
 	return material;
@@ -42,3 +27,11 @@ Objet &Objet::operator=(Objet &&objet) noexcept {
 }
 
 Objet::Objet(Material *material) : material(material) {}
+
+void from_json(const json &j, Objet &obj) {
+	if (j.at("Material").get<std::string>() == "Phong") {
+		obj.material = std::make_shared<Phong>();
+		j.at("Phong").get_to(static_cast<Phong &>(*obj.material));
+	} else
+		throw std::runtime_error("No other material than Phong is handled at the moment.");
+}

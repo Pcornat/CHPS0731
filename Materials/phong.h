@@ -13,7 +13,6 @@
  * This class is a material, it defines the texture, the representation of an object.
  * This material is based on the phong model.
  */
-
 class Phong : public Material {
 protected:
 	///Ambient coeff
@@ -35,7 +34,7 @@ public:
 	 * \brief Deserialize from json file.
 	 * \param json
 	 */
-	explicit Phong(const Deserializer::json &json);
+	explicit Phong(const json &json);
 
 	~Phong() override = default;
 
@@ -71,6 +70,14 @@ public:
 	 * \return The object's colour (the normal vector to make it simple)
 	 */
 	glm::vec3 computeColour(const Intersection &I, const glm::vec3 &point, const Scene &s, const Rayon &rayon, int rec) override;
+
+	friend void from_json(const json &j, Phong &ph) {
+		ph.ka = j.at("ka").get<glm::vec3>();
+		ph.kd = j.at("kd").get<glm::vec3>();
+		ph.ks = j.at("ks").get<float>();
+		ph.reflection = j.at("reflection").get<float>();
+		ph.refraction = j.at("refraction").get<bool>();
+	}
 };
 
 

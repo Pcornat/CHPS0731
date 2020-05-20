@@ -1,4 +1,3 @@
-#include <post_process.h>
 #include "image_glm.h"
 #include "png/lodepng.h"
 
@@ -18,8 +17,6 @@ bool ImageGLM::save(const std::string &name) {
 	std::size_t width = ImageGLM::largeur, height = ImageGLM::hauteur;
 	std::vector<unsigned char> image;
 	image.resize(width * height * 4);
-	/* TODO : TONE MAPPING HERE */
-	//PostProcess::TONE_MAPPING_SIMPLE_IMAGE(ImageGLM::pixels);
 #pragma omp parallel for collapse(2)
 	for (unsigned y = 0; y < height; ++y)
 		for (unsigned x = 0; x < width; ++x) {

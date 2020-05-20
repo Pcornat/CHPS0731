@@ -5,8 +5,8 @@
 #ifndef PROJECT_PLAN_LIGHT_H
 #define PROJECT_PLAN_LIGHT_H
 
-#include "rayon.h"
 #include "light.h"
+#include "Camera/rayon.h"
 
 class Plan_light : public Light {
 protected:
@@ -63,6 +63,8 @@ public:
 	 * @return
 	 */
 	[[nodiscard]] float computeShadow(const glm::vec3 &point, const Intersection &I, const Scene &sc, int complexite) const override;
+
+	friend void from_json(const json &j, Plan_light &pl);
 };
 
 

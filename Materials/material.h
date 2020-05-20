@@ -21,12 +21,12 @@ class Material {
 
 protected:
 	///Refraction or not Refraction ? That is the question :D
-	bool refraction;
+	bool refraction{ false };
 
 public:
 	Material() = default;
 
-	explicit Material(const Deserializer::json &json);
+	explicit Material(const json &json);
 
 	explicit Material(bool refraction) : refraction(refraction) {}
 
