@@ -1,8 +1,6 @@
 #ifndef RAYTRACER_DESERIALIZER_H
 #define RAYTRACER_DESERIALIZER_H
 
-#include <unordered_set>
-
 #define GLM_FORCE_INLINE
 #define GLM_FORCE_XYZW_ONLY
 
