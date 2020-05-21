@@ -15,7 +15,10 @@
 #include <Camera/rayon.h>
 #include <Materials/phong.h>
 
-bool Plan::calculIntersection(const Rayon &rayon, [[maybe_unused]] const Scene &scene, std::vector<Intersection> &I, [[maybe_unused]] const int rec) {
+bool Plan::calculIntersection(const Rayon &rayon,
+							  [[maybe_unused]] const Scene &scene,
+							  std::vector<Intersection> &I,
+							  [[maybe_unused]] const int rec) const {
 	float dist = 0.0f;
 	if (!glm::intersectRayPlane(rayon.getOrigine(), rayon.vectDirection(), this->orig, this->normal, dist)) {
 		return false;

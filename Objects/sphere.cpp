@@ -13,7 +13,7 @@
 #include <Materials/phong.h>
 
 
-bool Sphere::calculIntersection(const Rayon &rayon, [[maybe_unused]] const Scene &sc, std::vector<Intersection> &I, [[maybe_unused]] int rec) {
+bool Sphere::calculIntersection(const Rayon &rayon, [[maybe_unused]] const Scene &sc, std::vector<Intersection> &I, [[maybe_unused]] int rec) const {
 	float dist = 0.0f;
 	if (!glm::intersectRaySphere(rayon.getOrigine(), rayon.vectDirection(), this->center, this->radius, dist)) {
 		return false;

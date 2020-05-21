@@ -84,7 +84,7 @@ public:
 	 * @param i
 	 * @return
 	 */
-	bool calculIntersection(const Rayon &rayon, const Scene &scene, std::vector<Intersection> &vector1, int i) override;
+	bool calculIntersection(const Rayon &rayon, const Scene &scene, std::vector<Intersection> &vector1, int i) const override;
 
 
 	/**

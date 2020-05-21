@@ -8,23 +8,33 @@
 
 class Scene {
 public:
-	std::vector<std::unique_ptr<Objet>> objets;
+	std::vector<std::unique_ptr<const Objet>> objets;
 
-	std::vector<std::unique_ptr<Light>> lights;
+	std::vector<std::unique_ptr<const Light>> lights;
 
 	Scene() = default;
 
+	Scene(const Scene &scene) = delete;
+
+	Scene(Scene &&sc) noexcept: objets(std::move(sc.objets)), lights(std::move(sc.lights)) {}
+
 	virtual ~Scene() noexcept = default;
 
-	void addObjet(Objet *o);
+	auto operator=(const Scene &sc) -> Scene & = delete;
 
-	void addLight(Light *l);
+	auto operator=(Scene &&sc) noexcept -> Scene & {
+		if (this != &sc) {
+			this->lights = std::move(sc.lights);
+			this->objets = std::move(sc.objets);
+		}
+		return *this;
+	}
 
-	[[gnu::always_inline, nodiscard]] inline const std::vector<std::unique_ptr<Objet>> &getObjets() const {
+	[[gnu::always_inline, nodiscard]] inline const std::vector<std::unique_ptr<const Objet>> &getObjets() const {
 		return Scene::objets;
 	}
 
-	[[gnu::always_inline, nodiscard]] inline const std::vector<std::unique_ptr<Light>> &getLights() const {
+	[[gnu::always_inline, nodiscard]] inline const std::vector<std::unique_ptr<const Light>> &getLights() const {
 		return Scene::lights;
 	}
 

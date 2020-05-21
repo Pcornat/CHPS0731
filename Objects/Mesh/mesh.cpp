@@ -13,12 +13,12 @@
 bool Mesh::calculIntersection(const Rayon &rayon,
 							  [[maybe_unused]] const Scene &scene,
 							  std::vector<Intersection> &I,
-							  [[maybe_unused]] const int complexite) {
-	auto &listVertex(model->getListVertex());
-	auto &listNormals(model->getListNormals());
+							  [[maybe_unused]] const int complexite) const {
+	const auto &listVertex(model->getListVertex());
+	const auto &listNormals(model->getListNormals());
 	bool inter = false;
 	//if (this->box.calculIntersection(rayon, scene, I, complexite)) {
-	for (auto &&face : model->getListFaces()) {
+	for (const auto &face : model->getListFaces()) {
 		float dist = 0.f;
 		glm::vec2 baryPos;
 		glm::vec3 facteur(this->factor),
@@ -68,16 +68,16 @@ Mesh &Mesh::operator=(Mesh &&mesh) noexcept {
 void Mesh::boundingBox() {
 	float xMin = std::numeric_limits<float>::max(), yMin = std::numeric_limits<float>::max(), zMin = std::numeric_limits<float>::max(),
 			xMax = 0, yMax = 0, zMax = 0;
-	auto &listVertex(this->model->getListVertex());
-	auto &listFace(model->getListFaces());
+	const auto &listVertex(this->model->getListVertex());
+	const auto &listFace(model->getListFaces());
 	//Lambda function to code faster.
-	auto min = [](float a, float b) {
+	const auto min = [](float a, float b) {
 		if (std::isless(a, b))
 			return a;
 		else
 			return b;
 	};
-	auto max = [](float a, float b) {
+	const auto max = [](float a, float b) {
 		if (std::isgreater(a, b))
 			return a;
 		else

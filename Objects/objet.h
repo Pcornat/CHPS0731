@@ -38,7 +38,7 @@ public:
 	 * An objet cannot compute its intersection, it is a pure virtual member.
 	 * @return a boolean value : true = intersection, false = no intersection.
 	 */
-	virtual bool calculIntersection(const Rayon &, const Scene &, std::vector<Intersection> &, int) = 0;
+	virtual bool calculIntersection(const Rayon &, const Scene &, std::vector<Intersection> &, int) const = 0;
 
 	[[nodiscard]] const std::shared_ptr<Material> &get_material() const;
 

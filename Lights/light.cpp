@@ -1,13 +1,5 @@
 #include "light.h"
 
-void Light::setPosition(const glm::vec3 &p) {
-	position = p;
-}
-
-void Light::setColor(const glm::vec3 &c) {
-	couleur = c;
-}
-
 const glm::vec3 &Light::getPosition() const {
 	return position;
 }

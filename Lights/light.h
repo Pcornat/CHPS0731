@@ -18,7 +18,7 @@ class Scene;
 class Light {
 protected:
 	///It is the center of the light.
-	glm::vec3 position;
+	glm::vec3 position{ 0, 0, 0 };
 	///Its colour, white almost each time.
 	glm::vec3 couleur{ 1.f, 1.f, 1.f };
 
@@ -30,10 +30,6 @@ public:
 	explicit Light(const glm::vec3 &position, const glm::vec3 &couleur);
 
 	explicit Light(glm::vec3 &&position, glm::vec3 &&couleur);
-
-	void setPosition(const glm::vec3 &p);
-
-	void setColor(const glm::vec3 &c);
 
 	[[nodiscard]] const glm::vec3 &getPosition() const;
 

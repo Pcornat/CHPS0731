@@ -37,7 +37,7 @@ public:
 	 * @param complexite
 	 * @return
 	 */
-	bool calculIntersection(const Rayon &rayon, const Scene &scene, std::vector<Intersection> &I, int complexite) override;
+	bool calculIntersection(const Rayon &rayon, const Scene &scene, std::vector<Intersection> &I, int complexite) const override;
 };
 
 

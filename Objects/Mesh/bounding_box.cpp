@@ -16,7 +16,7 @@ BoundingBox::BoundingBox(float xMin, float yMin, float zMin, float xMax, float y
 	box[5] = Plan(nullptr, glm::vec3(0, yMax, 0), glm::vec3(0, 1, 0));
 }
 
-bool BoundingBox::calculIntersection(const Rayon &rayon, const Scene &scene, std::vector<Intersection> &I, int complexite) {
+bool BoundingBox::calculIntersection(const Rayon &rayon, const Scene &scene, std::vector<Intersection> &I, int complexite) const {
 	for (auto &&plan : box) {
 		if (plan.calculIntersection(rayon, scene, I, complexite)) {
 			auto &intersect = I.back();

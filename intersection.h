@@ -10,15 +10,15 @@ class Intersection {
 private:
 	float dist; // La distance à l'origine de l'intersection
 	glm::vec3 normal;
-	Objet *obj;        // l'objet intersecté
+	const Objet *obj;        // l'objet intersecté
 public:
 	Intersection() = default;
 
-	explicit Intersection(Objet *obj);
+	explicit Intersection(const Objet *obj);
 
-	explicit Intersection(float dist, Objet *obj);
+	explicit Intersection(float dist, const Objet *obj);
 
-	explicit Intersection(float dist, const glm::vec3 &normal, Objet *obj);
+	explicit Intersection(float dist, const glm::vec3 &normal, const Objet *obj);
 
 	~Intersection() = default;
 
@@ -28,9 +28,7 @@ public:
 
 	[[nodiscard]] float getDist() const;
 
-	[[nodiscard]] Objet *getObj() const;
-
-	void setObj(Objet *obj);
+	[[nodiscard]] const Objet *getObj() const;
 
 	// Opérateur de tri des intersections
 	bool operator<(const Intersection &i) const {

@@ -49,7 +49,7 @@ public:
 	 * @param I a pointer to a std::vector of intersection.
 	 * @return it computes correctly or not.
 	 */
-	bool calculIntersection(const Rayon &rayon, const Scene &, std::vector<Intersection> &I, int) override;
+	bool calculIntersection(const Rayon &rayon, const Scene &, std::vector<Intersection> &I, int) const override;
 
 	friend void from_json(const json &j, Sphere &sph);
 };

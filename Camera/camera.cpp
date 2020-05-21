@@ -10,7 +10,7 @@ void Camera::setHaut(const glm::vec3 &h) {
 		Camera::haut = glm::normalize(Camera::haut);
 }
 
-void Camera::Calculer_image(BaseImage *const im, Scene &sc, int complexite) const {
+void Camera::Calculer_image(BaseImage *const im, const Scene &sc, const int complexite) const {
 	glm::vec3 foyer; // Foyer optique de la camera
 	glm::vec3 droite; // Vecteur partant sur la droite dans le plan de l'ecran
 	float dx, dy; // dimension des macro-pixels

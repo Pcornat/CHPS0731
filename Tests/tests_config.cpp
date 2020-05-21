@@ -5,8 +5,9 @@
 #include "Camera/scene.h"
 
 TEST_CASE("Deserializer : fillFields working.", "[deserializer]") {
-	std::ifstream file("test.json");
-	json j = json::parse(file);
+	std::ifstream file("../config.json");
 	Scene sc;
+
+	json j = json::parse(file);
 	CHECK_NOTHROW(j.at("Scene").get_to(sc));
 }
